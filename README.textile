@@ -1,6 +1,6 @@
 h2(#readme). 
 
-!https://github.com/downloads/fgprodigal/RayUI/logo.png!
+!https://github.com/downloads/fangorRay/UIProject/logo.png!
 
 h2. RayUI
 
