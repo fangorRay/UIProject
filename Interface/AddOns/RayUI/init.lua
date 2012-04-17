@@ -169,7 +169,10 @@ function AddOn:PLAYER_ENTERING_WORLD()
 	RayUIGarbageCollector:SetScript("OnEvent", function(self, event, addon)
 		eventcount = eventcount + 1
 		if QuestDifficultyColors["trivial"].r ~= 0.50 then
-			QuestDifficultyColors["trivial"] = { r = 0.50, g = 0.50, b = 0.50, font = QuestDifficulty_Trivial }
+			QuestDifficultyColors["trivial"].r = 0.50
+			QuestDifficultyColors["trivial"].g = 0.50
+			QuestDifficultyColors["trivial"].b = 0.50
+			QuestDifficultyColors["trivial"].font = QuestDifficulty_Trivial
 		end
 		if InCombatLockdown() then return end
 
