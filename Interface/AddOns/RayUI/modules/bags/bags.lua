@@ -676,10 +676,12 @@ function B:InitBags()
 	f.itemSetsButton:Point("LEFT", f.sortButton, "RIGHT", 3, 0)
 	f.itemSetsButton:Size(55, 10)
 	f.itemSetsButton.ttText = L["高亮套装"]
+	f.itemSetsButton.ttText2 = L["按住shift:"]
+	f.itemSetsButton.ttText2desc = L["反向显示"]
 	f.itemSetsButton:SetScript("OnEnter", Tooltip_Show)
 	f.itemSetsButton:SetScript("OnLeave", Tooltip_Hide)	
 	f.itemSetsButton:SetScript("OnClick", function() 
-		B:HighlightItemSets()
+		B:HighlightItemSets(IsShiftKeyDown())
 	end)
 	S:Reskin(f.itemSetsButton)
 	
@@ -752,10 +754,12 @@ function B:InitBank()
 	f.itemSetsButton:Point("LEFT", f.sortButton, "RIGHT", 3, 0)
 	f.itemSetsButton:Size(55, 10)
 	f.itemSetsButton.ttText = L["高亮套装"]
+	f.itemSetsButton.ttText2 = L["按住shift:"]
+	f.itemSetsButton.ttText2desc = L["反向显示"]
 	f.itemSetsButton:SetScript("OnEnter", Tooltip_Show)
 	f.itemSetsButton:SetScript("OnLeave", Tooltip_Hide)	
 	f.itemSetsButton:SetScript("OnClick", function() 
-		B:HighlightItemSets()
+		B:HighlightItemSets(IsShiftKeyDown())
 	end)
 	S:Reskin(f.itemSetsButton)
 	
@@ -1214,17 +1218,27 @@ function B:Sort(frame, args, bank)
 	self:RestackAndSort(frame)
 end
 
-function B:HighlightItemSets()
+function B:HighlightItemSets(reverse)
 	if not _highlight then
 		for _, b in ipairs(self.buttons) do
 			if b.name then
 				local _, setName = GetContainerItemEquipmentSetInfo(b.bag, b.slot)
 				if setName then
-					SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
-					b.frame:SetAlpha(1)
+					if reverse then
+						SetItemButtonDesaturated(b.frame, 1, 1, 1, 1)
+						b.frame:SetAlpha(0.4)
+					else
+						SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
+						b.frame:SetAlpha(1)
+					end
 				else
-					SetItemButtonDesaturated(b.frame, 1, 1, 1, 1)
-					b.frame:SetAlpha(0.4)
+					if reverse then
+						SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
+						b.frame:SetAlpha(1)
+					else
+						SetItemButtonDesaturated(b.frame, 1, 1, 1, 1)
+						b.frame:SetAlpha(0.4)
+					end
 				end
 			end
 		end

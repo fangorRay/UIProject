@@ -8,14 +8,10 @@ local hpWidth = 110
 local iconSize = 23		--Size of all Icons, RaidIcon/ClassIcon/Castbar Icon
 local cbHeight = 5
 local cbWidth = 110
-local blankTex = "Interface\\Buttons\\WHITE8x8"	
 local OVERLAY = [=[Interface\TargetingFrame\UI-TargetingFrame-Flash]=]
 local numChildren = -1
 local frames = {}
-local noscalemult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")
 
--- local goodR, goodG, goodB = 75/255,  175/255, 76/255
--- local badR, badG, badB = 0.78, 0.25, 0.25
 local goodR, goodG, goodB = .2, .6, .1
 local badR, badG, badB = .7, .2, .1
 local transitionR, transitionG, transitionB = 218/255, 197/255, 92/255
@@ -164,6 +160,7 @@ local function CreateVirtualFrame(parent, point)
 	
 	if point.backdrop or parent.backdrop then return end
 	
+	local noscalemult = R.mult * UIParent:GetScale()
 	parent.backdrop = CreateFrame("Frame", nil ,parent)
 	parent.backdrop:SetAllPoints()
 	parent.backdrop:SetBackdrop({
@@ -202,6 +199,7 @@ end
 
 --Create our Aura Icons
 local function CreateAuraIcon(parent)
+	local noscalemult = R.mult * UIParent:GetScale()
 	local button = CreateFrame("Frame",nil,parent)
 	button:SetScript("OnHide", function(self) UpdateAuraAnchors(self:GetParent()) end)
 	button:SetWidth(20)
@@ -490,6 +488,7 @@ end
 
 --This is where we create most "Static" objects for the nameplate, it gets fired when a nameplate is first seen.
 local function SkinObjects(frame)
+	local noscalemult = R.mult * UIParent:GetScale()
 	local oldhp, cb = frame:GetChildren()
 	local threat, hpborder, overlay, oldname, oldlevel, bossicon, raidicon, elite = frame:GetRegions()
 	local _, cbborder, cbshield, cbicon = cb:GetRegions()
