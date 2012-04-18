@@ -83,8 +83,7 @@ L["取消焦点"] = true
 L["整理背包"] = true
 L["按住shift:"] = true
 L["整理特殊背包"] = true
-L["堆叠物品"] = true
-L["堆叠特殊背包物品"] = true
+L["高亮套装"] = true
 L["显示背包"] = true
 L["不能购买更多的银行栏位了!"] = true
 L["你必须先购买一个银行栏位!"] = true
@@ -113,10 +112,6 @@ L["命令怒吼"] = true
 L["战斗怒吼"] = true
 L["寒冬号角"] = true
 L["鲜血灵气"] = true
-
-L["箱子中的战利品"] = true
-L["的战利品"] = true
-L["将战利品通报至"] = true
 
 L["URL Ctrl+C复制"] = true
 
