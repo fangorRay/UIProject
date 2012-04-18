@@ -104,6 +104,11 @@ local function LoadFunc()
 		19506, --Trushot
 		19740, --"Blessing of Might"
 	}
+	
+	local CasterLocale1 = L["法力上限Buff"]
+	local CasterLocale2 = L["法力恢复Buff"]
+	local MeleeLocale1 = L["力量与敏捷Buff"]
+	local MeleeLocale2 = L["攻击强度Buff"]
 
 	local function CheckFilterForActiveBuff(filter)
 		local spellName, texture
@@ -131,12 +136,16 @@ local function LoadFunc()
 		if (event == "UNIT_AURA" and unit ~= "player") then return end
 		local frame = RaidBuffReminder
 
-		if R.role == "Caster" then
+		if R.Role == "Caster" then
 			SpellBuffs[5] = CasterSpell5Buffs
 			SpellBuffs[6] = CasterSpell6Buffs
+			frame.spell5.locale = CasterLocale1
+			frame.spell6.locale = CasterLocale2
 		else
 			SpellBuffs[5] = MeleeSpell5Buffs
 			SpellBuffs[6] = MeleeSpell6Buffs
+			frame.spell5.locale = MeleeLocale1
+			frame.spell6.locale = MeleeLocale2
 		end
 
 		local hasFlask, flaskTex = CheckFilterForActiveBuff(SpellBuffs[1])
@@ -172,7 +181,7 @@ local function LoadFunc()
 
 	local function CreateButton(relativeTo, isFirst, isLast)
 		local bsize = ((Minimap:GetWidth() - 6) / 6) - 4
-		local button = CreateFrame("Frame", name, RaidBuffReminder)
+		local button = CreateFrame("Frame", nil, RaidBuffReminder)
 		button:CreateShadow("Background")
 		button:SetSize(bsize, bsize)
 		if isFirst then
@@ -189,6 +198,17 @@ local function LoadFunc()
 		button.t:SetTexCoord(.08, .92, .08, .92)
 		button.t:SetAllPoints()
 		button.t:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+		
+		button:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(RaidBuffReminder, 'ANCHOR_BOTTOM', 0, -10)
+			if self.locale and self:GetAlpha() == 1 then
+				GameTooltip:AddLine(L["缺少"]..self.locale)
+				GameTooltip:Show()
+			end
+		end)
+		button:SetScript("OnLeave", function(self)
+			GameTooltip:Hide()
+		end)
 
 		return button
 	end
@@ -205,6 +225,11 @@ local function LoadFunc()
 	frame.spell4 = CreateButton(frame.spell3)
 	frame.spell5 = CreateButton(frame.spell4)
 	frame.spell6 = CreateButton(frame.spell5, nil, true)
+	
+	frame.spell1.locale = L["合剂"]
+	frame.spell2.locale = L["食物Buff"]
+	frame.spell3.locale = L["全属性Buff"]
+	frame.spell4.locale = L["血量上限Buff"]
 	
 	frame:Show()
 	frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
