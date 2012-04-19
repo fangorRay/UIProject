@@ -142,6 +142,7 @@ function AddOn:OnInitialize()
 	self:RegisterEvent("PLAYER_LOGIN", "Initialize")
 	self:RegisterChatCommand("RayUI", "OpenConfig")
 	self:RegisterChatCommand("RC", "OpenConfig")
+	self:RegisterChatCommand("gm", ToggleHelpFrame)
 end
 
 function AddOn:OpenConfig()
