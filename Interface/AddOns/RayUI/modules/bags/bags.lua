@@ -744,7 +744,7 @@ function B:InitBank()
 		if IsShiftKeyDown() then
 			B:Sort(f, "c/p")
 		else
-			B:Sort(f, "d")
+			B:Sort(f, "d", true)
 		end
 	end)
 	S:Reskin(f.sortButton)

@@ -125,6 +125,10 @@ L["托尔巴拉德不可用"] = true
 L["发布者"] = true
 
 L["点击进入RayUI控制台。\n请仔细研究每一项设置的作用。"] = true
+
+L["将战利品通报至"] = true
+L["箱子中的战利品"] = true
+L["的战利品"] = true
 end
 do
 L["|cff7aa6d6Ray|r|cffff0000U|r|cff7aa6d6I|r设置"] = true
