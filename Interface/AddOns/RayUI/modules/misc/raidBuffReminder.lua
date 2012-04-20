@@ -216,8 +216,8 @@ local function LoadFunc()
 	local bsize = ((Minimap:GetWidth() - 6) / 6) - 4
 	local frame = CreateFrame("Frame", "RaidBuffReminder", Minimap)
 	frame:SetHeight(bsize)
-	frame:Point("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -4)
-	frame:Point("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -4)
+	frame:Point("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -6)
+	frame:Point("TOPRIGHT", Minimap, "BOTTOMRIGHT", 0, -6)
 
 	frame.spell1 = CreateButton(frame, true)
 	frame.spell2 = CreateButton(frame.spell1)

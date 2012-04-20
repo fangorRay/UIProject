@@ -1211,6 +1211,16 @@ function B:Sort(frame, args, bank)
 	if not args then
 		args = ""
 	end
+	
+	if _highlight then
+		for _, b in ipairs(self.buttons) do
+			if b.name then
+				SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
+				b.frame:SetAlpha(1)
+			end
+		end
+		_highlight = false
+	end
 
 	self.itmax = 0
 	self:SetBagsForSorting(args, bank)
