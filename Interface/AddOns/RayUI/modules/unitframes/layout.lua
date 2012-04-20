@@ -713,8 +713,8 @@ function UF:DPSLayout(frame, unit)
 	
 	if unit == "pet" then
 		--Dummy Cast Bar, so we don't see an extra castbar while in vehicle
-	--	local castbar = CreateFrame("StatusBar", nil, frame)
-	--	frame.Castbar = castbar
+		local castbar = CreateFrame("StatusBar", nil, frame)
+		frame.Castbar = castbar
 
 		-- Fader
 		Fader(frame)
