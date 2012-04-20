@@ -36,6 +36,7 @@ P["NamePlates"]={
 	enable = true,
 	showdebuff = true,
 	combat = false,
+	showhealer = true,
 }
 
 P["Bag"]={
@@ -53,7 +54,7 @@ P["Chat"]={
 
 P["Tooltip"]={
 	enable = true,
-	cursor = true,
+	cursor = false,
 }
 
 P["Watcher"]={

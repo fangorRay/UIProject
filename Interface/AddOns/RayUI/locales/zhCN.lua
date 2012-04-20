@@ -21,7 +21,6 @@ L["复仇条锚点"] = true
 L["Buff锚点"] = true
 L["Debuff锚点"] = true
 L["武器附魔锚点"] = true
-L["鼠标提示锚点"] = true
 
 L["您不能在战斗中设定快捷键"] = true
 L["未绑定."] = true
@@ -169,6 +168,7 @@ L["模块"] = true
 	L["|cff7aa6d6Ray|r|cffff0000U|r|cff7aa6d6I|r姓名板模块."] = true
 		L["显示debuff"] = true
 		L["自动显示/隐藏"] = true
+		L["战场中标识治疗"] = true
 	L["背包"] = true
 	L["聊天栏"] = true
 	L["|cff7aa6d6Ray|r|cffff0000U|r|cff7aa6d6I|r聊天模块."] = true

@@ -139,6 +139,11 @@ function NP:GetOptions()
 			name = L["自动显示/隐藏"],
 			type = "toggle",
 		},
+		showhealer = {
+			order = 7,
+			name = L["战场中标识治疗"],
+			type = "toggle",
+		},
 	}
 	return options
 end
@@ -885,7 +890,7 @@ function NP:PLAYER_ENTERING_WORLD()
 	end
 	wipe(BattleGroundHealers)
 	local inInstance, instanceType = IsInInstance()
-	if inInstance and instanceType == "pvp" then
+	if inInstance and instanceType == "pvp" and self.db.showhealer then
 		self.CheckHealerTimer = self:ScheduleRepeatingTimer("CheckHealers", 1)
 		self:CheckHealers()
 	else
