@@ -1,5 +1,5 @@
 local R, L, P = unpack(select(2, ...)) --Inport: Engine, Locales, ProfileDB
-local NP = R:NewModule("NamePlates", "AceEvent-3.0", "AceHook-3.0")
+local NP = R:NewModule("NamePlates", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 NP.modName = L["姓名板"]
 
 local FONTSIZE = 9
@@ -16,6 +16,20 @@ local goodR, goodG, goodB = .2, .6, .1
 local badR, badG, badB = .7, .2, .1
 local transitionR, transitionG, transitionB = 218/255, 197/255, 92/255
 local transitionR2, transitionG2, transitionB2 = 240/255, 154/255, 17/255
+
+local BattleGroundHealers = {}
+local PlayerFaction
+local factionOpposites = {
+	["Horde"] = 1,
+	["Alliance"] = 0,
+}
+local Healers = {
+	["恢復"] = true,
+	["恢复"] = true,
+	["神聖"] = true,
+	["神圣"] = true,
+	["戒律"] = true,
+}
 
 local DebuffWhiteList = {
 	-- Death Knight
@@ -127,6 +141,20 @@ function NP:GetOptions()
 		},
 	}
 	return options
+end
+
+function NP:CheckHealers()
+	for i = 1, GetNumBattlefieldScores() do
+		local name, _, _, _, _, faction, _, _, _, _, _, _, _, _, _, talentSpec = GetBattlefieldScore(i)
+		if name then
+			name = name:match("(.+)%-.+") or name
+			if name and Healers[talentSpec] and factionOpposites[PlayerFaction] == faction then
+				BattleGroundHealers[name] = talentSpec
+			elseif name and BattleGroundHealers[name] then
+				BattleGroundHealers[name] = nil
+			end
+		end
+	end
 end
 
 local function QueueObject(parent, object)
@@ -601,6 +629,14 @@ local function SkinObjects(frame)
 	raidicon:SetTexture([[Interface\AddOns\RayUI\media\raidicons.blp]])	
 	frame.raidicon = raidicon
 	
+	--Heal Icon
+	if not frame.healerIcon then
+		frame.healerIcon = frame:CreateTexture(nil, 'ARTWORK')
+		frame.healerIcon:SetPoint("BOTTOM", frame.hp, "TOP", 0, 16)
+		frame.healerIcon:SetSize(35, 35)
+		frame.healerIcon:SetTexture([[Interface\AddOns\RayUI\media\healer.tga]])	
+	end
+	
 	--Hide Old Stuff
 	QueueObject(frame, oldhp)
 	QueueObject(frame, oldlevel)
@@ -693,13 +729,19 @@ local function UpdateThreat(frame, elapsed)
 end
 
 --Create our blacklist for nameplates, so prevent a certain nameplate from ever showing
-local function CheckBlacklist(frame, ...)
+local function CheckFilter(frame, ...)
 	if PlateBlacklist[frame.hp.oldname:GetText()] then
 		frame:SetScript("OnUpdate", function() end)
 		frame.hp:Hide()
 		frame.cb:Hide()
 		frame.overlay:Hide()
 		frame.hp.oldlevel:Hide()
+	end
+	
+	if BattleGroundHealers[frame.hp.oldname:GetText()] then
+		frame.healerIcon:Show()
+	else
+		frame.healerIcon:Hide()
 	end
 end
 
@@ -841,6 +883,18 @@ function NP:PLAYER_ENTERING_WORLD()
 			SetCVar("nameplateShowEnemies", 0) 
 		end
 	end
+	wipe(BattleGroundHealers)
+	local inInstance, instanceType = IsInInstance()
+	if inInstance and instanceType == "pvp" then
+		self.CheckHealerTimer = self:ScheduleRepeatingTimer("CheckHealers", 1)
+		self:CheckHealers()
+	else
+		if self.CheckHealerTimer then
+			self:CancelTimer(self.CheckHealerTimer)
+			self.CheckHealerTimer = nil
+		end
+	end
+	PlayerFaction = UnitFactionGroup("player")
 end
 
 function NP:PLAYER_REGEN_ENABLED()
@@ -877,7 +931,7 @@ function NP:Initialize()
 		end
 		
 		ForEachPlate(ShowHealth)
-		ForEachPlate(CheckBlacklist)
+		ForEachPlate(CheckFilter)
 		ForEachPlate(HideDrunkenText)
 		ForEachPlate(CheckUnit_Guid)
 		ForEachPlate(CheckSettings)
