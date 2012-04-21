@@ -381,6 +381,20 @@ function AB:Style(button, totem, flyout)
 		_G[name..'FloatingBG']:Kill()
 	end	
 
+	if not button.equipped then
+		local equipped = button:CreateTexture(nil, "OVERLAY")
+		equipped:SetTexture(0, 1, 0, 0.3)
+		equipped:SetAllPoints()
+		equipped:Hide()
+		button.equipped = equipped
+	end
+	
+	if action and IsEquippedAction(action) and not button.equipped:IsShown() then
+		button.equipped:Show()
+	elseif button.equipped:IsShown() then
+		button.equipped:Hide()
+	end
+
 	if button.styled then return end	
 	
 	if Btname then

@@ -55,7 +55,7 @@ local function LoadSkin()
 	end
 
 	AchievementFrameSummaryCategoriesStatusBar:SetStatusBarTexture(S["media"].backdrop)
-	AchievementFrameSummaryCategoriesStatusBar:GetStatusBarTexture():SetGradient("VERTICAL", 0, .4, 0, 0, .6, 0)
+--	AchievementFrameSummaryCategoriesStatusBar:GetStatusBarTexture():SetGradient("VERTICAL", 0, .4, 0, 0, .6, 0)
 	AchievementFrameSummaryCategoriesStatusBarLeft:Hide()
 	AchievementFrameSummaryCategoriesStatusBarMiddle:Hide()
 	AchievementFrameSummaryCategoriesStatusBarRight:Hide()
@@ -193,7 +193,7 @@ local function LoadSkin()
 		local label = _G["AchievementFrameSummaryCategoriesCategory"..i.."Label"]
 
 		bu:SetStatusBarTexture(S["media"].backdrop)
-		bar:SetGradient("VERTICAL", 0, .4, 0, 0, .6, 0)
+	--	bar:SetGradient("VERTICAL", 0, .4, 0, 0, .6, 0)
 		label:SetTextColor(1, 1, 1)
 		label:Point("LEFT", bu, "LEFT", 6, 0)
 
@@ -243,7 +243,7 @@ local function LoadSkin()
 	for _, bar in pairs(bars) do
 		local name = bar:GetName()
 		bar:SetStatusBarTexture(S["media"].backdrop)
-		bar:GetStatusBarTexture():SetGradient("VERTICAL", 0, .4, 0, 0, .6, 0)
+	--	bar:GetStatusBarTexture():SetGradient("VERTICAL", 0, .4, 0, 0, .6, 0)
 		_G[name.."Left"]:Hide()
 		_G[name.."Middle"]:Hide()
 		_G[name.."Right"]:Hide()

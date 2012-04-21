@@ -509,7 +509,7 @@ local function UpdateObjects(frame)
 	
 	if frame.icons then return end
 	frame.icons = CreateFrame("Frame",nil,frame)
-	frame.icons:SetPoint("BOTTOMRIGHT",frame.hp,"TOPRIGHT", 0, FONTSIZE)
+	frame.icons:SetPoint("BOTTOMRIGHT",frame.hp,"TOPRIGHT", 0, 3)
 	frame.icons:SetWidth(20 + hpWidth)
 	frame.icons:SetHeight(25)
 	frame.icons:SetFrameLevel(frame.hp:GetFrameLevel()+2)

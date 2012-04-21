@@ -347,7 +347,12 @@ local function LoadSkin()
 				statusbar:SetStatusBarTexture(S["media"].backdrop)
 
 				if not statusbar.reskinned then
-					S:CreateBD(statusbar, .25)
+				--	S:CreateBD(statusbar, .25)
+					local frame = CreateFrame("Frame",nil, statusbar)
+					S:CreateBD(frame, .25)
+					frame:SetFrameLevel(statusbar:GetFrameLevel() -1)
+					frame:Point("TOPLEFT", -1, 1)
+					frame:Point("BOTTOMRIGHT", 1, -1)
 					statusbar.reskinned = true
 				end
 
