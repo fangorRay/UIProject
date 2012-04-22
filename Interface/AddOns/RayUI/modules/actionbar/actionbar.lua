@@ -3,6 +3,10 @@ local AB = R:NewModule("ActionBar", "AceEvent-3.0", "AceHook-3.0")
 
 AB.modName = L["动作条"]
 
+local the_vertex_freepas = function(self,r,g,b)
+	self:SetGradient("VERTICAL",r*.345,g*.345,b*.345,r,g,b)
+end
+
 function AB:GetOptions()
 	local options = {
 		barscale = {
@@ -383,7 +387,8 @@ function AB:Style(button, totem, flyout)
 
 	if not button.equipped then
 		local equipped = button:CreateTexture(nil, "OVERLAY")
-		equipped:SetTexture(0, 1, 0, 0.3)
+		equipped:SetTexture(R["media"].blank)
+		equipped:SetVertexColor(0, 1, 0, 0.3)
 		equipped:SetAllPoints()
 		equipped:Hide()
 		button.equipped = equipped
@@ -452,7 +457,7 @@ function AB:StyleSmallButton(normal, button, icon, name, pet)
 	button:SetNormalTexture("")
 	button.SetNormalTexture = R.dummy
 	button:StyleButton(true)
-	
+
 	Flash:SetTexture(1, 1, 1, 0.3)
 	
 	if not button.shadow then

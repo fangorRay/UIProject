@@ -4,7 +4,7 @@
 local R, L, P = unpack(select(2, ...)) --Inport: Engine, Locales, ProfileDB
 local LSM = LibStub("LibSharedMedia-3.0")
 
-R.resolution = GetCVar('gxResolution')
+R.resolution = GetCVar("gxResolution")
 R.screenheight = tonumber(string.match(R.resolution, "%d+x(%d+)"))
 R.screenwidth = tonumber(string.match(R.resolution, "(%d+)x+%d"))
 
@@ -53,7 +53,7 @@ function R:UIScale()
 		local height = R.screenheight
 	
 		-- because some user enable bezel compensation, we need to find the real width of a single monitor.
-		-- I don't know how it really work, but i'm assuming they add pixel to width to compensate the bezel. :P
+		-- I don"t know how it really work, but i"m assuming they add pixel to width to compensate the bezel. :P
 
 		-- HQ resolution
 		if width >= 9840 then width = 3280 end                   	                -- WQSXGA
@@ -91,6 +91,10 @@ function R:Scale(x)
 end
 
 R.dummy= function() return end
+
+local the_vertex_freepas = function(self,r,g,b)
+	self:SetGradient("VERTICAL",r*.345,g*.345,b*.345,r,g,b)
+end
 
 local function Size(frame, width, height)
 	frame:SetSize(R:Scale(width), R:Scale(height or width))
@@ -151,6 +155,13 @@ local function CreateShadow(f, t, offset, thickness, texture)
 	})
 	shadow:SetBackdropColor( backdropr, backdropg, backdropb, backdropa )
 	shadow:SetBackdropBorderColor( borderr, borderg, borderb, bordera )
+	if t == "Background" then
+		local bg = shadow:CreateTexture(nil, "BACKGROUND")
+		bg:Point("TOPLEFT", 3, -3)
+		bg:Point("BOTTOMRIGHT", -3, 3)
+		bg:SetTexture(R["media"].blank)
+		bg:SetGradientAlpha(unpack(R["media"].gradient))
+	end
 	f.shadow = shadow
 end
 
@@ -176,14 +187,24 @@ local function CreateBorder(f, r, g, b, a)
 end
 
 local function StyleButton(button, setallpoints)
+	if not button.gradient then
+		local gradient = button:CreateTexture(nil, "OVERLAY")
+		gradient:SetTexture(R["media"].blank)
+		gradient:SetGradientAlpha(unpack(R["media"].gradient))
+		gradient:SetAllPoints()
+		button.gradient = gradient
+	end
+
 	if button.SetHighlightTexture and not button.hover then
 		local hover = button:CreateTexture(nil, "OVERLAY")
-		hover:SetTexture(1, 1, 1, 0.3)
+		-- hover:SetTexture(1, 1, 1, 0.3)
+		hover:SetTexture(R["media"].blank)
+		hover:SetGradientAlpha("VERTICAL", 1, 1, 1, 0, 1, 1, 1, .3)
 		if setallpoints then
 			hover:SetAllPoints()
 		else
-			hover:Point('TOPLEFT', 2, -2)
-			hover:Point('BOTTOMRIGHT', -2, 2)
+			hover:Point("TOPLEFT", 2, -2)
+			hover:Point("BOTTOMRIGHT", -2, 2)
 		end
 		button.hover = hover
 		button:SetHighlightTexture(hover)
@@ -191,12 +212,14 @@ local function StyleButton(button, setallpoints)
 	
 	if button.SetPushedTexture and not button.pushed then
 		local pushed = button:CreateTexture(nil, "OVERLAY")
-		pushed:SetTexture(0.9, 0.8, 0.1, 0.3)
+		-- pushed:SetTexture(0.9, 0.8, 0.1, 0.3)
+		pushed:SetTexture(R["media"].blank)
+		pushed:SetGradientAlpha("VERTICAL", 0.9, 0.8, 0.1, 0, 0.9, 0.8, 0.1, 0.3)
 		if setallpoints then
 			pushed:SetAllPoints()
 		else
-			pushed:Point('TOPLEFT', 2, -2)
-			pushed:Point('BOTTOMRIGHT', -2, 2)
+			pushed:Point("TOPLEFT", 2, -2)
+			pushed:Point("BOTTOMRIGHT", -2, 2)
 		end
 		button.pushed = pushed
 		button:SetPushedTexture(pushed)
@@ -204,12 +227,14 @@ local function StyleButton(button, setallpoints)
 	
 	if button.SetCheckedTexture and not button.checked then
 		local checked = button:CreateTexture(nil, "OVERLAY")
-		checked:SetTexture(23/255,132/255,209/255,0.5)
+		-- checked:SetTexture(23/255,132/255,209/255,0.5)
+		checked:SetTexture(R["media"].blank)
+		checked:SetGradientAlpha("VERTICAL", 23/255,132/255,209/255,0, 23/255,132/255,209/255,0.5)
 		if setallpoints then
 			checked:SetAllPoints()
 		else
-			checked:Point('TOPLEFT', 2, -2)
-			checked:Point('BOTTOMRIGHT', -2, 2)
+			checked:Point("TOPLEFT", 2, -2)
+			checked:Point("BOTTOMRIGHT", -2, 2)
 		end
 		button.checked = checked
 		button:SetCheckedTexture(checked)
@@ -221,8 +246,8 @@ local function StyleButton(button, setallpoints)
 		if setallpoints then
 			cooldown:SetAllPoints()
 		else
-			cooldown:Point('TOPLEFT', 2, -2)
-			cooldown:Point('BOTTOMRIGHT', -2, 2)
+			cooldown:Point("TOPLEFT", 2, -2)
+			cooldown:Point("BOTTOMRIGHT", -2, 2)
 		end
 	end
 end

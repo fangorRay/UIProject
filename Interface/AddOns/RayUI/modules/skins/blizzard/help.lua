@@ -130,7 +130,6 @@ local function LoadSkin()
 	hooksecurefunc("NavBar_AddButton", function(self, buttonData)
 		local navButton = self.navList[#self.navList]
 
-		print(navButton:GetName())
 		if not navButton.skinned then
 			S:Reskin(navButton)
 			navButton:GetRegions():SetAlpha(0)

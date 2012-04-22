@@ -361,6 +361,10 @@ function TT:PLAYER_ENTERING_WORLD(event)
 			edgeFile = [=[Interface\ChatFrame\ChatFrameBackground]=], edgeSize = R.mult,
 			insets = {top = 0, left = 0, bottom = 0, right = 0},
 		})
+		local gradient = tt:CreateTexture(nil, "BACKGROUND")
+		gradient:SetTexture(R["media"].blank)
+		gradient:SetGradientAlpha(unpack(R["media"].gradient))
+		gradient:SetAllPoints()
 		self:HookScript(tt, "OnShow", "SetStyle")
 	end
 	
