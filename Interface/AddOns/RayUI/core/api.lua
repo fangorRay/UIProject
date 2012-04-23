@@ -119,12 +119,14 @@ local function Point(obj, arg1, arg2, arg3, arg4, arg5)
 	obj:SetPoint(arg1, arg2, arg3, arg4, arg5)
 end
 
-local function CreateShadow(f, t, offset, thickness, texture)
+local function CreateShadow(f, t, thickness, texture)
 	if f.shadow then return end
 	
 	local borderr, borderg, borderb, bordera = unpack(R["media"].bordercolor)
 	local backdropr, backdropg, backdropb, backdropa = unpack(R["media"].backdropcolor)
 	local frameLevel = f:GetFrameLevel() > 1 and f:GetFrameLevel() or 1
+	local thickness = thickness or 4
+	local offset = thickness - 1
 
 	if t == "Background" then
 		backdropa = 0.6
@@ -143,22 +145,22 @@ local function CreateShadow(f, t, offset, thickness, texture)
 	
 	local shadow = CreateFrame("Frame", nil, border)
 	shadow:SetFrameLevel(frameLevel - 1)
-	shadow:Point("TOPLEFT", -3, 3)
-	shadow:Point("TOPRIGHT", 3, 3)
-	shadow:Point("BOTTOMRIGHT", 3, -3)
-	shadow:Point("BOTTOMLEFT", -3, -3)
+	shadow:Point("TOPLEFT", -offset, offset)
+	shadow:Point("TOPRIGHT", offset, offset)
+	shadow:Point("BOTTOMRIGHT", offset, -offset)
+	shadow:Point("BOTTOMLEFT", -offset, -offset)
 	shadow:SetBackdrop( { 
 		edgeFile = R["media"].glow,
 		bgFile = R["media"].blank,
-		edgeSize = R:Scale(4),
-		insets = {left = R:Scale(4), right = R:Scale(4), top = R:Scale(4), bottom = R:Scale(4)},
+		edgeSize = R:Scale(thickness),
+		insets = {left = R:Scale(thickness), right = R:Scale(thickness), top = R:Scale(thickness), bottom = R:Scale(thickness)},
 	})
 	shadow:SetBackdropColor( backdropr, backdropg, backdropb, backdropa )
 	shadow:SetBackdropBorderColor( borderr, borderg, borderb, bordera )
 	if t == "Background" then
 		local bg = shadow:CreateTexture(nil, "BACKGROUND")
-		bg:Point("TOPLEFT", 3, -3)
-		bg:Point("BOTTOMRIGHT", -3, 3)
+		bg:Point("TOPLEFT", offset, -offset)
+		bg:Point("BOTTOMRIGHT", -offset, offset)
 		bg:SetTexture(R["media"].blank)
 		bg:SetGradientAlpha(unpack(R["media"].gradient))
 	end
@@ -187,13 +189,13 @@ local function CreateBorder(f, r, g, b, a)
 end
 
 local function StyleButton(button, setallpoints)
-	if not button.gradient then
-		local gradient = button:CreateTexture(nil, "OVERLAY")
-		gradient:SetTexture(R["media"].blank)
-		gradient:SetGradientAlpha(unpack(R["media"].gradient))
-		gradient:SetAllPoints()
-		button.gradient = gradient
-	end
+	-- if not button.gradient then
+		-- local gradient = button:CreateTexture(nil, "OVERLAY", nil, 5)
+		-- gradient:SetTexture(R["media"].blank)
+		-- gradient:SetGradientAlpha(unpack(R["media"].gradient))
+		-- gradient:SetAllPoints()
+		-- button.gradient = gradient
+	-- end
 
 	if button.SetHighlightTexture and not button.hover then
 		local hover = button:CreateTexture(nil, "OVERLAY")

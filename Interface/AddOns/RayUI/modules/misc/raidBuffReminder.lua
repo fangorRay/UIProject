@@ -198,6 +198,8 @@ local function LoadFunc()
 		button.t:SetTexCoord(.08, .92, .08, .92)
 		button.t:SetAllPoints()
 		button.t:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+		button.t.SetVertexColor = R.dummy
+		button.t:SetGradient("VERTICAL",.345,.345,.345,1,1,1)
 		
 		button:SetScript("OnEnter", function(self)
 			GameTooltip:SetOwner(RaidBuffReminder, 'ANCHOR_BOTTOM', 0, -10)

@@ -275,6 +275,9 @@ function B:SlotNew(bag, slot)
 		t:SetTexCoord(.08, .92, .08, .92)
 		t:SetAllPoints()
 		
+		t.SetVertexColor = R.dummy
+		t:SetGradient("VERTICAL",.345,.345,.345,1,1,1)
+		
 		local count = _G[ret.frame:GetName().."Count"]
 		count:ClearAllPoints()
 		count:Point("BOTTOMRIGHT", ret.frame, "BOTTOMRIGHT", 1, 0)

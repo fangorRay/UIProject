@@ -103,14 +103,14 @@ function AB:GetOptions()
 				bar1fade = {
 					type = "toggle",
 					name = L["自动隐藏"],
-					order = 1,								
+					order = 1,
 				},
 				spacer = {
 					type = 'description',
 					name = '',
 					desc = '',
 					order = 2,
-				},	
+				},
 			},
 		},
 		Bar2Group = {
@@ -122,12 +122,12 @@ function AB:GetOptions()
 				bar2fade = {
 					type = "toggle",
 					name = L["自动隐藏"],
-					order = 1,								
+					order = 1,
 				},
 				bar2mouseover = {
 					type = "toggle",
 					name = L["鼠标滑过显示"],
-					order = 2,								
+					order = 2,
 				},
 			},
 		},
@@ -140,12 +140,12 @@ function AB:GetOptions()
 				bar3fade = {
 					type = "toggle",
 					name = L["自动隐藏"],
-					order = 1,								
+					order = 1,
 				},
 				bar3mouseover = {
 					type = "toggle",
 					name = L["鼠标滑过显示"],
-					order = 2,								
+					order = 2,
 				},
 			},
 		},
@@ -158,12 +158,12 @@ function AB:GetOptions()
 				bar4fade = {
 					type = "toggle",
 					name = L["自动隐藏"],
-					order = 1,								
+					order = 1,
 				},
 				bar4mouseover = {
 					type = "toggle",
 					name = L["鼠标滑过显示"],
-					order = 2,								
+					order = 2,
 				},
 			},
 		},
@@ -176,12 +176,12 @@ function AB:GetOptions()
 				bar5fade = {
 					type = "toggle",
 					name = L["自动隐藏"],
-					order = 1,								
+					order = 1,
 				},
 				bar5mouseover = {
 					type = "toggle",
 					name = L["鼠标滑过显示"],
-					order = 2,								
+					order = 2,
 				},
 			},
 		},
@@ -194,12 +194,12 @@ function AB:GetOptions()
 				petbarfade = {
 					type = "toggle",
 					name = L["自动隐藏"],
-					order = 1,								
+					order = 1,
 				},
 				petbarmouseover = {
 					type = "toggle",
 					name = L["鼠标滑过显示"],
-					order = 2,								
+					order = 2,
 				},
 			},
 		},
@@ -212,12 +212,12 @@ function AB:GetOptions()
 				stancebarfade = {
 					type = "toggle",
 					name = L["自动隐藏"],
-					order = 1,								
+					order = 1,
 				},
 				stancebarmouseover = {
 					type = "toggle",
 					name = L["鼠标滑过显示"],
-					order = 2,								
+					order = 2,
 				},
 			},
 		},
@@ -232,12 +232,12 @@ function AB:HideBlizz()
 	VehicleMenuBar:EnableMouse(false)
 
 	local FramesToHide = {
-		MainMenuBar, 
-		MainMenuBarArtFrame, 
-		BonusActionBarFrame, 
+		MainMenuBar,
+		MainMenuBarArtFrame,
+		BonusActionBarFrame,
 		VehicleMenuBar,
 		PossessBarFrame,
-	}  
+	}
 
 	for _, f in pairs(FramesToHide) do
 		if f:GetObjectType() == "Frame" then
@@ -271,7 +271,7 @@ function AB:Initialize()
 			button = _G[format("BonusActionButton%d", i)]
 			button:SetAttribute("showgrid", 1)
 			ActionButton_ShowGrid(button)
-			
+
 			button = _G[format("MultiBarRightButton%d", i)]
 			button:SetAttribute("showgrid", 1)
 			ActionButton_ShowGrid(button)
@@ -279,15 +279,15 @@ function AB:Initialize()
 			button = _G[format("MultiBarBottomRightButton%d", i)]
 			button:SetAttribute("showgrid", 1)
 			ActionButton_ShowGrid(button)
-			
+
 			button = _G[format("MultiBarLeftButton%d", i)]
 			button:SetAttribute("showgrid", 1)
 			ActionButton_ShowGrid(button)
-			
+
 			button = _G[format("MultiBarBottomLeftButton%d", i)]
 			button:SetAttribute("showgrid", 1)
 			ActionButton_ShowGrid(button)
-			
+
 			button = _G[format("PetActionButton%d", i)]
 			if button then
 				button:SetAttribute("showgrid", 1)
@@ -307,7 +307,7 @@ function AB:Initialize()
 	self:LoadKeyBinder()
 	self:CreateRangeDisplay()
 	self:EnableAutoHide()
-	
+
 	self:SecureHook("ActionButton_ShowOverlayGlow", "UpdateOverlayGlow")
 	self:SecureHook("ActionButton_UpdateHotkeys", "UpdateHotkey")
 	self:SecureHook("ActionButton_Update", "Style")
@@ -351,9 +351,9 @@ end
 
 function AB:Style(button, totem, flyout)
 	local name = button:GetName()
-	
-	if name:match("MultiCast") then return end 
-	
+
+	if name:match("MultiCast") then return end
+
 	local action = button.action
 	local Icon = _G[name.."Icon"]
 	local Count = _G[name.."Count"]
@@ -364,7 +364,7 @@ function AB:Style(button, totem, flyout)
 	local normal  = _G[name.."NormalTexture"]
 	local normal2 = button:GetNormalTexture()
 	local cooldown = _G[name .. "Cooldown"]
- 
+
 	if cooldown then
 		cooldown:ClearAllPoints()
 		cooldown:SetAllPoints(button)
@@ -374,16 +374,16 @@ function AB:Style(button, totem, flyout)
 	if normal then normal:SetTexture(nil) end
 	if normal2 then normal2:SetTexture(nil) end
 	if Border then Border:Kill() end
-	
+
 	if Count then
 		Count:ClearAllPoints()
 		Count:SetPoint("BOTTOMRIGHT", 0, R:Scale(2))
 		Count:SetFont(R["media"].pxfont, R.mult*10, "OUTLINE,MONOCHROME")
 	end
-	
+
 	if _G[name..'FloatingBG'] then
 		_G[name..'FloatingBG']:Kill()
-	end	
+	end
 
 	if not button.equipped then
 		local equipped = button:CreateTexture(nil, "OVERLAY")
@@ -393,15 +393,15 @@ function AB:Style(button, totem, flyout)
 		equipped:Hide()
 		button.equipped = equipped
 	end
-	
+
 	if action and IsEquippedAction(action) and not button.equipped:IsShown() then
 		button.equipped:Show()
 	elseif button.equipped:IsShown() then
 		button.equipped:Hide()
 	end
 
-	if button.styled then return end	
-	
+	if button.styled then return end
+
 	if Btname then
 		if AB.db.macroname ~= true then
 			Btname:SetText("")
@@ -409,23 +409,23 @@ function AB:Style(button, totem, flyout)
 			Btname.Show = R.dummy
 		end
 	end
-	
+
 	if not button.shadow then
 		if not totem then
 			if not flyout then
 				button:SetWidth(AB.db.buttonsize)
 				button:SetHeight(AB.db.buttonsize)
 			end
- 
+
 			button:CreateShadow("Background")
 		end
-		
+
 		if Icon then
 			Icon:SetTexCoord(.08, .92, .08, .92)
 			Icon:SetAllPoints()
 		end
 	end
-	
+
 	if HotKey then
 		HotKey:ClearAllPoints()
 		HotKey:SetPoint("TOPRIGHT", 0, 0)
@@ -439,12 +439,15 @@ function AB:Style(button, totem, flyout)
 			HotKey.Show = R.dummy
 		end
 	end
-	
+
 	if normal then
 		normal:ClearAllPoints()
 		normal:SetPoint("TOPLEFT")
 		normal:SetPoint("BOTTOMRIGHT")
 	end
+
+	Icon.SetVertexColor = the_vertex_freepas
+	Icon:SetVertexColor(1, 1, 1)
 
 	button:StyleButton(true)
 
@@ -458,15 +461,18 @@ function AB:StyleSmallButton(normal, button, icon, name, pet)
 	button.SetNormalTexture = R.dummy
 	button:StyleButton(true)
 
+	icon.SetVertexColor = the_vertex_freepas
+	icon:SetVertexColor(1, 1, 1)
+
 	Flash:SetTexture(1, 1, 1, 0.3)
-	
+
 	if not button.shadow then
 		button:CreateShadow("Background")
 	end
 
 	icon:SetTexCoord(.08, .92, .08, .92)
 	icon:ClearAllPoints()
-	if pet then			
+	if pet then
 		if AB.db.buttonsize < 30 then
 			local autocast = _G[name.."AutoCastable"]
 			autocast:SetAlpha(0)
@@ -479,7 +485,7 @@ function AB:StyleSmallButton(normal, button, icon, name, pet)
 	else
 		icon:SetAllPoints()
 	end
-	
+
 	if normal then
 		normal:ClearAllPoints()
 		normal:SetPoint("TOPLEFT")
@@ -522,11 +528,11 @@ function AB:StyleFlyout(button)
 	if not button.FlyoutBorder then return end
 	button.FlyoutBorder:SetAlpha(0)
 	button.FlyoutBorderShadow:SetAlpha(0)
-	
+
 	SpellFlyoutHorizontalBackground:SetAlpha(0)
 	SpellFlyoutVerticalBackground:SetAlpha(0)
 	SpellFlyoutBackgroundEnd:SetAlpha(0)
-	
+
 	for i=1, GetNumFlyouts() do
 		local x = GetFlyoutID(i)
 		local _, _, numSlots, isKnown = GetFlyoutInfo(x)
@@ -535,7 +541,7 @@ function AB:StyleFlyout(button)
 			break
 		end
 	end
-	
+
 	--Change arrow direction depending on what bar the button is on
 	local arrowDistance
 	if ((SpellFlyout and SpellFlyout:IsShown() and SpellFlyout:GetParent() == button) or GetMouseFocus() == button) then
@@ -543,19 +549,19 @@ function AB:StyleFlyout(button)
 	else
 		arrowDistance = 2
 	end
-	
-	if button:GetParent() and button:GetParent():GetParent() and button:GetParent():GetParent():GetName() and button:GetParent():GetParent():GetName() == "SpellBookSpellIconsFrame" then 
-		return 
+
+	if button:GetParent() and button:GetParent():GetParent() and button:GetParent():GetParent():GetName() and button:GetParent():GetParent():GetName() == "SpellBookSpellIconsFrame" then
+		return
 	end
-	
+
 	if button:GetAttribute("flyoutDirection") ~= nil then
 		local point, _, _, _, _ = button:GetPoint()
-		
+
 		if strfind(point, "TOP") then
 			button.FlyoutArrow:ClearAllPoints()
 			button.FlyoutArrow:SetPoint("LEFT", button, "LEFT", -arrowDistance, 0)
 			SetClampedTextureRotation(button.FlyoutArrow, 270)
-			if not InCombatLockdown() then button:SetAttribute("flyoutDirection", "LEFT") end		
+			if not InCombatLockdown() then button:SetAttribute("flyoutDirection", "LEFT") end
 		else
 			button.FlyoutArrow:ClearAllPoints()
 			button.FlyoutArrow:SetPoint("TOP", button, "TOP", 0, arrowDistance)
