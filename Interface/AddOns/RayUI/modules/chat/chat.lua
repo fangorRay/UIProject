@@ -774,10 +774,13 @@ function CH:ApplyStyle()
 		eb:SetParent(UIParent)
 		eb:Hide()
 		editbox.finish_function = function()
-			if eb:IsShown() then return end
+			if editbox.wmod == 1 then return end
 			editbox:SetWidth(ChatBG:GetWidth())
 		end
 		eb:HookScript("OnShow", function(self)
+			if editbox:GetAlpha() > 0 then
+				eb:Hide()
+			end
 			editbox:SetWidth(200)
 			editbox.wpos = 1
 			editbox.wspeed = 500
