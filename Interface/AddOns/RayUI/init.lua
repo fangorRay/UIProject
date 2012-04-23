@@ -157,6 +157,7 @@ end
 
 function AddOn:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	RequestTimePlayed()
 	Advanced_UIScaleSlider:Kill()
 	Advanced_UseUIScale:Kill()
 	SetCVar("useUiScale", 1)
