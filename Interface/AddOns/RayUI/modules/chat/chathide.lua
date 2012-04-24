@@ -22,7 +22,6 @@ local channelNumbers = {
 	[3]  = true,
 	[4]  = true,
 }
-CH.Updater = CreateFrame("Frame")
 CH.ChatIn = true
 
 function CH:SetUpAnimGroup(self)
@@ -55,6 +54,7 @@ end
 local on_update = R.simple_move
 
 function CH:MoveOut()
+	isMoving = true
 	CH.ChatIn = false
 	ChatBG.mod = -1
 	ChatBG.limit = -CH.db.width
@@ -70,6 +70,7 @@ function CH:MoveOut()
 end
 
 function CH:MoveIn()
+	isMoving = true
 	CH.ChatIn = true
 	ChatBG.mod = 1
 	ChatBG.limit = 15
@@ -99,7 +100,7 @@ function CH:OnEvent(event, ...)
 	if CH.ChatIn == false then
 		if isMoving then
 			isMoving = false
-			CH.Updater:SetScript("OnUpdate", nil)
+			ChatBG:SetScript("OnUpdate", nil)
 		end
 		ChatBG:ClearAllPoints()
 		ChatBG:SetPoint("BOTTOMLEFT",UIParent,"BOTTOMLEFT",15,30)
@@ -189,7 +190,7 @@ function CH:AutoHide()
 		if CH.ChatIn == false then
 			if isMoving then
 				isMoving = false
-				CH.Updater:SetScript("OnUpdate", nil)
+				ChatBG:SetScript("OnUpdate", nil)
 			end
 			ChatBG:ClearAllPoints()
 			ChatBG:SetPoint("BOTTOMLEFT",UIParent,"BOTTOMLEFT",15,30)
@@ -203,5 +204,8 @@ function CH:AutoHide()
 	end)
 	if self.db.autohide then
 		self:ScheduleRepeatingTimer("OnUpdate", 1)
+	end
+	ChatBG.finish_function = function()
+		isMoving = false
 	end
 end

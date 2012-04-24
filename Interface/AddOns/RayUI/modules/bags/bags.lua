@@ -683,7 +683,7 @@ function B:InitBags()
 	f.itemSetsButton.ttText2desc = L["反向显示"]
 	f.itemSetsButton:SetScript("OnEnter", Tooltip_Show)
 	f.itemSetsButton:SetScript("OnLeave", Tooltip_Hide)	
-	f.itemSetsButton:SetScript("OnClick", function() 
+	f.itemSetsButton:SetScript("OnClick", function()
 		B:HighlightItemSets(IsShiftKeyDown())
 	end)
 	S:Reskin(f.itemSetsButton)

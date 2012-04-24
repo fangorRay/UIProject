@@ -774,16 +774,16 @@ function CH:ApplyStyle()
 		eb:SetParent(UIParent)
 		eb:Hide()
 		editbox.finish_function = function()
-			if editbox.wmod == 1 then return end
+			if eb:IsShown() then return end
 			editbox:SetWidth(ChatBG:GetWidth())
-		end
-		eb:HookScript("OnShow", function(self)
-			if editbox:GetAlpha() > 0 then
-				eb:Hide()
+			if eb._Show then
+				eb.Show = eb._Show
 			end
-			editbox:SetWidth(200)
-			editbox.wpos = 1
-			editbox.wspeed = 500
+		end
+		eb._Show = eb.Show
+		eb:HookScript("OnShow", function(self)
+			editbox.wpos = 100
+			editbox.wspeed = 600
 			editbox.wlimit = ChatBG:GetWidth()
 			editbox.wmod = 1
 			editbox:SetScript("OnUpdate", R.simple_width)
@@ -791,9 +791,10 @@ function CH:ApplyStyle()
 		end)
 		eb:HookScript("OnHide", function(self)
 			editbox.wpos = ChatBG:GetWidth()
-			editbox.wspeed = -500
+			editbox.wspeed = -750
 			editbox.wlimit = 1
 			editbox.wmod = -1
+			eb.Show = R.dummy
 			editbox:SetScript("OnUpdate", R.simple_width)
 			UIFrameFadeOut(editbox, .3, 1, 0)
 		end)
