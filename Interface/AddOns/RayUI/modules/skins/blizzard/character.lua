@@ -152,7 +152,7 @@ local function LoadSkin()
 		ic:Point("TOPLEFT", 2, -2)
 		ic:Point("BOTTOMRIGHT", -2, 2)
 		ic.SetVertexColor = R.dummy
-		ic:SetGradient("VERTICAL",.345,.345,.345,1,1,1)
+		ic:SetGradient(unpack(R["media"].gradient))
 		slot.glow = CreateFrame("Frame", nil, slot)
 		slot.glow:SetAllPoints()
 		slot.glow:CreateBorder()
@@ -172,7 +172,7 @@ local function LoadSkin()
 				icon:Point("TOPLEFT", 2, -2)
 				icon:Point("BOTTOMRIGHT", -2, 2)
 				icon.SetVertexColor = R.dummy
-				icon:SetGradient("VERTICAL",.345,.345,.345,1,1,1)
+				icon:SetGradient(unpack(R["media"].gradient))
 				bu.reskinned = true
 			end
 		end

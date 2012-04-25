@@ -92,10 +92,6 @@ end
 
 R.dummy= function() return end
 
-local the_vertex_freepas = function(self,r,g,b)
-	self:SetGradient("VERTICAL",r*.345,g*.345,b*.345,r,g,b)
-end
-
 local function Size(frame, width, height)
 	frame:SetSize(R:Scale(width), R:Scale(height or width))
 end

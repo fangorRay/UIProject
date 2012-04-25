@@ -790,14 +790,6 @@ function CH:ApplyStyle()
 		eb:Point("BOTTOMRIGHT", editbox, -2, -3)
 		eb:SetParent(UIParent)
 		eb:Hide()
-		editbox.finish_function = function()
-			if eb:IsShown() then return end
-			editbox:SetWidth(ChatBG:GetWidth())
-			if eb._Show then
-				eb.Show = eb._Show
-			end
-		end
-		eb._Show = eb.Show
 		eb:HookScript("OnShow", function(self)
 			editbox.wpos = 100
 			editbox.wspeed = 600
@@ -807,13 +799,7 @@ function CH:ApplyStyle()
 			UIFrameFadeIn(editbox, .3, 0, 1)
 		end)
 		eb:HookScript("OnHide", function(self)
-			editbox.wpos = ChatBG:GetWidth()
-			editbox.wspeed = -750
-			editbox.wlimit = 1
-			editbox.wmod = -1
-			eb.Show = R.dummy
-			editbox:SetScript("OnUpdate", R.simple_width)
-			UIFrameFadeOut(editbox, .3, 1, 0)
+			editbox:Hide()
 		end)
 		hooksecurefunc("ChatEdit_UpdateHeader", function()
 				local type = _G["ChatFrame"..i.."EditBox"]:GetAttribute("chatType")

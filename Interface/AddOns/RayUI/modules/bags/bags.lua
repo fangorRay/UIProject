@@ -276,7 +276,7 @@ function B:SlotNew(bag, slot)
 		t:SetAllPoints()
 		
 		t.SetVertexColor = R.dummy
-		t:SetGradient("VERTICAL",.345,.345,.345,1,1,1)
+		t:SetGradient(unpack(R["media"].gradient))
 		
 		local count = _G[ret.frame:GetName().."Count"]
 		count:ClearAllPoints()

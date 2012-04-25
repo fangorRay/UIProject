@@ -441,15 +441,6 @@ function AB:Style(button, totem, flyout)
 		end
 	end
 
-	if not flyout then
-		Icon.SetVertexColor = function(self,r,g,b)
-			self:SetGradient("VERTICAL",r*.345,g*.345,b*.345,r,g,b)
-		end
-		Icon:SetVertexColor(1, 1, 1)
-	else
-		Icon:SetGradient("VERTICAL",.345,.345,.345,1,1,1)
-	end
-
 	button:StyleButton(true)
 
 	button.styled = true
@@ -457,17 +448,11 @@ end
 
 function AB:StyleSmallButton(normal, button, icon, name, pet)
 	if button.styled then return end
-	print(button:GetName(), name)
 	local Flash	 = _G[name.."Flash"]
 
 	button:SetNormalTexture("")
 	button.SetNormalTexture = R.dummy
 	button:StyleButton(true)
-
-	icon.SetVertexColor = function(self,r,g,b)
-		self:SetGradient("VERTICAL",r*.345,g*.345,b*.345,r,g,b)
-	end
-	icon:SetVertexColor(1, 1, 1)
 
 	Flash:SetTexture(1, 1, 1, 0.3)
 
@@ -524,7 +509,7 @@ local buttons = 0
 local function SetupFlyoutButton()
 	for i=1, buttons do
 		if _G["SpellFlyoutButton"..i] then
-			_G["SpellFlyoutButton"..i.."Icon"]:SetGradient("VERTICAL",.345,.345,.345,1,1,1)
+			_G["SpellFlyoutButton"..i.."Icon"]:SetGradient(unpack(R["media"].gradient))
 			AB:Style(_G["SpellFlyoutButton"..i], nil, true)
 			_G["SpellFlyoutButton"..i]:StyleButton(true)
 		end

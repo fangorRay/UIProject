@@ -13,7 +13,7 @@ P["media"]={
 	warning = "RayUI Warning",
 	backdropcolor = { .05, .05, .05, .9},
 	bordercolor = {0, 0, 0, 1},
-	gradient = {"VERTICAL", 0, 0, 0, .6, 0, 0, 0, 0}
+	gradient = {"VERTICAL",.345,.345,.345,1,1,1}
 }
 
 P["general"]={
