@@ -151,8 +151,6 @@ local function LoadSkin()
 		ic:SetTexCoord(.08, .92, .08, .92)
 		ic:Point("TOPLEFT", 2, -2)
 		ic:Point("BOTTOMRIGHT", -2, 2)
-		ic.SetVertexColor = R.dummy
-		ic:SetGradient(unpack(R["media"].gradient))
 		slot.glow = CreateFrame("Frame", nil, slot)
 		slot.glow:SetAllPoints()
 		slot.glow:CreateBorder()
@@ -171,8 +169,6 @@ local function LoadSkin()
 				_G["EquipmentFlyoutFrameButton"..i.."IconTexture"]:SetTexCoord(.08, .92, .08, .92)
 				icon:Point("TOPLEFT", 2, -2)
 				icon:Point("BOTTOMRIGHT", -2, 2)
-				icon.SetVertexColor = R.dummy
-				icon:SetGradient(unpack(R["media"].gradient))
 				bu.reskinned = true
 			end
 		end

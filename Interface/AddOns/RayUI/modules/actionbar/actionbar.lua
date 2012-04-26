@@ -311,6 +311,7 @@ function AB:Initialize()
 	self:SecureHook("ShapeshiftBar_Update", "StyleShift")
 	self:SecureHook("ShapeshiftBar_UpdateState", "StyleShift")
 	self:SecureHook("PetActionBar_Update", "StylePet")
+	self:HookScript(SpellFlyout, "OnShow", "SetupFlyoutButton")
 end
 
 function AB:Info()
@@ -491,7 +492,7 @@ function AB:StyleShift()
 		local button  = _G[name]
 		local icon  = _G[name.."Icon"]
 		local normal  = _G[name.."NormalTexture"]
-		AB:StyleSmallButton(normal, button, icon, name)
+		self:StyleSmallButton(normal, button, icon, name)
 	end
 end
 
@@ -501,21 +502,19 @@ function AB:StylePet()
 		local button  = _G[name]
 		local icon  = _G[name.."Icon"]
 		local normal  = _G[name.."NormalTexture2"]
-		AB:StyleSmallButton(normal, button, icon, name, true)
+		self:StyleSmallButton(normal, button, icon, name, true)
 	end
 end
 
 local buttons = 0
-local function SetupFlyoutButton()
+function AB:SetupFlyoutButton()
 	for i=1, buttons do
 		if _G["SpellFlyoutButton"..i] then
-			_G["SpellFlyoutButton"..i.."Icon"]:SetGradient(unpack(R["media"].gradient))
-			AB:Style(_G["SpellFlyoutButton"..i], nil, true)
+			self:Style(_G["SpellFlyoutButton"..i], nil, true)
 			_G["SpellFlyoutButton"..i]:StyleButton(true)
 		end
 	end
 end
-SpellFlyout:HookScript("OnShow", SetupFlyoutButton)
 
 function AB:StyleFlyout(button)
 	if not button.FlyoutBorder then return end

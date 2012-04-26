@@ -67,7 +67,6 @@ local function LoadSkin()
 			bu:StyleButton(true)
 
 			_G["GuildBankColumn"..i.."Button"..j.."IconTexture"]:SetTexCoord(.08, .92, .08, .92)
-			_G["GuildBankColumn"..i.."Button"..j.."IconTexture"]:SetGradient(unpack(R["media"].gradient))
 			_G["GuildBankColumn"..i.."Button"..j.."NormalTexture"]:SetAlpha(0)
 
 			local bg = CreateFrame("Frame", nil, bu)
@@ -91,7 +90,6 @@ local function LoadSkin()
 		bu:Point(a1, p, a2, x + 11, y)
 
 		ic:SetTexCoord(.08, .92, .08, .92)
-		ic:SetGradient(unpack(R["media"].gradient))
 		tb:GetRegions():Hide()
 		nt:SetAlpha(0)
 

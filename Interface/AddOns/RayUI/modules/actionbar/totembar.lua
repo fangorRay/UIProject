@@ -52,7 +52,6 @@ function AB:StyleTotemFlyout(flyout)
 		local icon = select(1,button:GetRegions())
 		icon:SetTexCoord(.09,.91,.09,.91)
 		icon:SetDrawLayer("ARTWORK")
-		icon:SetGradient(unpack(R["media"].gradient))
 		icon:Point("TOPLEFT", 2, -2)
 		icon:Point("BOTTOMRIGHT", -2, 2)
 		if not InCombatLockdown() then
@@ -126,7 +125,6 @@ function AB:StyleTotemActionButton(button, _, index)
 	local icon = select(1,button:GetRegions())
 	icon:SetTexCoord(.09,.91,.09,.91)
 	icon:SetDrawLayer("ARTWORK")
-	icon:SetGradient(unpack(R["media"].gradient))
 	icon.SetVertexColor = R.dummy
 	icon:Point("TOPLEFT",button,"TOPLEFT",2,-2)
 	icon:Point("BOTTOMRIGHT",button,"BOTTOMRIGHT",-2,2)
@@ -166,7 +164,6 @@ function AB:StyleTotemSpellButton(button, index)
 		end
 	end
 	icon:SetTexCoord(.09,.91,.09,.91)
-	icon:SetGradient(unpack(R["media"].gradient))
 	icon:SetDrawLayer("ARTWORK")
 	icon:SetAllPoints()
 	button:CreateShadow("Background")

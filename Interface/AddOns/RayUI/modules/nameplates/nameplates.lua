@@ -664,29 +664,8 @@ end
 local function UpdateThreat(frame, elapsed)
 	frame.hp:Show()
 	if frame.hasClass == true then return end
-	local r, g, b = frame.hp.oldname:GetTextColor()
-	if not frame.region:IsShown() or g+b > 1.95 then
-		if InCombatLockdown() and frame.isFriendly ~= true and g+b == 0 then
-			--No Threat
-			if R.Role == "Tank" then
-				frame.hp:SetStatusBarColor(badR, badG, badB)
-				frame.hp.hpbg:SetTexture(badR, badG, badB, 0.1)
-				frame.hp.backdrop:SetBackdropBorderColor(badR, badG, badB, 1)
-				frame.threatStatus = "BAD"
-			else
-				frame.hp:SetStatusBarColor(goodR, goodG, goodB)
-				frame.hp.hpbg:SetTexture(goodR, goodG, goodB, 0.1)
-				frame.hp.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
-				frame.threatStatus = "GOOD"
-			end		
-		else
-			--Set colors to their original, not in combat
-			frame.hp:SetStatusBarColor(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor)
-			frame.hp.hpbg:SetTexture(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor, 0.1)
-			frame.hp.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
-			frame.threatStatus = nil
-		end
-	else
+
+	if frame.region:IsShown() then
 		--Ok we either have threat or we're losing/gaining it
 		local r, g, b = frame.region:GetVertexColor()
 		if g + b == 0 then
@@ -729,6 +708,27 @@ local function UpdateThreat(frame, elapsed)
 					frame.hp.backdrop:SetBackdropBorderColor(badR, badG, badB, 1)
 				end				
 			end
+		end
+	else
+		if InCombatLockdown() and frame.isFriendly ~= true then
+			--No Threat
+			if R.Role == "Tank" then
+				frame.hp:SetStatusBarColor(badR, badG, badB)
+				frame.hp.hpbg:SetTexture(badR, badG, badB, 0.1)
+				frame.hp.backdrop:SetBackdropBorderColor(badR, badG, badB, 1)
+				frame.threatStatus = "BAD"
+			else
+				frame.hp:SetStatusBarColor(goodR, goodG, goodB)
+				frame.hp.hpbg:SetTexture(goodR, goodG, goodB, 0.1)
+				frame.hp.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
+				frame.threatStatus = "GOOD"
+			end		
+		else
+			--Set colors to their original, not in combat
+			frame.hp:SetStatusBarColor(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor)
+			frame.hp.hpbg:SetTexture(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor, 0.1)
+			frame.hp.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
+			frame.threatStatus = nil
 		end
 	end
 end

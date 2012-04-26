@@ -74,8 +74,6 @@ local function LoadSkin()
 		icon:SetTexCoord(.08, .92, .08, .92)
 		icon:Point("TOPLEFT", 2, -2)
 		icon:Point("BOTTOMRIGHT", -2, 2)
-		icon.SetVertexColor = R.dummy
-		icon:SetGradient(unpack(R["media"].gradient))
 		slot.glow = CreateFrame("Frame", nil, slot)
 		slot.glow:SetAllPoints()
 		slot.glow:CreateBorder()

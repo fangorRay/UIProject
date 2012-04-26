@@ -1,4 +1,5 @@
 *.bak
+*.bat
 .DS_Store
 
 /*

@@ -21,7 +21,6 @@ function CF:Initialize()
 	flash:CreateShadow()
 	flash.icon:SetAllPoints()
 	flash.icon:SetTexCoord(.08, .92, .08, .92)
-	flash.icon:SetGradient(unpack(R["media"].gradient))
 	flash:Hide()
 	flash:SetScript("OnUpdate", function(self, e)
 		flash.e = flash.e + e

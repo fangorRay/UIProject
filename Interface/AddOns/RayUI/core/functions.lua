@@ -350,9 +350,6 @@ function R:UpdateMedia()
 
 	--Backdrop Color
 	self["media"].backdropcolor = self.db["media"].backdropcolor
-
-	--Gradient Color
-	self["media"].gradient = self.db["media"].gradient
 	
 	--Sound
 	self["media"].warning = LSM:Fetch("sound", self.db["media"].warning)

@@ -1165,8 +1165,6 @@ P["Watcher"]["filters"] ={
 			setpoint = { "BOTTOM", UIParent, "BOTTOM", -35, 350 },
 			size = 51,
 			
-		
-			
 		--Death Knight
 			--啃食
 			{ spellID = 47481, unitId = "player", caster = "all", filter = "DEBUFF" },
@@ -1490,6 +1488,10 @@ P["Watcher"]["filters"] ={
 			--死亡之翼的脊椎
 			--纏繞觸鬚
 			{ spellID = 105563, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
+			--血液腐化:大地
+			{ spellID = 106200, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
+			--血液腐化:死亡
+			{ spellID = 106199, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
 
 		--其他
 			--漏油

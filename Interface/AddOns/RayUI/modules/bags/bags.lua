@@ -275,9 +275,6 @@ function B:SlotNew(bag, slot)
 		t:SetTexCoord(.08, .92, .08, .92)
 		t:SetAllPoints()
 		
-		t.SetVertexColor = R.dummy
-		t:SetGradient(unpack(R["media"].gradient))
-		
 		local count = _G[ret.frame:GetName().."Count"]
 		count:ClearAllPoints()
 		count:Point("BOTTOMRIGHT", ret.frame, "BOTTOMRIGHT", 1, 0)
@@ -885,6 +882,7 @@ function B:BAG_CLOSED(event, id)
 end
 
 function B:CloseBags()
+	self:HighlightItemSets(nil, true)
 	bagFrame:Hide()
 	
 	if bankFrame then
@@ -897,6 +895,9 @@ function B:OpenBags()
 end
 
 function B:ToggleBags()
+	if bagFrame:IsShown() then
+		self:HighlightItemSets(nil, true)
+	end
 	ToggleFrame(bagFrame)
 end
 
@@ -1229,13 +1230,7 @@ function B:Sort(frame, args, bank)
 	end
 	
 	if _highlight then
-		for _, b in ipairs(self.buttons) do
-			if b.name then
-				SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
-				b.frame:SetAlpha(1)
-			end
-		end
-		_highlight = false
+		self:HighlightItemSets(nil, true)
 	end
 
 	self.itmax = 0
@@ -1244,7 +1239,17 @@ function B:Sort(frame, args, bank)
 	self:RestackAndSort(frame)
 end
 
-function B:HighlightItemSets(reverse)
+function B:HighlightItemSets(reverse, reset)
+	if reset then
+		for _, b in ipairs(self.buttons) do
+			if b.name then
+				SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
+				b.frame:SetAlpha(1)
+			end
+		end
+		_highlight = false
+		return
+	end
 	if not _highlight then
 		for _, b in ipairs(self.buttons) do
 			if b.name then

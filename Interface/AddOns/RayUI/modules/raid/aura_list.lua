@@ -48,26 +48,26 @@ RA.auras = {
 			[GetSpellInfo(104849)] = 9,  -- Void Bolt(虛無箭)
 
 			-- Hagara
-			[GetSpellInfo(104451)] = 7,  -- Ice Tomb(寒冰之墓)
+			[GetSpellInfo(104451)] = 7,  --寒冰之墓
 
 			-- Ultraxion
-			[GetSpellInfo(110073)] = 7, -- Fading Light(凋零之光)
+			[GetSpellInfo(110073)] = 7, --凋零之光
 
 			-- Blackhorn
-			[GetSpellInfo(109209)] = 7,  -- Brutal Strike(蠻橫打擊)
-			[GetSpellInfo(108043)] = 8,  -- Sunder Armor(破甲攻擊)
-			[GetSpellInfo(108861)] = 9,  -- Degeneration(衰亡)
+			[GetSpellInfo(109209)] = 7,  --蠻橫打擊
+			[GetSpellInfo(108043)] = 8,  --破甲攻擊
+			[GetSpellInfo(108861)] = 9,  --衰亡
 
 			-- Spine
-			[GetSpellInfo(105479)] = 7, -- 燃燒血漿
-			--[GetSpellInfo(109379)] = 7, -- Searing Plasma(燃燒血漿)
-			--[GetSpellInfo(109457)] = 8,  -- Fiery Grip(熾熱之握)
-			[GetSpellInfo(105490)] = 8,  -- Fiery Grip(熾熱之握)
+			[GetSpellInfo(105479)] = 7, --燃燒血漿
+			[GetSpellInfo(105490)] = 8,  --熾熱之握
+			[GetSpellInfo(106200)] = 9,  --血液腐化:大地
+			[GetSpellInfo(106199)] = 10,  --血液腐化:死亡
 
 			-- Madness 
-			[GetSpellInfo(105841)] = 7,  -- Degenerative Bite(退化咬擊)
-			[GetSpellInfo(105445)] = 8,  -- Blistering Heat(極熾高熱)
-			[GetSpellInfo(106444)] = 9,  -- Impale(刺穿)
+			[GetSpellInfo(105841)] = 7,  --退化咬擊
+			[GetSpellInfo(105445)] = 8,  --極熾高熱
+			[GetSpellInfo(106444)] = 9,  --刺穿
 	   },
 
         [800] = { --[[ Firelands ]]--

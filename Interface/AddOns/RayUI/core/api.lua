@@ -153,14 +153,6 @@ local function CreateShadow(f, t, thickness, texture)
 	})
 	shadow:SetBackdropColor( backdropr, backdropg, backdropb, backdropa )
 	shadow:SetBackdropBorderColor( borderr, borderg, borderb, bordera )
-	-- if t == "Background" then
-		-- local bg = shadow:CreateTexture(nil, "BACKGROUND")
-		-- bg:Point("TOPLEFT", offset, -offset)
-		-- bg:Point("BOTTOMRIGHT", -offset, offset)
-		-- bg:SetTexture(R["media"].blank)
-		-- bg:SetGradientAlpha(unpack(R["media"].gradient))
-		-- f.bg = bg
-	-- end
 	f.shadow = shadow
 end
 
@@ -189,7 +181,6 @@ local function StyleButton(button, setallpoints)
 	if button.SetHighlightTexture and not button.hover then
 		local hover = button:CreateTexture(nil, "OVERLAY")
 		hover:SetTexture(1, 1, 1, 0.3)
-		-- hover:SetTexture(R["media"].blank)
 		if setallpoints then
 			hover:SetAllPoints()
 		else
@@ -199,14 +190,10 @@ local function StyleButton(button, setallpoints)
 		button.hover = hover
 		button:SetHighlightTexture(hover)
 	end
-	-- if button.GetHighlightTexture then
-		-- button:GetHighlightTexture():SetGradientAlpha("VERTICAL", 1, 1, 1, 0, 1, 1, 1, .3)
-	-- end
 	
 	if button.SetPushedTexture and not button.pushed then
 		local pushed = button:CreateTexture(nil, "OVERLAY")
 		pushed:SetTexture(0.9, 0.8, 0.1, 0.3)
-		-- pushed:SetTexture(R["media"].blank)
 		if setallpoints then
 			pushed:SetAllPoints()
 		else
@@ -216,14 +203,10 @@ local function StyleButton(button, setallpoints)
 		button.pushed = pushed
 		button:SetPushedTexture(pushed)
 	end
-	-- if button.GetPushedTexture then
-		-- button:GetPushedTexture():SetGradientAlpha("VERTICAL", 0.9, 0.8, 0.1, 0, 0.9, 0.8, 0.1, 0.3)
-	-- end
 	
 	if button.SetCheckedTexture and not button.checked then
 		local checked = button:CreateTexture(nil, "OVERLAY")
 		checked:SetTexture(23/255,132/255,209/255,0.3)
-		-- checked:SetTexture(R["media"].blank)
 		if setallpoints then
 			checked:SetAllPoints()
 		else
@@ -233,9 +216,6 @@ local function StyleButton(button, setallpoints)
 		button.checked = checked
 		button:SetCheckedTexture(checked)
 	end
-	-- if button.GetCheckedTexture then
-		-- button:GetCheckedTexture():SetGradientAlpha("VERTICAL", 23/255,132/255,209/255,0, 23/255,132/255,209/255,0.5)
-	-- end
 
 	if button:GetName() and _G[button:GetName().."Cooldown"] then
 		local cooldown = _G[button:GetName().."Cooldown"]

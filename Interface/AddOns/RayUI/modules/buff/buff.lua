@@ -50,8 +50,6 @@ function BF:StyleBuffs(button, index, framekind, anchor)
 	local buff = button..index
     _G[buff.."Icon"]:SetTexCoord(.1, .9, .1, .9)
     _G[buff.."Icon"]:SetDrawLayer("OVERLAY")
-    _G[buff.."Icon"].SetVertexColor = R.dummy
-    _G[buff.."Icon"]:SetGradient(unpack(R["media"].gradient))
     _G[buff]:ClearAllPoints()
     _G[buff]:CreateShadow()
 	_G[buff]:StyleButton(true)
