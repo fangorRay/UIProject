@@ -342,9 +342,9 @@ local function LoadFunc()
 		end
 	end
 
-	anchor:RegisterEvent("ADDON_LOADED")
-	anchor:SetScript("OnEvent", function(frame, event, addon)
-		anchor:UnregisterEvent("ADDON_LOADED")
+	anchor:RegisterEvent("PLAYER_ENTERING_WORLD")
+	anchor:SetScript("OnEvent", function(frame, event)
+		anchor:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		anchor:RegisterEvent("START_LOOT_ROLL")
 		anchor:RegisterEvent("CHAT_MSG_LOOT")
 		UIParent:UnregisterEvent("START_LOOT_ROLL")
@@ -359,7 +359,7 @@ local function LoadFunc()
 		anchor:SetPoint("TOP", anchorholder, "TOP", 0, 0)	
 	end)
 
-	SlashCmdList["LFrames"] = function(msg) 
+	SlashCmdList["LFrames"] = function() 
 		local f = GetFrame()
 		local texture = select(10, GetItemInfo(32837))
 		f.button:SetNormalTexture(texture)

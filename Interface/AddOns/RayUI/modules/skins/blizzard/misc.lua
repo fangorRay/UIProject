@@ -567,7 +567,9 @@ local function LoadSkin()
 	BNToastFrameCloseButton:SetAlpha(0)
 	BNToastFrame:HookScript("OnShow", function(self)
 		self:ClearAllPoints()
-		if RaidBuffReminder and RaidBuffReminder:IsShown() then
+		if TempEnchant1:IsShown() or TempEnchant2:IsShown() then
+			self:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", -3, -60)
+		elseif RaidBuffReminder and RaidBuffReminder:IsShown() then
 			self:SetPoint("TOPLEFT", RaidBuffReminder, "BOTTOMLEFT", -3, -6)
 		else
 			self:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", -3, -6)

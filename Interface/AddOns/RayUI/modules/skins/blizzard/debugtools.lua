@@ -28,8 +28,9 @@ local function LoadSkin()
 	tex:Point("BOTTOMRIGHT", bu.bg)
 	tex:SetTexture(S["media"].backdrop)
 	tex:SetGradientAlpha("VERTICAL", 0, 0, 0, .3, .35, .35, .35, .35)
-	
+
 	FrameStackTooltip:SetParent(UIParent)
+	FrameStackTooltip:SetFrameStrata("TOOLTIP")
 	FrameStackTooltip:SetBackdrop(nil)
 
 	local bg = CreateFrame("Frame", nil, FrameStackTooltip)

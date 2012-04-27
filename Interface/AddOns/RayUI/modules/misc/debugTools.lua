@@ -148,7 +148,7 @@ local function LoadFunc()
 		LoadAddOn("Blizzard_DebugTools")
 	end
 	ScriptErrorsFrame:SetParent(D.HideFrame)
-	
+
 	ScriptErrorsFrame:HookScript("OnHide", function(self)
 		self:SetParent(D.HideFrame)
 	end)
