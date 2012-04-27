@@ -13,7 +13,6 @@ local whentoshow={
 		"battleground", "battleground_leader",
 		"raid", "raid_leader", "raid_warning",
 		"bn_whisper",
-		"bn_inline_toast_alert",
 		"bn_inline_toast_broadcast",
 }
 local channelNumbers = {

@@ -1,7 +1,7 @@
 local R, L, P = unpack(select(2, ...)) --Inport: Engine, Locales, ProfileDB
 local RW = R:GetModule("Watcher")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
-
+--[[ 
 function RW:UpdateGroup()
 	local current = RW.db.GroupSelect or next(RW.GroupName)
 	RW.db.GroupSelect = current
@@ -406,3 +406,4 @@ end
 function RW:Info()
 	return L["|cff7aa6d6Ray|r|cffff0000U|r|cff7aa6d6I|r头像模块."]
 end
+ ]]

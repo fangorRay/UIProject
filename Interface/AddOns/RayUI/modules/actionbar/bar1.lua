@@ -46,13 +46,13 @@ function AB:CreateBar1()
 			self:Execute([[
 			buttons = table.new()
 			for i = 1, 12 do
-			  table.insert(buttons, self:GetFrameRef("ActionButton"..i))
+				table.insert(buttons, self:GetFrameRef("ActionButton"..i))
 			end
 			]])
 
 			self:SetAttribute("_onstate-page", [[
 			for i, button in ipairs(buttons) do
-			  button:SetAttribute("actionpage", tonumber(newstate))
+				button:SetAttribute("actionpage", tonumber(newstate))
 			end
 			]])
 

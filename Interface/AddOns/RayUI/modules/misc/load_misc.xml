@@ -12,7 +12,6 @@
 	<Script file="loot_roll.lua"/>
 	<Script file="merchant.lua"/>
 	<Script file="mirror.lua"/>
-	<Script file="poisonglow.lua"/>
 	<Script file="quests.lua"/>
 	<Script file="raidBuffReminder.lua"/>
 	<Script file="raidmarker.lua"/>

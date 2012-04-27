@@ -27,10 +27,10 @@ function AB:CreateStanceBar()
 		end
 	end
 		
-	local function RayUIMoveShapeshift()
-		ShapeshiftButton1:SetPoint("BOTTOMLEFT", bar, 0,0)
-	end
-	hooksecurefunc("ShapeshiftBar_Update", RayUIMoveShapeshift);
+	-- local function RayUIMoveShapeshift()
+		-- ShapeshiftButton1:SetPoint("BOTTOMLEFT", bar, 0,0)
+	-- end
+	-- hooksecurefunc("ShapeshiftBar_Update", RayUIMoveShapeshift)
 		
 		
 	if AB.db.stancebarmouseover then    

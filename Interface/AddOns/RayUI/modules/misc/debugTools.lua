@@ -5,7 +5,7 @@ local function LoadFunc()
 	--Enhanced debugtools from ElvUI
 	local D = R:NewModule("DebugTools", "AceEvent-3.0", "AceHook-3.0")
 	local S = R:GetModule("Skins")
-	
+
 	local showErrorButton = CreateFrame("Button", nil, Minimap)
 	showErrorButton:Hide()
 	showErrorButton:Size(15, 15)
@@ -137,13 +137,13 @@ local function LoadFunc()
 	end
 
 	function D:TaintError(event, addonName, addonFunc)
-		if GetCVarBool("scriptErrors") ~= 1 then return end
+		if GetCVarBool("scriptErrors") ~= 1 or not R:IsDeveloper() then return end
 		ScriptErrorsFrame_OnError(L["%s: %s 尝试调用保护函数 '%s'."]:format(event, addonName or "<name>", addonFunc or "<func>"), false)
 	end
 
 	D.HideFrame = CreateFrame("Frame")
 	D.HideFrame:Hide()
-	
+
 	if( not IsAddOnLoaded("Blizzard_DebugTools") ) then
 		LoadAddOn("Blizzard_DebugTools")
 	end

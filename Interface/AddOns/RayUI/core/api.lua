@@ -327,3 +327,13 @@ while object do
 
 	object = EnumerateFrames(object)
 end
+
+local developer = {
+	["夏琉"] = true,
+	["痛苦的呻吟"] = true,
+	["Divineseraph"] = true,
+	["父王"] = true,
+}
+function R:IsDeveloper()
+	return developer[R.myname]
+end

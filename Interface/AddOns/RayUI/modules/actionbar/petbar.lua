@@ -62,17 +62,6 @@ function AB:CreateBarPet()
 				AutoCastShine_AutoCastStop(petAutoCastShine)
 			end
 			
-			-- grid display
-			-- if name then
-				-- if not AB.db.showgrid then
-					-- petActionButton:SetAlpha(1)
-				-- end			
-			-- else
-				-- if not AB.db.showgrid then
-					-- petActionButton:SetAlpha(0)
-				-- end
-			-- end
-			
 			if texture then
 				if GetPetActionSlotUsable(i) then
 					SetDesaturation(petActionIcon, nil)

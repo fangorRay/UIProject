@@ -279,12 +279,12 @@ local function LoadTalent()
 				}
 			end
 		end
-		if R.db.specgear.primary > numEquipSets then
-			R.db.specgear.primary = -1
-		end
-		if R.db.specgear.secondary > numEquipSets then
-			R.db.specgear.secondary = -1
-		end
+		-- if R.db.specgear.primary > numEquipSets then
+			-- R.db.specgear.primary = -1
+		-- end
+		-- if R.db.specgear.secondary > numEquipSets then
+			-- R.db.specgear.secondary = -1
+		-- end
 
 		local active = GetActiveTalentGroup(false, false)
 		if GetPrimaryTalentTree(false, false, active) and select(2, GetTalentTabInfo(GetPrimaryTalentTree(false, false, active))) then
@@ -328,12 +328,13 @@ local function LoadTalent()
 	end)
 
 	manager:SetScript("OnEvent", function(self, event, id)
+		local numEquipSets = GetNumEquipmentSets()
 		if id == 1 then
-			if R.db.specgear.primary > 0 then
+			if R.db.specgear.primary > 0 and R.db.specgear.primary <= numEquipSets then
 				self.needEquipSet = GetEquipmentSetInfo(R.db.specgear.primary)
 			end
 		else
-			if R.db.specgear.secondary > 0 then
+			if R.db.specgear.secondary > 0 and R.db.specgear.secondary <= numEquipSets then
 				self.needEquipSet = GetEquipmentSetInfo(R.db.specgear.secondary)
 			end
 		end

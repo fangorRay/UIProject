@@ -567,9 +567,13 @@ local function LoadSkin()
 	BNToastFrameCloseButton:SetAlpha(0)
 	BNToastFrame:HookScript("OnShow", function(self)
 		self:ClearAllPoints()
-		self:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 15, 240)
+		if RaidBuffReminder and RaidBuffReminder:IsShown() then
+			self:SetPoint("TOPLEFT", RaidBuffReminder, "BOTTOMLEFT", -3, -6)
+		else
+			self:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", -3, -6)
+		end
 	end)
-	
+
 	ChatConfigFrameDefaultButton:SetWidth(125)
 	ChatConfigFrameDefaultButton:SetPoint("TOPLEFT", ChatConfigCategoryFrame, "BOTTOMLEFT", 0, -4)
 	ChatConfigFrameOkayButton:SetPoint("TOPRIGHT", ChatConfigBackgroundFrame, "BOTTOMRIGHT", 0, -4)

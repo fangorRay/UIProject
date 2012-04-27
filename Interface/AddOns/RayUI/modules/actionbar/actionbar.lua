@@ -346,7 +346,7 @@ function AB:UpdateHotkey(button, actionButtonType)
 	end
 end
 
-function AB:Style(button, totem, flyout)
+function AB:Style(button)
 	local name = button:GetName()
 	local action = button.action
 
@@ -391,8 +391,8 @@ function AB:Style(button, totem, flyout)
 	end
 
 	if Flash then Flash:SetTexture(nil) end
-	if Normal then Normal:SetTexture(nil) end
-	if Normal2 then Normal2:SetTexture(nil) end
+	if Normal then Normal:SetTexture(nil) Normal:Hide() Normal:SetAlpha(0) end
+	if Normal2 then Normal2:SetTexture(nil) Normal2:Hide() Normal2:SetAlpha(0) end
 	if Border then Border:Kill() end
 
 	if Count then
@@ -447,52 +447,13 @@ function AB:Style(button, totem, flyout)
 	button.styled = true
 end
 
-function AB:StyleSmallButton(normal, button, icon, name, pet)
-	if button.styled then return end
-	local Flash	 = _G[name.."Flash"]
-
-	button:SetNormalTexture("")
-	button.SetNormalTexture = R.dummy
-	button:StyleButton(true)
-
-	Flash:SetTexture(1, 1, 1, 0.3)
-
-	if not button.shadow then
-		button:CreateShadow("Background")
-	end
-
-	icon:SetTexCoord(.08, .92, .08, .92)
-	icon:ClearAllPoints()
-	if pet then
-		if AB.db.buttonsize < 30 then
-			local autocast = _G[name.."AutoCastable"]
-			autocast:SetAlpha(0)
-		end
-		local shine = _G[name.."Shine"]
-		shine:Size(AB.db.buttonsize, AB.db.buttonsize)
-		shine:ClearAllPoints()
-		shine:SetPoint("CENTER", button, 0, 0)
-		icon:SetAllPoints()
-	else
-		icon:SetAllPoints()
-	end
-
-	if normal then
-		normal:ClearAllPoints()
-		normal:SetPoint("TOPLEFT")
-		normal:SetPoint("BOTTOMRIGHT")
-	end
-	
-	button.styled = true
-end
-
 function AB:StyleShift()
 	for i=1, NUM_SHAPESHIFT_SLOTS do
 		local name = "ShapeshiftButton"..i
 		local button  = _G[name]
 		local icon  = _G[name.."Icon"]
 		local normal  = _G[name.."NormalTexture"]
-		self:StyleSmallButton(normal, button, icon, name)
+		self:Style(button)
 	end
 end
 
@@ -502,7 +463,7 @@ function AB:StylePet()
 		local button  = _G[name]
 		local icon  = _G[name.."Icon"]
 		local normal  = _G[name.."NormalTexture2"]
-		self:StyleSmallButton(normal, button, icon, name, true)
+		self:Style(button)
 	end
 end
 

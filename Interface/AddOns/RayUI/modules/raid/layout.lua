@@ -8,11 +8,7 @@ local backdrop, border, border2, glowBorder
 RA._Objects = {}
 RA._Headers = {}
 
-local colors = setmetatable({
-    power = setmetatable({
-        ["MANA"] = {.31,.45,.63},
-    }, {__index = oUF.colors.power}),
-}, {__index = oUF.colors})
+local colors = RayUF.colors
 
 function RA:Hex(r, g, b)
     if(type(r) == "table") then
