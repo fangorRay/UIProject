@@ -129,6 +129,12 @@ L["点击进入RayUI控制台。\n请仔细研究每一项设置的作用。"] =
 L["将战利品通报至"] = true
 L["箱子中的战利品"] = true
 L["的战利品"] = true
+
+L["第一页"] = true
+L["最后页"] = true
+L["没有本地变量转存"] = true
+L['|cFFE30000接收到Lua错误. 可以通过点击小地图的"E"按钮查看错误.'] = true
+L["%s: %s 尝试调用保护函数 '%s'."] = true
 end
 do
 L["|cff7aa6d6Ray|r|cffff0000U|r|cff7aa6d6I|r设置"] = true

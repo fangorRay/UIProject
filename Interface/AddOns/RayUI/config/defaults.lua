@@ -11,6 +11,7 @@ P["media"]={
 	fontsize = 12,
 	fontflag = "THINOUTLINE",
 	warning = "RayUI Warning",
+	errorsound = "RayUI Error",
 	backdropcolor = { .05, .05, .05, .9},
 	bordercolor = {0, 0, 0, 1},
 }

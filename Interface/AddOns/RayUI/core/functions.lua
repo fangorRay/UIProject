@@ -137,6 +137,40 @@ function R:InitializeModules()
 	end
 end
 
+function R:CheckRole()
+	local tree = GetPrimaryTalentTree()
+	local resilience
+	local resilperc = GetCombatRatingBonus(COMBAT_RATING_RESILIENCE_PLAYER_DAMAGE_TAKEN)
+	if resilperc > GetDodgeChance() and resilperc > GetParryChance() then
+		resilience = true
+	else
+		resilience = false
+	end
+	if (R.myclass == "PALADIN" and tree == 1) or (R.myclass == "SHAMAN" and tree == 3) or (R.myclass == "PRIEST" and (tree == 1 or tree == 2)) or (R.myclass == "DRUID" and tree == 3) then
+		R.isHealer = true
+	else
+		R.isHealer = false
+	end
+	if ((R.myclass == "PALADIN" and tree == 2) or 
+	(R.myclass == "WARRIOR" and tree == 3) or 
+	(R.myclass == "DEATHKNIGHT" and tree == 1)) and
+	resilience == false or
+	(R.myclass == "DRUID" and tree == 2 and GetBonusBarOffset() == 3) then
+		R.Role = "Tank"
+	else
+		local playerint = select(2, UnitStat("player", 4))
+		local playeragi	= select(2, UnitStat("player", 2))
+		local base, posBuff, negBuff = UnitAttackPower("player");
+		local playerap = base + posBuff + negBuff;
+
+		if (((playerap > playerint) or (playeragi > playerint)) and not (R.myclass == "SHAMAN" and tree ~= 1 and tree ~= 3) and not (UnitBuff("player", GetSpellInfo(24858)) or UnitBuff("player", GetSpellInfo(65139)))) or R.myclass == "ROGUE" or R.myclass == "HUNTER" or (R.myclass == "SHAMAN" and tree == 2) then
+			R.Role = "Melee"
+		else
+			R.Role = "Caster"
+		end
+	end
+end
+
 local tmp={}
 function R:Print(...)
 	local n=0
@@ -353,6 +387,7 @@ function R:UpdateMedia()
 	
 	--Sound
 	self["media"].warning = LSM:Fetch("sound", self.db["media"].warning)
+	self["media"].errorsound = LSM:Fetch("sound", self.db["media"].errorsound)
 
 	self:UpdateBlizzardFonts()
 end

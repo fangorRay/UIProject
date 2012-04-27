@@ -2,7 +2,7 @@ local R, L, P = unpack(select(2, ...)) --Inport: Engine, Locales, ProfileDB
 local S = R:GetModule("Skins")
 
 local function LoadSkin()
-	ScriptErrorsFrame:SetScale(UIParent:GetScale())
+	ScriptErrorsFrame:SetParent(UIParent)
 	ScriptErrorsFrame:SetSize(386, 274)
 	ScriptErrorsFrame:DisableDrawLayer("OVERLAY")
 	ScriptErrorsFrameTitleBG:Hide()
@@ -29,7 +29,7 @@ local function LoadSkin()
 	tex:SetTexture(S["media"].backdrop)
 	tex:SetGradientAlpha("VERTICAL", 0, 0, 0, .3, .35, .35, .35, .35)
 	
-	FrameStackTooltip:SetScale(UIParent:GetScale())
+	FrameStackTooltip:SetParent(UIParent)
 	FrameStackTooltip:SetBackdrop(nil)
 
 	local bg = CreateFrame("Frame", nil, FrameStackTooltip)
@@ -60,6 +60,13 @@ local function LoadSkin()
 	for i=1, #texs do
 		_G["ScriptErrorsFrame"..texs[i]]:SetTexture(nil)
 		_G["EventTraceFrame"..texs[i]]:SetTexture(nil)
+	end
+	
+	for i=1, ScriptErrorsFrame:GetNumChildren() do
+		local child = select(i, ScriptErrorsFrame:GetChildren())
+		if child:GetObjectType() == "Button" and not child:GetName() then	
+			S:Reskin(child)
+		end
 	end
 end
 
