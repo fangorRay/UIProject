@@ -884,6 +884,8 @@ P["Watcher"]["filters"] ={
 			{ spellID = 1966, unitId = "player", caster = "player", filter = "BUFF" },
 			--暗影之舞
 			{ spellID = 51713, unitId = "player", caster = "player", filter = "BUFF" },
+			--敏銳大師
+			{ spellID = 31665, unitId = "player", caster = "player", filter = "BUFF" },
 
 		},
 		{

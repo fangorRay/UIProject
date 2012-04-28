@@ -205,8 +205,8 @@ function B:SlotUpdate(b)
 
 	SetItemButtonTexture(b.frame, texture)
 	SetItemButtonCount(b.frame, count)
-	SetItemButtonDesaturated(b.frame, locked, 0.5, 0.5, 0.5)
-		
+	-- SetItemButtonDesaturated(b.frame, locked, 0.5, 0.5, 0.5)
+
 	b.frame:Show()
 end
 
@@ -480,10 +480,10 @@ function B:SearchUpdate(str, frameMatch)
 			local class, subclass, _, equipSlot = select(6, GetItemInfo(ilink))
 			equipSlot = _G[equipSlot] or ""
 			if (not string.find (string.lower(b.name), str) and not string.find (string.lower(setName), str) and not string.find (string.lower(class), str) and not string.find (string.lower(subclass), str) and not string.find (string.lower(equipSlot), str)) and b.frame:GetParent():GetParent() == frameMatch then
-				SetItemButtonDesaturated(b.frame, 1, 1, 1, 1)
+				-- SetItemButtonDesaturated(b.frame, 1, 1, 1, 1)
 				b.frame:SetAlpha(0.4)
 			else
-				SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
+				-- SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
 				b.frame:SetAlpha(1)
 			end
 		end
@@ -492,7 +492,7 @@ end
 
 function B:SearchReset()
 	for _, b in ipairs(self.buttons) do
-		SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
+		-- SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
 		b.frame:SetAlpha(1)
 	end
 end
@@ -1243,7 +1243,7 @@ function B:HighlightItemSets(reverse, reset)
 	if reset then
 		for _, b in ipairs(self.buttons) do
 			if b.name then
-				SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
+				-- SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
 				b.frame:SetAlpha(1)
 			end
 		end
@@ -1256,18 +1256,18 @@ function B:HighlightItemSets(reverse, reset)
 				local _, setName = GetContainerItemEquipmentSetInfo(b.bag, b.slot)
 				if setName then
 					if reverse then
-						SetItemButtonDesaturated(b.frame, 1, 1, 1, 1)
+						-- SetItemButtonDesaturated(b.frame, 1, 1, 1, 1)
 						b.frame:SetAlpha(0.4)
 					else
-						SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
+						-- SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
 						b.frame:SetAlpha(1)
 					end
 				else
 					if reverse then
-						SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
+						-- SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
 						b.frame:SetAlpha(1)
 					else
-						SetItemButtonDesaturated(b.frame, 1, 1, 1, 1)
+						-- SetItemButtonDesaturated(b.frame, 1, 1, 1, 1)
 						b.frame:SetAlpha(0.4)
 					end
 				end
@@ -1277,7 +1277,7 @@ function B:HighlightItemSets(reverse, reset)
 	else
 		for _, b in ipairs(self.buttons) do
 			if b.name then
-				SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
+				-- SetItemButtonDesaturated(b.frame, 0, 1, 1, 1)
 				b.frame:SetAlpha(1)
 			end
 		end

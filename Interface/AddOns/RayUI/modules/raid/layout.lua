@@ -485,6 +485,52 @@ function RA:Colors()
     end
 end
 
+function RA:Raid15SmartVisibility(event)
+	local inInstance, instanceType = IsInInstance()
+	local _, _, _, _, maxPlayers, _, _ = GetInstanceInfo()
+	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
+	if not InCombatLockdown() then		
+		if inInstance and instanceType == "raid" and maxPlayers > 15 then
+			self:SetAttribute("showRaid", false)
+			self:SetAttribute("showParty", false)
+		elseif inInstance and instanceType == "raid" and maxPlayers <= 15 then
+			RegisterAttributeDriver(self, "state-visibility", "[group:party,nogroup:raid][group:raid] show;hide")
+			self:SetAttribute("showRaid", true)
+			self:SetAttribute("showParty", RA.db.showgridwhenparty)
+		else
+			RegisterAttributeDriver(self, "state-visibility", "[@raid16,exists] hide;show")
+			self:SetAttribute("showRaid", true)
+			self:SetAttribute("showParty", RA.db.showgridwhenparty)
+		end
+	else
+		self:RegisterEvent("PLAYER_REGEN_ENABLED")
+		return
+	end
+end
+
+function RA:Raid25SmartVisibility(event)
+	local inInstance, instanceType = IsInInstance()
+	local _, _, _, _, maxPlayers, _, _ = GetInstanceInfo()
+	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
+	if not InCombatLockdown() then		
+		if inInstance and instanceType == "raid" and maxPlayers <= 15 then
+			self:SetAttribute("showRaid", false)
+			self:SetAttribute("showParty", false)
+		elseif inInstance and instanceType == "raid" and maxPlayers > 15 then
+			RegisterAttributeDriver(self, "state-visibility", "[group:party,nogroup:raid][group:raid] show;hide")
+			self:SetAttribute("showRaid", true)
+			self:SetAttribute("showParty", RA.db.showgridwhenparty)
+		else
+			RegisterAttributeDriver(self, "state-visibility", "[@raid16,noexists] hide;show")
+			self:SetAttribute("showRaid", true)
+			self:SetAttribute("showParty", RA.db.showgridwhenparty)
+		end
+	else
+		self:RegisterEvent("PLAYER_REGEN_ENABLED")
+		return
+	end
+end
+
 local pos, posRel, colX, colY
 function RA:SpawnHeader(name, group, temp, pet, MT, layout)
     local horiz, grow = RA.db.horizontal, RA.db.growth
@@ -553,6 +599,14 @@ function RA:SpawnHeader(name, group, temp, pet, MT, layout)
     "unitsPerColumn", 5,
     "columnSpacing", RA.db.spacing,
     "columnAnchorPoint", growth)
+	
+	header:RegisterEvent("PLAYER_ENTERING_WORLD")
+	header:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	if layout == 15 then
+		header:HookScript("OnEvent", RA.Raid15SmartVisibility)
+	else
+		header:HookScript("OnEvent", RA.Raid25SmartVisibility)
+	end
 
     return header
 end
