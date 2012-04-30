@@ -20,13 +20,13 @@ local function LoadLatency()
 		resSizeExtra = 2
 		local Cols, lineHeader
 		wipe(SysSection)
-		
+
 		-- Network Category
 		SysSection["network"] = {}
 		SysSection["network"].cat = sysinfo:AddCategory()
 		SysSection["network"].cat:AddLine("text", R:RGBToHex(0.69, 0.31, 0.31)..L["网络"], "size", 10 + resSizeExtra, "textR", 1, "textG", 1, "textB", 1)
 		R:AddBlankTabLine(SysSection["network"].cat, 2)
-		
+
 		-- Lines
 		Cols = {
 			L["状态"],
@@ -39,7 +39,7 @@ local function LoadLatency()
 		lineHeader = R:MakeTabletHeader(Cols, 10 + resSizeExtra, 12, {"LEFT", "RIGHT", "RIGHT", "RIGHT", "RIGHT"})
 		SysSection["network"].lineCat:AddLine(lineHeader)
 		R:AddBlankTabLine(SysSection["network"].lineCat, 1)
-		
+
 		local NetworkLines = {
 			[1] = {L["本地"], "ms", "%d", SysStats.lagHome},
 			[2] = {L["世界"], "ms", "%d", SysStats.lagWorld},
@@ -116,13 +116,13 @@ local function LoadLatency()
 				"hideWhenEmpty", true
 			)
 		end
-		
+
 		if sysinfo:IsRegistered(self) then
 			-- sysinfo appearance
 			sysinfo:SetColor(self, 0, 0, 0)
 			sysinfo:SetTransparency(self, .65)
 			sysinfo:SetFontSizePercent(self, 1)
-			
+
 			sysinfo:Open(self)
 		end
 		collectgarbage()
@@ -130,7 +130,7 @@ local function LoadLatency()
 
 	local function SysInfo_Update(self)
 		_, _, SysStats.lagHome.cur, SysStats.lagWorld.cur = GetNetStats()
-		
+
 		-- Get last 60 net updates
 		local netCount = 60
 		if SysStats.netTally < netCount then
@@ -139,7 +139,7 @@ local function LoadLatency()
 
 			SysStats.lagHome.tally[SysStats.netTally] = SysStats.lagHome.cur
 			SysStats.lagWorld.tally[SysStats.netTally] = SysStats.lagWorld.cur
-			
+
 			netCount = SysStats.netTally
 		else
 			-- Shift our tally table down by 1
@@ -151,16 +151,16 @@ local function LoadLatency()
 			SysStats.lagHome.tally[netCount] = SysStats.lagHome.cur
 			SysStats.lagWorld.tally[netCount] = SysStats.lagWorld.cur
 		end
-		
+
 		-- Get Average/Min/Max
 		local minLagHome, maxLagHome, totalLagHome = nil, 0, 0
 		local minLagWorld, maxLagWorld, totalLagWorld = nil, 0, 0
-		
+
 		for i = 1, netCount do
 			totalLagHome = totalLagHome + SysStats.lagHome.tally[i]
 			if not minLagHome then minLagHome = SysStats.lagHome.tally[i] else minLagHome = min(minLagHome, SysStats.lagHome.tally[i]) end
 			maxLagHome = max(maxLagHome, SysStats.lagHome.tally[i])
-			
+
 			totalLagWorld = totalLagWorld + SysStats.lagWorld.tally[i]
 			if not minLagWorld then minLagWorld = SysStats.lagWorld.tally[i] else minLagWorld = min(minLagWorld, SysStats.lagWorld.tally[i]) end
 			maxLagWorld = max(maxLagWorld, SysStats.lagWorld.tally[i])
@@ -169,11 +169,11 @@ local function LoadLatency()
 		SysStats.lagHome.avg = floor((totalLagHome / netCount) + 0.5)
 		SysStats.lagHome.min = minLagHome
 		SysStats.lagHome.max = maxLagHome
-		
+
 		SysStats.lagWorld.avg = floor((totalLagWorld / netCount) + 0.5)
 		SysStats.lagWorld.min = minLagWorld
 		SysStats.lagWorld.max = maxLagWorld
-		
+
 		-- Tablet
 		if sysinfo:IsRegistered(self) then
 			if Tablet20Frame:IsShown() then
@@ -185,7 +185,7 @@ local function LoadLatency()
 	Status:SetScript("OnUpdate", function(self, elapsed)
 		self.LastUpdate = (self.LastUpdate or 0) - elapsed
 		self.LastUpdate2 = (self.LastUpdate2 or 0) - elapsed
-		
+
 		if self.LastUpdate < 0 then
 			self:SetMinMaxValues(0, 1000)
 			local value = (select(3, GetNetStats()))

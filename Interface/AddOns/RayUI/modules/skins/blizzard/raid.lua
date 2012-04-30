@@ -9,7 +9,7 @@ local function LoadSkin()
 	S:Reskin(ReadyCheckFrameNoButton)
 	ReadyCheckPortrait:SetAlpha(0)
 	select(2, ReadyCheckListenerFrame:GetRegions()):Hide()
-	
+
 	local StripAllTextures = {
 		"RaidGroup1",
 		"RaidGroup2",
@@ -21,7 +21,7 @@ local function LoadSkin()
 		"RaidGroup8",
 	}
 
-	for _, object in pairs(StripAllTextures) do		
+	for _, object in pairs(StripAllTextures) do
 		if _G[object] then
 			_G[object]:StripTextures()
 			S:CreateBD(_G[object], .2)
@@ -32,7 +32,7 @@ local function LoadSkin()
 		_G["RaidGroupButton"..i]:StripTextures()
 		S:Reskin(_G["RaidGroupButton"..i])
 	end
-	
+
 	for i=1,8 do
 		for j=1,5 do
 			_G["RaidGroup"..i.."Slot"..j]:StripTextures()

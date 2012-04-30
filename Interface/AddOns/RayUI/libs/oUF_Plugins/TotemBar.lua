@@ -1,20 +1,20 @@
 --[[
 	Documentation:
-	
+
 		Element handled:
 			.TotemBar (must be a table with statusbar inside)
-		
+
 		.TotemBar only:
 			.delay : The interval for updates (Default: 0.1)
 			.colors : The colors for the statusbar, depending on the totem
 			.Name : The totem name
 			.Destroy (boolean): Enables/Disable the totem destruction on right click
-			
+
 			NOT YET IMPLEMENTED
 			.Icon (boolean): If true an icon will be added to the left or right of the bar
 			.IconSize : If the Icon is enabled then changed the IconSize (default: 8)
 			.IconJustify : any anchor like "TOPLEFT", "BOTTOMRIGHT", "TOP", etc
-			
+
 		.TotemBar.bg only:
 			.multiplier : Sets the multiplier for the text or the background (can be two differents multipliers)
 
@@ -38,8 +38,8 @@ local colors = {
 }
 
 local GetTotemInfo, SetValue, GetTime = GetTotemInfo, SetValue, GetTime
-	
-local Abbrev = function(name)	
+
+local Abbrev = function(name)
 	return (string.len(name) > 10) and string.gsub(name, "%s*(.)%S*%s*", "%1. ") or name
 end
 local function TotemOnClick(self,...)
@@ -54,7 +54,7 @@ local function TotemOnClick(self,...)
 			DestroyTotem(id) 
 		end
 end
-	
+
 local function InitDestroy(self)
 	local totem = self.TotemBar
 	for i = 1 , 4 do
@@ -64,15 +64,15 @@ local function InitDestroy(self)
 		Destroy.ID = i
 		Destroy:SetScript("OnClick", TotemOnClick)
 	end
-end			
+end
 local function UpdateSlot(self, slot)
 	local totem = self.TotemBar
 
 	haveTotem, name, startTime, duration, totemIcon = GetTotemInfo(slot)
-	
+
 	totem[slot]:SetStatusBarColor(unpack(totem.colors[slot]))
 	totem[slot]:SetValue(0)
-	
+
 	-- Multipliers
 	if (totem[slot].bg.multiplier) then
 		local mu = totem[slot].bg.multiplier
@@ -80,17 +80,17 @@ local function UpdateSlot(self, slot)
 		r, g, b = r*mu, g*mu, b*mu
 		totem[slot].bg:SetVertexColor(r, g, b) 
 	end
-	
+
 	totem[slot].ID = slot
-	
+
 	-- If we have a totem then set his value 
 	if(haveTotem) then
-		
+
 		if totem[slot].Name then
 			totem[slot].Name:SetText(Abbrev(name))
-		end					
-		if(duration >= 0) then	
-			totem[slot]:SetValue(1 - ((GetTime() - startTime) / duration))	
+		end
+		if(duration >= 0) then
+			totem[slot]:SetValue(1 - ((GetTime() - startTime) / duration))
 			-- Status bar update
 			totem[slot]:SetScript("OnUpdate",function(self,elapsed)
 					total = total + elapsed
@@ -103,7 +103,7 @@ local function UpdateSlot(self, slot)
 								self:SetValue(1 - ((GetTime() - startTime) / duration))
 							end
 					end
-				end)					
+				end)
 		else
 			-- There's no need to update because it doesn't have any duration
 			totem[slot]:SetScript("OnUpdate",nil)
@@ -134,26 +134,26 @@ end
 
 local function Enable(self, unit)
 	local totem = self.TotemBar
-	
+
 	if(totem) then
 		self:RegisterEvent("PLAYER_TOTEM_UPDATE" ,Event)
 		totem.colors = setmetatable(totem.colors or {}, {__index = colors})
 		delay = totem.delay or delay
 		if totem.Destroy then
 			InitDestroy(self)
-		end		
-		TotemFrame:UnregisterAllEvents()		
+		end
+		TotemFrame:UnregisterAllEvents()
 		return true
-	end	
+	end
 end
 
 local function Disable(self,unit)
 	local totem = self.TotemBar
 	if(totem) then
 		self:UnregisterEvent("PLAYER_TOTEM_UPDATE", Event)
-		
+
 		TotemFrame:Show()
 	end
 end
-			
+
 oUF:AddElement("TotemBar",Update,Enable,Disable)

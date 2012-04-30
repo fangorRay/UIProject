@@ -9,6 +9,7 @@ local function pending()
 	if UnitInVehicle("player") then return true end
 	if SpellBookFrame:IsShown() then return true end
 	if IsAddOnLoaded("Blizzard_MacroUI") and MacroFrame:IsShown() then return true end
+	if HoverBind and HoverBind.active then return true end
 end
 
 local function FadeOutActionButton()
@@ -73,7 +74,7 @@ function AB:EnableAutoHide()
 	AB:RegisterEvent("UNIT_ENTERED_VEHICLE", "OnAutoHideEvent")
 	AB:RegisterEvent("UNIT_EXITED_VEHICLE", "OnAutoHideEvent")
 	AB:RegisterEvent("ADDON_LOADED", "OnAutoHideEvent")
-	
+
 	local buttons = 0
 
 	local function UpdateButtonNumber()
@@ -112,7 +113,7 @@ function AB:EnableAutoHide()
 		end
 	end
 	SpellFlyout:HookScript("OnShow", SetUpFlyout)
-	
+
 	SpellBookFrame:HookScript("OnShow", function(self, event)
 		FadeInActionButton()
 	end)
@@ -122,7 +123,7 @@ function AB:EnableAutoHide()
 			FadeOutActionButton()
 		end
 	end)
-	
+
 	-- function AB:Test()
 		-- if StaticPopup1:IsShown() then
 			-- FadeInActionButton()

@@ -34,7 +34,7 @@ do
 		LibStub = LibStub or {libs = {}, minors = {} }
 		_G[LIBSTUB_MAJOR] = LibStub
 		LibStub.minor = LIBSTUB_MINOR
-		
+
 		function LibStub:NewLibrary(major, minor)
 			assert(type(major) == "string", "Bad argument #2 to `NewLibrary' (string expected)")
 			minor = assert(tonumber(strmatch(minor, "%d+")), "Minor version must either be a number or contain a number.")
@@ -43,14 +43,14 @@ do
 			self.minors[major], self.libs[major] = minor, self.libs[major] or {}
 			return self.libs[major], oldminor
 		end
-		
+
 		function LibStub:GetLibrary(major, silent)
 			if not self.libs[major] and not silent then
 				error(("Cannot find a library instance of %q."):format(tostring(major)), 2)
 			end
 			return self.libs[major], self.minors[major]
 		end
-		
+
 		function LibStub:IterateLibraries() return pairs(self.libs) end
 		setmetatable(LibStub, { __call = LibStub.GetLibrary })
 	end
@@ -76,14 +76,14 @@ local function error(self, message, ...)
 	if type(self) ~= "table" then
 		return _G.error(("Bad argument #1 to `error' (table expected, got %s)"):format(type(self)), 2)
 	end
-	
+
 	local stack = debugstack()
 	if not message then
 		local second = stack:match("\n(.-)\n")
 		message = "error raised! " .. second
 	else
 		local arg = { ... } -- not worried about table creation, as errors don't happen often
-		
+
 		for i = 1, #arg do
 			arg[i] = tostring(arg[i])
 		end
@@ -92,7 +92,7 @@ local function error(self, message, ...)
 		end
 		message = message:format(unpack(arg))
 	end
-	
+
 	if getmetatable(self) and getmetatable(self).__tostring then
 		message = ("%s: %s"):format(tostring(self), message)
 	elseif type(rawget(self, 'GetLibraryVersion')) == "function" and AceLibrary:HasInstance(self:GetLibraryVersion()) then
@@ -100,12 +100,12 @@ local function error(self, message, ...)
 	elseif type(rawget(self, 'class')) == "table" and type(rawget(self.class, 'GetLibraryVersion')) == "function" and AceLibrary:HasInstance(self.class:GetLibraryVersion()) then
 		message = ("%s: %s"):format(self.class:GetLibraryVersion(), message)
 	end
-	
+
 	local first = stack:gsub("\n.*", "")
 	local file = first:gsub(".*\\(.*).lua:%d+: .*", "%1")
 	file = file:gsub("([%(%)%.%*%+%-%[%]%?%^%$%%])", "%%%1")
-	
-	
+
+
 	local i = 0
 	for s in stack:gmatch("\n([^\n]*)") do
 		i = i + 1
@@ -226,7 +226,7 @@ do
 					func(v, to, from)
 				end
 			end
-			
+
 			if type(k) == "table" then
 				if not recurse[k] then
 					func(k, to, from)
@@ -311,7 +311,7 @@ do
 		end
 		return list
 	end
-	
+
 	function deepTransfer(to, from, saveFields, major, list, list2)
 		setmetatable(to, nil)
 		if not list then
@@ -382,20 +382,20 @@ local function TryToLoadStandalone(major)
 	AceLibrary.scannedlibs[major] = true
 
 	local name, _, _, enabled, loadable = GetAddOnInfo(major)
-	
+
 	loadable = (enabled and loadable) or TryToEnable(name)
-	
+
 	local loaded = false
 	if loadable then
 		loaded = true
 		LoadAddOn(name)
 	end
-	
+
 	local field = "X-AceLibrary-" .. major 
 	for i = 1, GetNumAddOns() do
 		if GetAddOnMetadata(i, field) then
 			name, _, _, enabled, loadable = GetAddOnInfo(i)
-			
+
 			loadable = (enabled and loadable) or TryToEnable(name)
 			if loadable then
 				loaded = true
@@ -448,7 +448,7 @@ function AceLibrary:HasInstance(major, minor)
 	if minor ~= false then
 		TryToLoadStandalone(major)
 	end
-	
+
 	local lib, ver = LibStub:GetLibrary(major, true)
 	if not lib and self.libs[major] then
 		lib, ver = self.libs[major].instance, self.libs[major].minor
@@ -598,7 +598,7 @@ function AceLibrary:Register(newInstance, major, minor, activateFunc, deactivate
 		if activateFunc then
 			safecall(activateFunc, instance, nil, nil) -- no old version, so explicit nil
 		end
-		
+
 		if externalFunc then
 			for k, data_instance in LibStub:IterateLibraries() do -- all libraries
 				tmp[k] = data_instance
@@ -613,7 +613,7 @@ function AceLibrary:Register(newInstance, major, minor, activateFunc, deactivate
 				tmp[k] = nil
 			end
 		end
-		
+
 		for k,data in pairs(self.libs) do -- only Ace libraries
 			if k ~= major and data.externalFunc then
 				safecall(data.externalFunc, data.instance, major, instance)
@@ -625,7 +625,7 @@ function AceLibrary:Register(newInstance, major, minor, activateFunc, deactivate
 		if AceEvent then
 			AceEvent.TriggerEvent(self, "AceLibrary_Register", major, instance)
 		end
-		
+
 		return instance
 	end
 	if minor <= data.minor then
@@ -636,27 +636,27 @@ function AceLibrary:Register(newInstance, major, minor, activateFunc, deactivate
 	local instance = data.instance
 	-- This is an update
 	local oldInstance = {}
-	
+
 	local libStubInstance = LibStub:GetLibrary(major, true)
 	if not libStubInstance then -- non-LibStub AceLibrary registered the library
 		-- pass
-	elseif libStubInstance ~= instance then	
+	elseif libStubInstance ~= instance then
 		error(self, "Cannot register library %q. It is already registered with LibStub.", major)
 	else
 		LibStub:NewLibrary(major, minor) -- upgrade the minor version
 	end
-	
+
 	addToPositions(newInstance, major)
 	local isAceLibrary = (AceLibrary == newInstance)
 	local old_error, old_argCheck, old_pcall
 	if isAceLibrary then
 		self = instance
 		AceLibrary = instance
-		
+
 		old_error = instance.error
 		old_argCheck = instance.argCheck
 		old_pcall = instance.pcall
-		
+
 		self.error = error
 		self.argCheck = argCheck
 		self.pcall = pcall
@@ -701,7 +701,7 @@ function AceLibrary:Register(newInstance, major, minor, activateFunc, deactivate
 		safecall(oldDeactivateFunc, oldInstance)
 	end
 	oldInstance = nil
-	
+
 	if externalFunc then
 		for k, data_instance in LibStub:IterateLibraries() do -- all libraries
 			tmp[k] = data_instance
@@ -716,7 +716,7 @@ function AceLibrary:Register(newInstance, major, minor, activateFunc, deactivate
 			tmp[k] = nil
 		end
 	end
-	
+
 	return instance
 end
 
@@ -741,7 +741,7 @@ local function manuallyFinalize(major, instance)
 		return
 	end
 	finalizedExternalLibs[major] = true
-	
+
 	for k,data in pairs(AceLibrary.libs) do -- only Ace libraries
 		if k ~= major and data.externalFunc then
 			safecall(data.externalFunc, data.instance, major, instance)
@@ -776,10 +776,10 @@ local function activate(self, oldLib, oldDeactivate)
 	for major, instance in LibStub:IterateLibraries() do
 		manuallyFinalize(major, instance)
 	end
-	
+
 	-- Expose the library in the global environment
 	_G[ACELIBRARY_MAJOR] = self
-	
+
 	if oldDeactivate then
 		oldDeactivate(oldLib)
 	end

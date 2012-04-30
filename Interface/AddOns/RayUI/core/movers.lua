@@ -12,23 +12,23 @@ end
 local function CreateMover(parent, name, text, overlay, postdrag)
 	if not parent then return end --If for some reason the parent isnt loaded yet
 	local S = R:GetModule("Skins")
-	
+
 	if overlay == nil then overlay = true end
-	
+
 	local p, p2, p3, p4, p5 = parent:GetPoint()
-	
+
 	R.Movers = R.db["movers"]
-	
+
 	if R.Movers == {} then R.Movers = nil end
 	if R.Movers and R.Movers[name] == {} or (R.Movers and R.Movers[name] and R.Movers[name]["moved"] == false) then 
 		R.Movers[name] = nil
 	end
-	
+
 	local f = CreateFrame("Button", name, UIParent)
 	f:SetFrameLevel(parent:GetFrameLevel() + 1)
 	f:SetWidth(parent:GetWidth())
 	f:SetHeight(parent:GetHeight())
-	
+
 	if overlay == true then
 		f:SetFrameStrata("DIALOG")
 	else
@@ -48,29 +48,29 @@ local function CreateMover(parent, name, text, overlay, postdrag)
 		if InCombatLockdown() then print(ERR_NOT_IN_COMBAT) return end
 		self:StartMoving() 
 	end)
-	
+
 	f:SetScript("OnDragStop", function(self) 
 		if InCombatLockdown() then print(ERR_NOT_IN_COMBAT) return end
 		self:StopMovingOrSizing()
-		
+
 		if not R.db["movers"] then R.db["movers"] = {} end
-		
+
 		R.Movers = R.db["movers"]
-		
+
 		R.Movers[name] = {}
 		local p, _, p2, p3, p4 = self:GetPoint()
 		R.Movers[name]["p"] = p
 		R.Movers[name]["p2"] = p2
 		R.Movers[name]["p3"] = p3
 		R.Movers[name]["p4"] = p4
-		
+
 		if postdrag ~= nil and type(postdrag) == 'function' then
 			postdrag(self)
 		end
-		
+
 		self:SetUserPlaced(false)
-	end)	
-	
+	end)
+
 	parent:ClearAllPoints()
 	parent:SetPoint(p3, f, p3, 0, 0)
 	parent.ClearAllPoints = function() return end
@@ -86,24 +86,24 @@ local function CreateMover(parent, name, text, overlay, postdrag)
 	fs:SetTextColor(1, 1, 1)
 	f:SetFontString(fs)
 	f.text = fs
-	
+
 	f:HookScript("OnEnter", function(self) 
 		self.text:SetTextColor(self.glow:GetBackdropBorderColor())
 	end)
 	f:HookScript("OnLeave", function(self)
 		self.text:SetTextColor(1, 1, 1)
 	end)
-	
+
 	f:SetMovable(true)
-	f:Hide()	
-	
+	f:Hide()
+
 	if postdrag ~= nil and type(postdrag) == 'function' then
 		f:RegisterEvent("PLAYER_ENTERING_WORLD")
 		f:SetScript("OnEvent", function(self, event)
 			postdrag(f)
 			self:UnregisterAllEvents()
 		end)
-	end	
+	end
 end
 
 function R:CreateMover(parent, name, text, overlay, postdrag)
@@ -120,24 +120,24 @@ function R:CreateMover(parent, name, text, overlay, postdrag)
 		R.CreatedMovers[name]["p3"] = p3
 		R.CreatedMovers[name]["p4"] = p4
 		R.CreatedMovers[name]["p5"] = p5
-	end	
-	
+	end
+
 	CreateMover(parent, name, text, overlay, postdrag)
 end
 
 function R:ToggleMovers()
 	if InCombatLockdown() then print(ERR_NOT_IN_COMBAT) return end
-	
+
 	if RayUIMoverPopupWindow:IsShown() then
 		RayUIMoverPopupWindow:Hide()
 	else
 		RayUIMoverPopupWindow:Show()
 	end
-	
+
 	if RayUF or oUF then
 		R:MoveoUF()
 	end
-	
+
 	for name, _ in pairs(R.CreatedMovers) do
 		if _G[name]:IsShown() then
 			_G[name]:Hide()
@@ -154,17 +154,17 @@ function R:ResetMovers(arg)
 			local n = _G[name]
 			_G[name]:ClearAllPoints()
 			_G[name]:SetPoint(R.CreatedMovers[name]["p"], R.CreatedMovers[name]["p2"], R.CreatedMovers[name]["p3"], R.CreatedMovers[name]["p4"], R.CreatedMovers[name]["p5"])
-			
-			
+
+
 			R.Movers = nil
 			R.db["movers"] = R.Movers
-			
+
 			for key, value in pairs(R.CreatedMovers[name]) do
 				if key == "postdrag" and type(value) == 'function' then
 					value(n)
 				end
 			end
-		end	
+		end
 	else
 		for name, _ in pairs(R.CreatedMovers) do
 			for key, value in pairs(R.CreatedMovers[name]) do
@@ -172,19 +172,19 @@ function R:ResetMovers(arg)
 				if key == "text" then
 					if arg == value then 
 						_G[name]:ClearAllPoints()
-						_G[name]:SetPoint(R.CreatedMovers[name]["p"], R.CreatedMovers[name]["p2"], R.CreatedMovers[name]["p3"], R.CreatedMovers[name]["p4"], R.CreatedMovers[name]["p5"])						
-						
+						_G[name]:SetPoint(R.CreatedMovers[name]["p"], R.CreatedMovers[name]["p2"], R.CreatedMovers[name]["p3"], R.CreatedMovers[name]["p4"], R.CreatedMovers[name]["p5"])
+
 						if R.Movers then
 							R.Movers[name] = nil
 						end
 						R.db["movers"] = R.Movers
-						
+
 						if R.CreatedMovers[name]["postdrag"] ~= nil and type(R.CreatedMovers[name]["postdrag"]) == 'function' then
 							R.CreatedMovers[name]["postdrag"](_G[name])
 						end
 					end
 				end
-			end	
+			end
 		end
 	end
 end
@@ -215,7 +215,7 @@ local function CreatePopup()
 	title:SetPoint("TOP", f, "TOP", 0, -10)
 	title:SetJustifyH("CENTER")
 	title:SetText("RayUI")
-		
+
 	local desc = f:CreateFontString(nil, "ARTWORK")
 	desc:SetFontObject("GameFontHighlight")
 	desc:SetJustifyV("TOP")
@@ -231,10 +231,10 @@ local function CreatePopup()
 		R:ToggleMovers()
 		AceConfig["Open"](AceConfig,"RayUI") 
 	end)
-	
+
 	lock:SetPoint("BOTTOMRIGHT", -14, 14)
 	S:Reskin(lock)
-	
+
 	f:RegisterEvent('PLAYER_REGEN_DISABLED')
 	f:SetScript('OnEvent', function(self)
 		if self:IsShown() then
@@ -275,8 +275,8 @@ function R:PLAYER_REGEN_DISABLED()
 		end
 	end
 	if err == true then
-		R:Print(ERR_NOT_IN_COMBAT)			
-	end		
+		R:Print(ERR_NOT_IN_COMBAT)
+	end
 end
 
 R:RegisterEvent("ADDON_LOADED")

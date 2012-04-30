@@ -16,12 +16,12 @@ local function LoadSkin()
 	SpellBookCompanionModelFrameRotateRightButton:Hide()
 	SpellBookCompanionsModelFrame:Hide()
 	SpellBookPageText:SetTextColor(.8, .8, .8)
-	
+
 	hooksecurefunc("UpdateProfessionButton", function(self)
-		self.spellString:SetTextColor(1, 1, 1);	
+		self.spellString:SetTextColor(1, 1, 1);
 		self.subSpellString:SetTextColor(1, 1, 1)
 	end)
-	
+
 	local lightbds = {
 		"SpellBookCompanionModelFrame",
 		"SecondaryProfession1",
@@ -32,7 +32,7 @@ local function LoadSkin()
 	for i = 1, #lightbds do
 		S:CreateBD(_G[lightbds[i]], .25)
 	end
-	
+
 	for i = 1, 5 do
 		S:CreateTab(_G["SpellBookFrameTabButton"..i])
 	end
@@ -93,7 +93,7 @@ local function LoadSkin()
 		S:CreateSD(tab, 5, 0, 0, 0, 1, 1)
 		_G["SpellBookSkillLineTab"..i.."TabardIconFrame"]:SetTexCoord(.08, .92, .08, .92)
 		select(4, tab:GetRegions()):SetTexCoord(.08, .92, .08, .92)
-		
+
 		tab:StyleButton(true)
 		tab:SetPushedTexture(nil)
 	end
@@ -164,7 +164,7 @@ local function LoadSkin()
 			icon:Point("TOPLEFT", 2, -2)
 			icon:Point("BOTTOMRIGHT", -2, 2)
 			S:CreateBG(icon)
-		end					
+		end
 	end
 
 	for i = 1, 2 do

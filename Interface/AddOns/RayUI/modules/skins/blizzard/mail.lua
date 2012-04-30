@@ -4,7 +4,7 @@ local S = R:GetModule("Skins")
 local function LoadSkin()
 	S:SetBD(MailFrame, 10, -12, -34, 74)
 	S:SetBD(OpenMailFrame, 10, -12, -34, 74)
-	
+
 	MailTextFontNormal:SetTextColor(1, 1, 1)
 
 	OpenMailLetterButton:StyleButton(true)
@@ -27,7 +27,7 @@ local function LoadSkin()
 	select(2, OpenMailScrollFrame:GetRegions()):Hide()
 	InboxPrevPageButton:GetRegions():Hide()
 	InboxNextPageButton:GetRegions():Hide()
-	
+
 	SendMailMailButton:Point("RIGHT", SendMailCancelButton, "LEFT", -1, 0)
 	OpenMailDeleteButton:Point("RIGHT", OpenMailCancelButton, "LEFT", -1, 0)
 	OpenMailReplyButton:Point("RIGHT", OpenMailDeleteButton, "LEFT", -1, 0)

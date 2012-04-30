@@ -30,7 +30,7 @@ local Enable = function(self)
         self.AuraStatusBL:SetPoint("BOTTOMLEFT", self.Health, 0, 0)
         self.AuraStatusBL:SetFont(indicator, RA.db.indicatorsize, "THINOUTLINE")
         self.AuraStatusBL.frequentUpdates = update
-        self:Tag(self.AuraStatusBL, RA.classIndicators[class]["BL"])	
+        self:Tag(self.AuraStatusBL, RA.classIndicators[class]["BL"])
 
         self.AuraStatusBR = self.Health:CreateFontString(nil, "OVERLAY")
         self.AuraStatusBR:ClearAllPoints()

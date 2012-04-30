@@ -63,7 +63,7 @@ local function LoadSkin()
 
 	QuestInfoSkillPointFrameIconTexture:SetSize(40, 40)
 	QuestInfoSkillPointFrameIconTexture:SetTexCoord(.08, .92, .08, .92)
-	
+
 	local scrollbars = {
 		"QuestLogScrollFrameScrollBar",
 		"QuestLogDetailScrollFrameScrollBar",
@@ -77,7 +77,7 @@ local function LoadSkin()
 		bar = _G[scrollbars[i]]
 		S:ReskinScroll(bar)
 	end
-	
+
 	local layers = {
 		"QuestFrameDetailPanel",
 		"QuestFrameProgressPanel",
@@ -100,7 +100,7 @@ local function LoadSkin()
 	QuestNPCModelTextFrameBg:Hide()
 	QuestNPCModelTextFrame:DisableDrawLayer("OVERLAY")
 	QuestNPCModelTextScrollFrameScrollBarThumbTexture.bg:Hide()
-	QuestLogDetailTitleText:SetDrawLayer("OVERLAY")	
+	QuestLogDetailTitleText:SetDrawLayer("OVERLAY")
 	QuestLogDetailScrollFrameScrollBackgroundTopLeft:SetAlpha(0)
 	QuestLogDetailScrollFrameScrollBackgroundBottomRight:SetAlpha(0)
 	QuestLogFrameCompleteButton_LeftSeparator:Hide()
@@ -116,13 +116,13 @@ local function LoadSkin()
 	QuestLogFrameShowMapButton:Size(QuestLogFrameShowMapButton:GetWidth() - 30, QuestLogFrameShowMapButton:GetHeight(), - 40)
 
 	for i = 1, 9 do
-		select(i, QuestLogCount:GetRegions()):Hide()			
+		select(i, QuestLogCount:GetRegions()):Hide()
 	end
-	
+
 	for i = 1, 3 do
 		select(i, QuestLogFrame:GetRegions()):Hide()
 	end
-	
+
 	NPCBD = CreateFrame("Frame", nil, QuestNPCModel)
 	NPCBD:Point("TOPLEFT", 0, 1)
 	NPCBD:Point("RIGHT", 1, 0)
@@ -142,7 +142,7 @@ local function LoadSkin()
 	bg:Point("BOTTOMRIGHT", -3, 0)
 	bg:Lower()
 	S:CreateBD(bg, .25)
-	
+
 	QuestInfoSkillPointFrame:StyleButton()
 	QuestInfoSkillPointFrame:GetPushedTexture():Point("TOPLEFT", 1, -1)
 	QuestInfoSkillPointFrame:GetPushedTexture():Point("BOTTOMRIGHT", -3, 1)
@@ -198,7 +198,7 @@ local function LoadSkin()
 		line:SetSize(1, 40)
 		line:Point("RIGHT", ic, 1, 0)
 		S:CreateBD(line)
-		
+
 		bu:StyleButton()
 		bu:GetPushedTexture():Point("TOPLEFT", 1, -1)
 		bu:GetPushedTexture():Point("BOTTOMRIGHT", -1, 1)
@@ -226,20 +226,20 @@ local function LoadSkin()
 		line:SetSize(1, 40)
 		line:Point("RIGHT", ic, 1, 0)
 		S:CreateBD(line)
-		
+
 		bu:StyleButton()
 		bu:GetPushedTexture():Point("TOPLEFT", 1, -1)
 		bu:GetPushedTexture():Point("BOTTOMRIGHT", -1, 1)
 		bu:GetHighlightTexture():Point("TOPLEFT", 1, -1)
 		bu:GetHighlightTexture():Point("BOTTOMRIGHT", -1, 1)
 	end
-	
+
 	QuestLogFramePushQuestButton:ClearAllPoints()
 	QuestLogFramePushQuestButton:Point("LEFT", QuestLogFrameAbandonButton, "RIGHT", 1, 0)
 	QuestLogFramePushQuestButton:SetWidth(100)
 	QuestLogFrameTrackButton:ClearAllPoints()
 	QuestLogFrameTrackButton:Point("LEFT", QuestLogFramePushQuestButton, "RIGHT", 1, 0)
-	
+
 	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, portrait, text, name, x, y)
 		local parent = parentFrame:GetName()
 		if parent == "QuestLogFrame" or parent == "QuestLogDetailFrame" then
@@ -248,7 +248,7 @@ local function LoadSkin()
 			QuestNPCModel:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x+8, y)
 		end
 	end)
-	
+
 	local questlogcontrolpanel = function()
 		local parent
 		if QuestLogFrame:IsShown() then
@@ -281,7 +281,7 @@ local function LoadSkin()
 	S:ReskinClose(QuestLogFrameCloseButton, "TOPRIGHT", QuestLogFrame, "TOPRIGHT", -7, -14)
 	S:ReskinClose(QuestLogDetailFrameCloseButton, "TOPRIGHT", QuestLogDetailFrame, "TOPRIGHT", -5, -14)
 	S:ReskinClose(QuestFrameCloseButton, "TOPRIGHT", QuestFrame, "TOPRIGHT", -30, -20)
-	
+
 	S:Reskin(WatchFrameCollapseExpandButton)
 	local downtex = WatchFrameCollapseExpandButton:CreateTexture(nil, "ARTWORK")
 	downtex:SetSize(8, 8)
@@ -293,7 +293,7 @@ local function LoadSkin()
 	else
 		downtex:SetTexture("Interface\\AddOns\\RayUI\\media\\arrow-up-active")
 	end
-	
+
 	hooksecurefunc("WatchFrame_Collapse", function() downtex:SetTexture("Interface\\AddOns\\RayUI\\media\\arrow-down-active") end)
 	hooksecurefunc("WatchFrame_Expand", function() downtex:SetTexture("Interface\\AddOns\\RayUI\\media\\arrow-up-active") end)
 
@@ -323,7 +323,7 @@ local function LoadSkin()
 				questLogTitle.bg:Size(13, 13)
 				questLogTitle.bg:Point("LEFT", 4, 0)
 				questLogTitle.bg:SetFrameLevel(questLogTitle:GetFrameLevel()-1)
-				S:CreateBD(questLogTitle.bg, 0)	
+				S:CreateBD(questLogTitle.bg, 0)
 
 				questLogTitle.tex = questLogTitle:CreateTexture(nil, "BACKGROUND")
 				questLogTitle.tex:SetAllPoints(questLogTitle.bg)

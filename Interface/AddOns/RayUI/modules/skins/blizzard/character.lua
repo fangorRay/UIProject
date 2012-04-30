@@ -9,7 +9,7 @@ local function LoadSkin()
 		"CharacterFrame",
 		"CharacterFrameInset",
 		"CharacterFrameInsetRight",
-		"CharacterModelFrame",		
+		"CharacterModelFrame",
 	}
 	for i = 1, #frames do
 		_G[frames[i]]:DisableDrawLayer("BACKGROUND")
@@ -59,7 +59,7 @@ local function LoadSkin()
 	S:ReskinCheck(ReputationDetailInactiveCheckBox)
 	S:ReskinCheck(ReputationDetailMainScreenCheckBox)
 	S:ReskinInput(GearManagerDialogPopupEditBox)
-	
+
 	hooksecurefunc("CharacterFrame_Expand", function()
 		select(15, CharacterFrameExpandButton:GetRegions()):SetTexture("Interface\\AddOns\\RayUI\\media\\arrow-left-active")
 	end)
@@ -67,7 +67,7 @@ local function LoadSkin()
 	hooksecurefunc("CharacterFrame_Collapse", function()
 		select(15, CharacterFrameExpandButton:GetRegions()):SetTexture("Interface\\AddOns\\RayUI\\media\\arrow-right-active")
 	end)
-	
+
 	hooksecurefunc("PaperDollFrame_CollapseStatCategory", function(categoryFrame)
 			categoryFrame.BgMinimized:Hide()
 		end)
@@ -175,7 +175,7 @@ local function LoadSkin()
 	end
 	EquipmentFlyoutFrameButtons:HookScript("OnShow", SkinItemFlyouts)
 	hooksecurefunc("EquipmentFlyout_Show", SkinItemFlyouts)
-	
+
 	local function ColorItemBorder()
 		for i = 1, #slots do
 			-- Colour the equipment slots by rarity
@@ -183,7 +183,7 @@ local function LoadSkin()
 			local icon = _G["Character"..slots[i].."SlotIconTexture"]
 			local slotId, _, _ = GetInventorySlotInfo(slots[i].."Slot")
 			local itemId = GetInventoryItemID("player", slotId)
-			
+
 			local glow = target.glow
 
 			if itemId then
@@ -207,10 +207,10 @@ local function LoadSkin()
 
 	local CheckItemBorderColor = CreateFrame("Frame")
 	CheckItemBorderColor:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
-	CheckItemBorderColor:SetScript("OnEvent", ColorItemBorder)	
+	CheckItemBorderColor:SetScript("OnEvent", ColorItemBorder)
 	CharacterFrame:HookScript("OnShow", ColorItemBorder)
 	ColorItemBorder()
-	
+
 	local function ColorFlyOutItemBorder(self)
 		local location = self.location
 		local glow = self.glow
@@ -219,7 +219,7 @@ local function LoadSkin()
 			glow = CreateFrame("Frame", nil, self)
 			glow:SetAllPoints()
 			glow:CreateBorder()
-			self.glow = glow			
+			self.glow = glow
 			self:SetBackdrop({
 					bgFile = R["media"].blank, 
 					insets = { left = -R.mult, right = -R.mult, top = -R.mult, bottom = -R.mult }
@@ -337,7 +337,7 @@ local function LoadSkin()
 			sets = true
 		end
 	end)
-	
+
 	-- Reputation frame
 	local function UpdateFactionSkins()
 		for i = 1, GetNumFactions() do
@@ -360,18 +360,18 @@ local function LoadSkin()
 				_G["ReputationBar"..i.."LeftLine"]:SetAlpha(0)
 				_G["ReputationBar"..i.."BottomLine"]:SetAlpha(0)
 				_G["ReputationBar"..i.."ReputationBarHighlight1"]:SetTexture(nil)
-				_G["ReputationBar"..i.."ReputationBarHighlight2"]:SetTexture(nil)	
+				_G["ReputationBar"..i.."ReputationBarHighlight2"]:SetTexture(nil)
 				_G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:SetTexture(nil)
 				_G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:SetTexture(nil)
 				_G["ReputationBar"..i.."ReputationBarLeftTexture"]:SetTexture(nil)
 				_G["ReputationBar"..i.."ReputationBarRightTexture"]:SetTexture(nil)
-			end		
-		end		
+			end
+		end
 	end
 
 	ReputationFrame:HookScript("OnShow", UpdateFactionSkins)
 	hooksecurefunc("ReputationFrame_OnEvent", UpdateFactionSkins)
-	
+
 	-- Pet stuff
 	if R.myclass == "HUNTER" or R.myclass == "MAGE" or R.myclass == "DEATHKNIGHT" or R.myclass == "WARLOCK" then
 		if R.myclass == "HUNTER" then
@@ -390,7 +390,7 @@ local function LoadSkin()
 			PetStableFrameTopRightCorner:Hide()
 			PetStableModelRotateLeftButton:Hide()
 			PetStableModelRotateRightButton:Hide()
-			
+
 			PetStableSelectedPetIcon:SetTexCoord(.08, .92, .08, .92)
 			local bd = CreateFrame("Frame", nil, PetStableFrame)
 			bd:Point("TOPLEFT", PetStableSelectedPetIcon, -1, 1)
@@ -412,7 +412,7 @@ local function LoadSkin()
 				bu:StyleButton(true)
 				_G["PetStableStabledPet"..i.."IconTexture"]:SetTexCoord(.08, .92, .08, .92)
 			end
-			
+
 			for i = 1, 5 do
 				local bu = _G["PetStableActivePet"..i]
 				local bd = CreateFrame("Frame", nil, bu)

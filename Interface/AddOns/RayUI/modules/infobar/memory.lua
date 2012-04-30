@@ -5,7 +5,7 @@ local function LoadMemory()
 	local infobar = _G["RayUITopInfoBar3"]
 	local Status = infobar.Status
 	infobar.Text:SetText("0 MB")
-	
+
 	local int, int2 = 6, 5
 	local bandwidthString = "%.2f Mbps"
 	local percentageString = "%.2f%%"
@@ -13,7 +13,7 @@ local function LoadMemory()
 	local kiloByteString = "%d KB"
 	local megaByteString = "%.2f MB"
 	local enteredFrame = false
-	
+
 	if Is64BitClient() then
 		Status:SetMinMaxValues(0,15000)
 	else
@@ -62,7 +62,7 @@ local function LoadMemory()
 		end)
 		return totalMemory
 	end
-	
+
 	local function UpdateCPU()
 		UpdateAddOnCPUUsage()
 		local addOnCPU = 0
@@ -79,7 +79,7 @@ local function LoadMemory()
 		end)
 		return totalCPU
 	end
-	
+
 	local function OnEnter(self)
 		enteredFrame = true
 		local bandwidth = GetAvailableBandwidth()
@@ -101,7 +101,7 @@ local function LoadMemory()
 					local red = cpuTable[i][3] / totalCPU
 					local green = 1 - red
 					GameTooltip:AddDoubleLine(cpuTable[i][2], format("%dms", cpuTable[i][3]), 1, 1, 1, red, green + .5, 0)
-				end						
+				end
 			end
 		else
 			local totalMemory = UpdateMemory()
@@ -112,17 +112,17 @@ local function LoadMemory()
 					local red = memoryTable[i][3] / totalMemory
 					local green = 1 - red
 					GameTooltip:AddDoubleLine(memoryTable[i][2], formatMem(memoryTable[i][3]), 1, 1, 1, red, green + .5, 0)
-				end						
+				end
 			end
 		end
 		GameTooltip:Show()
 	end
-	
+
 	local function OnLeave()
 		enteredFrame = false
 		GameTooltip_Hide()
 	end
-	
+
 	local function OnUpdate(self, t)
 		int = int - t
 		int2 = int2 - t

@@ -34,7 +34,7 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 33 },
 			size = 38,
-			
+
 			--蝕星蔽月(月蝕)
 			{ spellID = 48518, unitId = "player", caster = "player", filter = "BUFF" },
 			--蝕星蔽月(日蝕)
@@ -66,7 +66,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 33 },
 			size = 38,
-			
+
 			--休眠
 			{ spellID = 2637, unitId = "target", caster = "all", filter = "DEBUFF" },
 			--糾纏根鬚
@@ -106,7 +106,7 @@ P["Watcher"]["filters"] ={
 			mode = "BAR",
 			iconSide = "LEFT",
 			barWidth = 170,
-			
+
 			--休眠
 			{ spellID = 2637, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			--糾纏根鬚
@@ -214,7 +214,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 33 },
 			size = 38,
-			
+
 			--翼龍釘刺
 			{ spellID = 19386, unitId = "target", caster = "all", filter = "DEBUFF" },
 			--沉默射擊
@@ -237,7 +237,7 @@ P["Watcher"]["filters"] ={
 			mode = "BAR",
 			iconSide = "LEFT",
 			barWidth = 170,
-			
+
 			--翼龍釘刺
 			{ spellID = 19386, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			--沉默射擊
@@ -264,7 +264,7 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 33 },
 			size = 38,
-			
+
 			--冰霜之指
 			{ spellID = 44544, unitId = "player", caster = "player", filter = "BUFF" },
 			--腦部凍結
@@ -300,7 +300,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 33 },
 			size = 38,
-			
+
 			--變形術
 			{ spellID = 118, unitId = "target", caster = "all", filter = "DEBUFF" },
 			--龍之吐息
@@ -333,7 +333,7 @@ P["Watcher"]["filters"] ={
 			mode = "BAR",
 			iconSide = "LEFT",
 			barWidth = 170,
-			
+
 			--變形術
 			{ spellID = 118, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			--活體爆彈
@@ -347,7 +347,7 @@ P["Watcher"]["filters"] ={
 			size = 28,
 			barWidth = 170,
 			setpoint = { "TOPLEFT", "RayUIActionBar2", "BOTTOMRIGHT", -27, -6 },
-			
+
 			--镜像术
 			{ spellID = 55342, unitId = "player", caster = "player", filter = "CD" },
 			--霜之环
@@ -376,7 +376,7 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 33 },
 			size = 38,
-			
+
 			--驟亡
 			{ spellID = 52437, unitId = "player", caster = "player", filter = "BUFF" },
 			--心靈之怒
@@ -445,7 +445,7 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 80 },
 			size = 28,
-			
+
 			--Earth Shield / Erdschild
 			{ spellID = 974, unitId = "player", caster = "player", filter = "BUFF" },
 			--Riptide / Springflut
@@ -461,7 +461,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 80 },
 			size = 28,
-			
+
 			--Earth Shield / Erdschild
 			{ spellID = 974, unitId = "target", caster = "player", filter = "BUFF" },
 			--Riptide / Springflut
@@ -473,7 +473,7 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 33 },
 			size = 38,
-			
+
 			--Maelstorm Weapon / Waffe des Mahlstroms
 			{ spellID = 53817, unitId = "player", caster = "player", filter = "BUFF" },
 			--Shamanistic Rage / Schamanistische Wut
@@ -491,7 +491,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 33 },
 			size = 38,
-			
+
 			--Hex / Verhexen
 			{ spellID = 51514, unitId = "target", caster = "all", filter = "DEBUFF" },
 			--Bind Elemental / Elementar binden
@@ -514,7 +514,7 @@ P["Watcher"]["filters"] ={
 			mode = "BAR",
 			iconSide = "LEFT",
 			barWidth = 170,
-			
+
 			--Hex / Verhexen
 			{ spellID = 51514, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			--Bind Elemental / Elementar binden
@@ -528,7 +528,7 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 80 },
 			size = 28,
-			
+
 			--聖光信標
 			{ spellID = 53563, unitId = "player", caster = "player", filter = "BUFF" },
 			--純潔審判
@@ -539,7 +539,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 80 },
 			size = 28,
-			
+
 			--聖光信標
 			{ spellID = 53563, unitId = "target", caster = "player", filter = "BUFF" },
 		},
@@ -577,7 +577,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 33 },
 			size = 38,
-			
+
 			--制裁之錘
 			{ spellID = 853, unitId = "target", caster = "all", filter = "DEBUFF" },
 			--剛正審判
@@ -592,7 +592,7 @@ P["Watcher"]["filters"] ={
 			mode = "BAR",
 			iconSide = "LEFT",
 			barWidth = 170,
-			
+
 			--制裁之錘
 			{ spellID = 853, unitId = "focus", caster = "all", filter = "DEBUFF" },
 
@@ -623,7 +623,7 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 80 },
 			size = 28,
-			
+
 			--真言術：盾
 			{ spellID = 17, unitId = "player", caster = "all", filter = "BUFF" },
 			--漸隱術
@@ -646,7 +646,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 80 },
 			size = 28,
-			
+
 			--愈合祷言
 			{ spellID = 41635, unitId = "target", caster = "player", filter = "BUFF" },
 			--守护之魂
@@ -668,7 +668,7 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 33 },
 			size = 38,
-			
+
 			--光之澎湃
 			{ spellID = 88688, unitId = "player", caster = "all", filter = "BUFF" },
 			--機緣回復
@@ -682,9 +682,9 @@ P["Watcher"]["filters"] ={
 			--影散
 			{ spellID = 47585, unitId = "player", caster = "player", filter = "BUFF" },
 			--爭分奪秒
-			{ spellID = 59888, unitId = "player", caster = "player", filter = "BUFF" },	
+			{ spellID = 59888, unitId = "player", caster = "player", filter = "BUFF" },
 			--真言術：壁
-			{ spellID = 81782 , unitId = "player", caster = "all", filter = "BUFF" },	
+			{ spellID = 81782 , unitId = "player", caster = "all", filter = "BUFF" },
 			--2T12效果
 			{ spellID = 99132,  unitId = "player", caster = "player", filter = "BUFF" },
 
@@ -694,7 +694,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 33 },
 			size = 38,
-			
+
 			--束縛不死生物
 			{ spellID = 9484, unitId = "target", caster = "all", filter = "DEBUFF" },
 			--心靈尖嘯
@@ -725,7 +725,7 @@ P["Watcher"]["filters"] ={
 			mode = "BAR",
 			iconSide = "LEFT",
 			barWidth = 170,
-			
+
 			--束縛不死生物
 			{ spellID = 9484, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			--心靈尖嘯
@@ -740,7 +740,7 @@ P["Watcher"]["filters"] ={
 			size = 28,
 			barWidth = 170,
 			setpoint = { "TOPLEFT", "RayUIActionBar2", "BOTTOMRIGHT", -27, -6 },
-			
+
 			--大天使
 			{ spellID = 87151, unitId = "player", caster = "player", filter = "CD" },
 			--暗影魔
@@ -825,21 +825,21 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 80 },
 			size = 28,
-			
+
 			--淺察
 			{ spellID = 84745, unitId = "player", caster = "player", filter = "BUFF" },
 			--中度洞察
 			{ spellID = 84746, unitId = "player", caster = "player", filter = "BUFF" },
 			--深度洞察
 			{ spellID = 84747, unitId = "player", caster = "player", filter = "BUFF" },
-			
+
 		},
 		{
 			name = "目标buff",
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 80 },
 			size = 28,
-			
+
 			--致命毒藥
 			{ spellID = 2818, unitId = "target", caster = "player", filter = "DEBUFF" },
 			--麻痺毒藥
@@ -855,7 +855,7 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 33 },
 			size = 38,
-			
+
 			--疾跑
 			{ spellID = 2983, unitId = "player", caster = "player", filter = "BUFF" },
 			--暗影披風
@@ -893,7 +893,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 33 },
 			size = 38,
-			
+
 			--偷襲
 			{ spellID = 1833, unitId = "target", caster = "all", filter = "DEBUFF" },
 			--腎擊
@@ -926,7 +926,7 @@ P["Watcher"]["filters"] ={
 			mode = "BAR",
 			iconSide = "LEFT",
 			barWidth = 170,
-			
+
 			--致盲
 			{ spellID = 2094, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			--悶棍
@@ -982,7 +982,7 @@ P["Watcher"]["filters"] ={
 			direction = "LEFT",
 			setpoint = { "BOTTOMRIGHT", "RayUF_player", "TOPRIGHT", 0, 33 },
 			size = 38,
-			
+
 			--血魄護盾
 			{ spellID = 77535, unitId = "player", caster = "player", filter = "BUFF" },
 			--血魄轉化
@@ -1014,7 +1014,7 @@ P["Watcher"]["filters"] ={
 			direction = "RIGHT",
 			setpoint = { "BOTTOMLEFT", "RayUF_target", "TOPLEFT", 0, 33 },
 			size = 38,
-			
+
 			--絞殺
 			{ spellID = 47476, unitId = "target", caster = "player", filter = "DEBUFF" },
 			--血魄瘟疫
@@ -1152,13 +1152,13 @@ P["Watcher"]["filters"] ={
 			{ spellID = 33206, unitId = "player", caster = "all", filter = "BUFF" },
 			--血族之裔
 			{ spellID = 105588, unitId = "player", caster = "all", filter = "BUFF" },
-			
+
 		--種族天賦
 			--血之烈怒
 			{ spellID = 20572, unitId = "player", caster = "all", filter = "BUFF" },
-			
+
 		--套裝效果
-			-- DK 4T13 (DPS)		
+			-- DK 4T13 (DPS)
 			{ spellID = 105647, unitId = "player", caster = "player", filter = "BUFF" },
 		},
 		{
@@ -1166,7 +1166,7 @@ P["Watcher"]["filters"] ={
 			direction = "UP",
 			setpoint = { "BOTTOM", UIParent, "BOTTOM", -35, 350 },
 			size = 51,
-			
+
 		--Death Knight
 			--啃食
 			{ spellID = 47481, unitId = "player", caster = "all", filter = "DEBUFF" },
@@ -1267,7 +1267,7 @@ P["Watcher"]["filters"] ={
 			--冰錐術
 			{ spellID = 120, unitId = "player", caster = "all", filter = "DEBUFF" },
 			--減速術
-			{ spellID = 31589, unitId = "player", caster = "all", filter = "DEBUFF" },			
+			{ spellID = 31589, unitId = "player", caster = "all", filter = "DEBUFF" },
 			--強化冰錐術
 			{ spellID = 83301, unitId = "player", caster = "all", filter = "DEBUFF" },
 			{ spellID = 83302, unitId = "player", caster = "all", filter = "DEBUFF" },
@@ -1444,7 +1444,7 @@ P["Watcher"]["filters"] ={
 			{ spellID = 87873, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
 			--酸雨 (奧拉基爾)
 			{ spellID = 93279, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
-			
+
 		--火源
 			--燃燒之球
 			{ spellID = 98451, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
@@ -1458,7 +1458,7 @@ P["Watcher"]["filters"] ={
 			{ spellID = 98450, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
 			--折磨
 			{ spellID = 99256, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
-			
+
 		--龍魂
 			--魔寇
 			--安全

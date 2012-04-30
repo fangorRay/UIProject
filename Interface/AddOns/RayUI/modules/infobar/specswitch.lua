@@ -25,15 +25,15 @@ local function LoadTalent()
 		if ... then
 			if GetActiveTalentGroup() == ... then return end
 		end
-		
-		if GetNumTalentGroups() > 1 then	
+
+		if GetNumTalentGroups() > 1 then
 			SetActiveTalentGroup(GetActiveTalentGroup() == 1 and 2 or 1)
 		end
 	end
 
 	local function SpecGearClickFunc(self, index, equipName)
 		if not index then return end
-		
+
 		if IsShiftKeyDown() then
 			if R.db.specgear.primary == index then
 				R.db.specgear.primary = -1
@@ -48,7 +48,7 @@ local function LoadTalent()
 		else
 			EquipmentManager_EquipSet(equipName)
 		end
-		
+
 		spec:Refresh(self)
 	end
 
@@ -61,7 +61,7 @@ local function LoadTalent()
 		if #SpecEquipList > 0 then
 			for k, v in ipairs(SpecEquipList) do
 				local _, _, _, isEquipped = GetEquipmentSetInfo(k)
-				
+
 				wipe(line)
 				for i = 1, 4 do
 					if i == 1 then
@@ -92,7 +92,7 @@ local function LoadTalent()
 						line["text"..i.."B"] = (R.db.specgear.secondary == k) and 0 or 0.3
 					end
 				end
-				
+
 				cat:AddLine(line)
 			end
 		end
@@ -102,15 +102,15 @@ local function LoadTalent()
 
 	local function SpecAddTalentGroupLineToCat(self, cat, talentGroup)
 		resSizeExtra = 2
-		
+
 		local ActiveColor = {0, 0.9, 0}
 		local InactiveColor = {0.9, 0.9, 0.9}
 		local PrimaryTreeColor = {0.8, 0.8, 0.8}
 		local OtherTreeColor = {0.8, 0.8, 0.8}
-		
+
 		local IsPrimary = GetActiveTalentGroup()
 		local maxPrimaryTree = GetPrimaryTalentTree()
-		
+
 		local line = {}
 		for i = 1, 4 do
 			local SpecColor = (IsPrimary == talentGroup) and ActiveColor or InactiveColor
@@ -158,17 +158,17 @@ local function LoadTalent()
 	local function Spec_UpdateTablet(self)
 		resSizeExtra = 2
 		local Cols, lineHeader
-		
+
 		local numTalentGroups = GetNumTalentGroups()
-		
+
 		if numTalentGroups > 0 then
 			wipe(SpecSection)
-		
+
 			-- Spec Category
 			SpecSection["specs"] = {}
 			SpecSection["specs"].cat = spec:AddCategory()
 			SpecSection["specs"].cat:AddLine("text", R:RGBToHex(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)..TALENTS.."|r", "size", 10 + resSizeExtra, "textR", 1, "textG", 1, "textB", 1)
-			
+
 			-- Talent Cat
 			Cols = {
 				" ",
@@ -180,10 +180,10 @@ local function LoadTalent()
 			lineHeader = R:MakeTabletHeader(Cols, 10 + resSizeExtra, 12, {"LEFT", "CENTER", "CENTER", "CENTER"})
 			SpecSection["specs"].talentCat:AddLine(lineHeader)
 			R:AddBlankTabLine(SpecSection["specs"].talentCat, 1)
-			
+
 			-- Primary Talent line
 			SpecAddTalentGroupLineToCat(self, SpecSection["specs"].talentCat, 1)
-			
+
 			-- Secondary Talent line
 			if numTalentGroups > 1 then
 				SpecAddTalentGroupLineToCat(self, SpecSection["specs"].talentCat, 2)
@@ -195,20 +195,20 @@ local function LoadTalent()
 			if numTalentGroups > 1 then
 				R:AddBlankTabLine(SpecSection["specs"].talentCat, 8)
 			end
-			
+
 			-- Equipment Category
 			SpecSection["equipment"] = {}
 			SpecSection["equipment"].cat = spec:AddCategory()
 			SpecSection["equipment"].cat:AddLine("text", R:RGBToHex(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)..EQUIPMENT_MANAGER.."|r", "size", 10 + resSizeExtra, "textR", 1, "textG", 1, "textB", 1)
 			R:AddBlankTabLine(SpecSection["equipment"].cat, 2)
-			
+
 			-- Equipment Cat
 			SpecSection["equipment"].equipCat = spec:AddCategory("columns", 3)
 			R:AddBlankTabLine(SpecSection["equipment"].equipCat, 1)
-			
+
 			SpecAddEquipListToCat(self, SpecSection["equipment"].equipCat)
 		end
-		
+
 		-- Hint
 		if (numTalentGroups > 0) and (numEquipSets > 0) then
 			spec:SetHint(L["<点击天赋> 切换天赋."].."\n"..L["<点击套装> 装备套装."].."\n"..L["<Ctrl+点击套装> 套装绑定至主天赋."].."\n"..L["<Alt+点击套装> 套装绑定至副天赋."].."\n"..L["<Shift+点击套装> 解除天赋绑定."])
@@ -228,23 +228,23 @@ local function LoadTalent()
 					Spec_UpdateTablet(self)
 				end,
 				"point", function()
-					return "BOTTOMLEFT"
+					return "BOTTOM"
 				end,
 				"relativePoint", function()
-					return "TOPLEFT"
+					return "TOP"
 				end,
 				"maxHeight", 500,
 				"clickable", true,
 				"hideWhenEmpty", true
 			)
 		end
-		
+
 		if spec:IsRegistered(self) then
 			-- spec appearance
 			spec:SetColor(self, 0, 0, 0)
 			spec:SetTransparency(self, .65)
 			spec:SetFontSizePercent(self, 1)
-			
+
 			-- Open
 			spec:Open(self)
 		end
@@ -266,7 +266,7 @@ local function LoadTalent()
 				}
 			end
 		end
-		
+
 		-- Gear sets
 		wipe(SpecEquipList)
 		local numEquipSets = GetNumEquipmentSets()

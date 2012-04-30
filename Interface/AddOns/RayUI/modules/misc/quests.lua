@@ -10,7 +10,7 @@ local function LoadFunc()
 		local numButtons = #buttons
 		local scrollOffset = HybridScrollFrame_GetOffset(QuestLogScrollFrame)
 		local numEntries, numQuests = GetNumQuestLogEntries()
-		
+
 		for i = 1, numButtons do
 			local questIndex = i + scrollOffset
 			local questLogTitle = buttons[i]
@@ -63,7 +63,7 @@ local function LoadFunc()
 	-- display + when collapsed all and display - when expanded all
 	hooksecurefunc("QuestLog_Update", function(self)
 		local numEntries, numQuests = GetNumQuestLogEntries();
-		
+
 		-- Set the expand/collapse all button texture
 		local numHeaders = 0;
 		local notExpanded = 0;

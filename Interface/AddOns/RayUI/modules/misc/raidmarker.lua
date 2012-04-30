@@ -18,7 +18,7 @@ local function LoadFunc()
 			else
 				UIErrorsFrame:AddMessage(L["你没有权限设置团队标记"], 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
 				return false
-			end	
+			end
 		else
 			return true
 		end

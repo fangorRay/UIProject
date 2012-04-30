@@ -12,10 +12,10 @@ local tradeSpells = { -- Spell order in this table determines the tab order
 	53428, -- Runeforging
 	2656,  -- Smelting
 	26790, -- Tailoring
-	
+
 	33359, -- Cooking
 	27028, -- First Aid
-	
+
 	13262, -- Disenchant
 	51005, -- Milling
 	31252, -- Prospecting
@@ -37,13 +37,13 @@ end
 
 function TradeTabs:Initialize()
 	if self.initialized or not IsAddOnLoaded("Blizzard_TradeSkillUI") then return end -- Shouldn't need this, but I'm paranoid
-	
+
 	for i=1,#tradeSpells do
 		local n = GetSpellInfo(tradeSpells[i])
 		tradeSpells[n] = -1
 		tradeSpells[i] = n
 	end
-	
+
 	local parent = TradeSkillFrame
 	if SkilletFrame then
 		parent = SkilletFrame
@@ -51,14 +51,14 @@ function TradeTabs:Initialize()
 	elseif ATSWFrame then -- ATSW support
 		parent = ATSWFrame
 		self:UnregisterAllEvents()
-	end	
+	end
 
 	for i=1,MAX_SPELLS do
 	--	local n = GetSpellName(i,"spell")
 		local n = GetSpellBookItemName(i, "spell")
 		if tradeSpells[n] then
 			tradeSpells[n] = i
-		end		
+		end
 	end
 
 	local prev
@@ -130,13 +130,13 @@ function TradeTabs:CreateTab(spell,spellID,parent)
 	button:RegisterEvent("TRADE_SKILL_SHOW")
 	button:RegisterEvent("TRADE_SKILL_CLOSE")
 	button:RegisterEvent("CURRENT_SPELL_CAST_CHANGED")
-	
+
     createClickStopper(button)
     updateSelection(button)
 	return button
 end
 
-TradeTabs:RegisterEvent("TRADE_SKILL_SHOW")	
+TradeTabs:RegisterEvent("TRADE_SKILL_SHOW")
 TradeTabs:SetScript("OnEvent",TradeTabs.OnEvent)
 
 TradeTabs:Initialize()

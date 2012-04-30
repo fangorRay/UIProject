@@ -5,7 +5,7 @@ local ADDON_NAME = ...
 function T:CreateTutorialFrame(name, parent, width, height, text)
 	local S = R:GetModule("Skins")
 	local frame = CreateFrame("Frame", name, parent, "GlowBoxTemplate")
-	frame:SetSize(width, height)	
+	frame:SetSize(width, height)
 	frame:SetFrameStrata("FULLSCREEN_DIALOG")
 
 	local arrow = CreateFrame("Frame", nil, frame, "GlowBoxArrowTemplate")
@@ -22,7 +22,7 @@ function T:CreateTutorialFrame(name, parent, width, height, text)
 	local close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", 6, 6)
 	S:ReskinClose(close)
-	
+
 	return frame
 end
 

@@ -98,7 +98,7 @@ if multicheck(R.myclass, "SHAMAN", "PALADIN", "DRUID", "PRIEST") then
 
 		elseif R.myclass == "PRIEST" then
 			local tree = GetPrimaryTalentTree()
-			
+
 			dispelClass[R.myclass].Magic = (tree == 1 or tree == 2) and true
 		end
 		dispellist = dispelClass[R.myclass] or {}

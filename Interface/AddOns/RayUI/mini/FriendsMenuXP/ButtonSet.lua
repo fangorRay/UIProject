@@ -101,7 +101,7 @@ FriendsMenuXP_Buttons["REMOVE_FRIEND"] = {
 FriendsMenuXP_Buttons["SET_NOTE"] = {
 	text = SET_NOTE
 	,
-	func = function (name) 		
+	func = function (name) 
 		FriendsFrame.NotesID = name;
 		StaticPopup_Show("SET_FRIENDNOTE", name);
 		PlaySound("igCharacterInfoClose"); 
@@ -337,18 +337,18 @@ FriendsMenuXP_Buttons["ARMORY"] = {
 		n = n or name
 		r = r or GetRealmName()
 
-		local host = "http://eu.wowarmory.com/"
+		local host = "http://us.battle.net/wow/en/character/"
 		if GetLocale()=="zhTW" then
-			host = "http://tw.wowarmory.com/"
+			host = "http://tw.battle.net/wow/zh/character/"
 		elseif GetLocale()=="zhCN" then
-			host = "http://cn.wowarmory.com/"
+			host = "http://www.battlenet.com.cn/wow/zh/character/"
 		elseif GetLocale()=="koKR" then
-			host = "http://kr.wowarmory.com/"
+			host = "http://kr.battle.net/wow/ko/character/"
 		elseif GetLocale()=="enUS" then
-			host = "http://www.wowarmory.com/"
+			host = "http://us.battle.net/wow/en/character/"
 		end
 
-		local armory = host.."character-sheet.xml?r="..urlencode(r).."&n="..urlencode(n)
+		local armory = host..urlencode(r).."/"..urlencode(n).."/advanced"
 
 		ChatEdit_ActivateChat(ChatFrame1EditBox);
 		ChatFrame1EditBox:SetText(armory);

@@ -6,7 +6,7 @@ local function LoadDurability()
 	local Status = infobar.Status
 	infobar.Text:SetText(DURABILITY)
 	Status:SetValue(0)
-	
+
 	local Slots = {
 			[1] = {1, INVTYPE_HEAD, 1000},
 			[2] = {3, INVTYPE_SHOULDER, 1000},
@@ -25,7 +25,7 @@ local function LoadDurability()
 	Status:SetScript("OnEvent", function(self)
 		local Total = 0
 		local current, max
-		
+
 		for i = 1, 11 do
 			if GetInventoryItemLink("player", Slots[i][1]) ~= nil then
 				current, max = GetInventoryItemDurability(Slots[i][1])

@@ -48,12 +48,12 @@ local function SkinAtlasLoot()
 	end
 
 	local function Nine_IsThere(Self, event, ...)
-					
+
 					for i = 1, 9 do 
 							local f = _G["AtlasLootCompareFrameSortButton_"..i]
 							f:SetWidth(44.44)
 					end
-					
+
 			local StripAllTextures = {
 					"AtlasLootCompareFrameSortButton_7",
 					"AtlasLootCompareFrameSortButton_8",
@@ -68,16 +68,16 @@ local function SkinAtlasLoot()
 
 					for _, object in pairs(StripAllTextures) do
 								_G[object]:StripTextures()
-					end	
+					end
 
 					for _, object in pairs(SetTemplateD) do
 						S:CreateBD(_G[object])
-					end		
+					end
 
 		AtlasLootCompareFrameSortButton_7:Point("LEFT", AtlasLootCompareFrameSortButton_6, "RIGHT", 1, 0)
 		AtlasLootCompareFrameSortButton_8:Point("LEFT", AtlasLootCompareFrameSortButton_7, "RIGHT", 1, 0)
 		AtlasLootCompareFrameSortButton_9:Point("LEFT", AtlasLootCompareFrameSortButton_8, "RIGHT", 1, 0)
-					
+
 	end
 
 	local function Compare_OnShow(self, event, ...)
@@ -86,27 +86,27 @@ local function SkinAtlasLoot()
 							local f = _G["AtlasLootCompareFrameSortButton_"..i]
 							f:SetWidth(67.17)
 					end
-		
+
 					local Nine = AtlasLootCompareFrameSortButton_9
 						if Nine ~= nil then
 						Nine:SetScript("OnUpdate", Nine_IsThere)
 						else
-						end	
+						end
 	end
 
 	local SkinAL = CreateFrame("Frame")
 	SkinAL:RegisterEvent("PLAYER_ENTERING_WORLD")
 	SkinAL:SetScript("OnEvent", function(self, event, addon)
 		if IsAddOnLoaded("Skinner") then return end
-				
+
 			local FrameShow = AtlasLootDefaultFrame
 			FrameShow:SetScript("OnUpdate", AL_OnShow)
-			
+
 			local CompareFrameShow = AtlasLootCompareFrame
 			CompareFrameShow:SetScript("OnUpdate", Compare_OnShow)
-			
 
-				--start		
+
+				--start
 		local StripAllTextures = {
 					"AtlasLootDefaultFrame",
 					"AtlasLootItemsFrame",
@@ -141,8 +141,8 @@ local function SkinAtlasLoot()
 					"AtlasLootDefaultFrame",
 					"AtlasLootPanel",
 					"AtlasLootCompareFrame",
-					}	
-		
+					}
+
 		local buttons = {
 					"AtlasLoot_AtlasInfoFrame_ToggleALButton",
 					"AtlasLootServerQueryButton",
@@ -157,25 +157,25 @@ local function SkinAtlasLoot()
 					"AtlasLootCompareFrame_WishlistButton",
 					"AtlasLootCompareFrame_CloseButton2",
 					}
-								
+
 					for _, object in pairs(StripAllTextures) do
 								_G[object]:StripTextures()
-					end	
+					end
 
 					for _, object in pairs(SetTemplateD) do
 								S:CreateBD(_G[object])
-					end	
+					end
 
 					for _, object in pairs(SetTemplateT) do
 								S:CreateBD(_G[object])
 								S:CreateSD(_G[object])
-					end			
-		
+					end
+
 		-- Skin Buttons
 					for _, button in pairs(buttons) do
 									S:Reskin(_G[button])
-					end	
-		
+					end
+
 					for i = 1, 12 do
 						local f = _G["AtlasLoot_PanelButton_"..i]
 						S:Reskin(f)
@@ -184,38 +184,38 @@ local function SkinAtlasLoot()
 						local f = _G["AtlasLootCompareFrameMainFilterButton"..i]
 						f:StripTextures()
 					end
-					
+
 		-- Skin Close Buttons
 			S:ReskinClose(AtlasLootDefaultFrame_CloseButton)
 			S:ReskinClose(AtlasLootDefaultFrame_LockButton)
 			S:ReskinClose(AtlasLootCompareFrame_CloseButton)
 			S:ReskinClose( AtlasLootCompareFrame_CloseButton_Wishlist)
-		
-		-- Skin Next Previous Buttons	
+
+		-- Skin Next Previous Buttons
 			S:ReskinArrow(AtlasLootQuickLooksButton, 2)
 			S:ReskinArrow(AtlasLootItemsFrame_NEXT, 2)
 			S:ReskinArrow(AtlasLootItemsFrame_PREV, 1)
-			S:ReskinArrow(AtlasLootPanelSearch_SelectModuel, 2)	
-			S:ReskinArrow(AtlasLootCompareFrameSearch_SelectModuel, 2)		
-		
-		-- Skin Dropdown Boxes		
+			S:ReskinArrow(AtlasLootPanelSearch_SelectModuel, 2)
+			S:ReskinArrow(AtlasLootCompareFrameSearch_SelectModuel, 2)
+
+		-- Skin Dropdown Boxes
 			S:ReskinDropDown(AtlasLootDefaultFrame_ModuleSelect, 225)
 			S:ReskinDropDown(AtlasLootDefaultFrame_InstanceSelect, 225)
 			S:ReskinDropDown(AtlasLootCompareFrameSearch_StatsListDropDown,240)
 			S:ReskinDropDown(AtlasLootCompareFrame_WishlistDropDown,200)
-			
+
 		-- Skin Edit Boxes
 			S:ReskinInput(AtlasLootPanelSearch_Box)
 			S:ReskinInput(AtlasLootCompareFrameSearch_Box)
-			
+
 		-- Skin Check Boxes
 			S:ReskinCheck(AtlasLootFilterCheck)
 			S:ReskinCheck(AtlasLootItemsFrame_Heroic)
 			S:ReskinCheck(AtlasLootCompareFrameSearch_FilterCheck)
-			
+
 			select(5,AtlasLootItemsFrame_NEXT:GetRegions()):Kill()
 			select(5,AtlasLootItemsFrame_PREV:GetRegions()):Kill()
-			
+
 			AtlasLootTooltip:HookScript("OnShow", function(self)
 				S:CreateBD(self)
 				local item

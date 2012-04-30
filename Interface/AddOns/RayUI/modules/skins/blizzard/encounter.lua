@@ -237,7 +237,7 @@ local function LoadSkin()
 	S:ReskinScroll(EncounterJournalEncounterFrameInfoDetailsScrollFrameScrollBar)
 	S:ReskinScroll(EncounterJournalEncounterFrameInfoLootScrollFrameScrollBar)
 	S:ReskinScroll(EncounterJournalSearchResultsScrollFrameScrollBar)
-	
+
 	function EncounterJournal_Loot_OnUpdate(self)
         if GameTooltip:IsOwned(self) then
             if IsModifiedClick("COMPAREITEMS") or

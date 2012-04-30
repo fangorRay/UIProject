@@ -22,7 +22,7 @@ local function SkinACP()
 		down:Point("RIGHT", -18, 2)
 
 		S:Reskin(down)
-		
+
 		down:SetDisabledTexture(S["media"].backdrop)
 		local dis = down:GetDisabledTexture()
 		dis:SetVertexColor(0, 0, 0, .3)

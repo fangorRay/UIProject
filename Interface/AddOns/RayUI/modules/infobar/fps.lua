@@ -19,13 +19,13 @@ local function LoadFPS()
 		resSizeExtra = 2
 		local Cols, lineHeader
 		wipe(SysSection)
-		
+
 		-- Computer Category
 		SysSection["computer"] = {}
 		SysSection["computer"].cat = sysinfo:AddCategory()
 		SysSection["computer"].cat:AddLine("text", R:RGBToHex(0.69, 0.31, 0.31)..L["电脑"], "size", 10 + resSizeExtra, "textR", 1, "textG", 1, "textB", 1)
 		R:AddBlankTabLine(SysSection["computer"].cat, 2)
-		
+
 		-- Lines
 		Cols = {
 			L["状态"],
@@ -38,7 +38,7 @@ local function LoadFPS()
 		lineHeader = R:MakeTabletHeader(Cols, 10 + resSizeExtra, 12, {"LEFT", "RIGHT", "RIGHT", "RIGHT", "RIGHT"})
 		SysSection["computer"].lineCat:AddLine(lineHeader)
 		R:AddBlankTabLine(SysSection["computer"].lineCat, 1)
-		
+
 		local ComputerLines = {
 			[1] = {L["FPS"], SysStats.fps},
 		}
@@ -113,13 +113,13 @@ local function LoadFPS()
 				"hideWhenEmpty", true
 			)
 		end
-		
+
 		if sysinfo:IsRegistered(self) then
 			-- sysinfo appearance
 			sysinfo:SetColor(self, 0, 0, 0)
 			sysinfo:SetTransparency(self, .65)
 			sysinfo:SetFontSizePercent(self, 1)
-			
+
 			sysinfo:Open(self)
 		end
 		collectgarbage()
@@ -128,7 +128,7 @@ local function LoadFPS()
 	local function SysInfo_Update(self)
 		-- FPS
 		SysStats.fps.cur = floor((GetFramerate() or 0) + 0.5)
-		
+
 		-- Get last 60 second data
 		if ( (SysStats.fps.cur > 0) and (SysStats.fps.cur < 120) ) then
 			if SysStats.fpsTally < 0 then
@@ -148,7 +148,7 @@ local function LoadFPS()
 					end
 					SysStats.fps.tally[fpsCount] = SysStats.fps.cur
 				end
-				
+
 				-- Get Average/Min/Max fps
 				local minfps, maxfps, totalfps = nil, 0, 0
 				for i = 1, fpsCount do
@@ -161,7 +161,7 @@ local function LoadFPS()
 				SysStats.fps.max = maxfps
 			end
 		end
-		
+
 		-- Tablet
 		if sysinfo:IsRegistered(self) then
 			if Tablet20Frame:IsShown() then
@@ -172,7 +172,7 @@ local function LoadFPS()
 
 	Status:SetScript("OnUpdate", function(self, elapsed)
 		self.LastUpdate = (self.LastUpdate or 0) - elapsed
-		
+
 		if self.LastUpdate < 0 then
 			self:SetMinMaxValues(0, 60)
 			local value = floor(GetFramerate())

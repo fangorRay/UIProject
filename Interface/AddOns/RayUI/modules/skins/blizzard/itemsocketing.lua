@@ -45,7 +45,7 @@ local function LoadSkin()
 			button.glow:SetBackdropBorderColor(color.r, color.g, color.b)
 		end)
 	end
-	
+
 	for i = 1, MAX_NUM_SOCKETS  do
 		local button = _G["ItemSocketingSocket"..i]
 		button:StyleButton()

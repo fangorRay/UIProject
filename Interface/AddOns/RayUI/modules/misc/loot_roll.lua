@@ -126,7 +126,7 @@ local function LoadFunc()
 		button:Point("LEFT", -24, 0)
 		button:Width(22)
 		button:Height(22)
-		
+
 		button:SetScript("OnEnter", SetItemTip)
 		button:SetScript("OnLeave", HideTip2)
 		button:SetScript("OnUpdate", ItemOnUpdate)
@@ -138,7 +138,7 @@ local function LoadFunc()
 		buttonborder:Height(22)
 		buttonborder:SetPoint("CENTER", button, "CENTER")
 		buttonborder:SetBackdropColor(1, 1, 1, 0)
-		
+
 		local buttonborder2 = CreateFrame("Frame", nil, button)
 		buttonborder2:Width(22)
 		buttonborder2:Height(22)
@@ -149,7 +149,7 @@ local function LoadFunc()
 		buttonborder2.shadow:SetFrameLevel(0)
 		buttonborder2:SetBackdropColor(0, 0, 0, 0)
 		buttonborder2:SetBackdropBorderColor(0, 0, 0, 1)
-		
+
 
 		frame.buttonborder = buttonborder
 
@@ -350,13 +350,13 @@ local function LoadFunc()
 		UIParent:UnregisterEvent("START_LOOT_ROLL")
 		UIParent:UnregisterEvent("CANCEL_LOOT_ROLL")
 		anchor:SetScript("OnEvent", function(frame, event, ...) if event == "CHAT_MSG_LOOT" then return CHAT_MSG_LOOT(...) else return START_LOOT_ROLL(...) end end)
-		
+
 		local anchorholder = CreateFrame("Frame", "AnchorHolder", UIParent)
 		anchorholder:SetPoint("TOP", UIParent, "TOP", 0, -200)
 		anchorholder:Width(anchor:GetWidth())
 		anchorholder:Height(anchor:GetHeight())
-		
-		anchor:SetPoint("TOP", anchorholder, "TOP", 0, 0)	
+
+		anchor:SetPoint("TOP", anchorholder, "TOP", 0, 0)
 	end)
 
 	SlashCmdList["LFrames"] = function() 

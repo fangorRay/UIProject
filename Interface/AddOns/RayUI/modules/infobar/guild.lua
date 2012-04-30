@@ -34,14 +34,14 @@ local function LoadGuild()
 		local guildonline = 0
 		wipe(GuildTabletData)
 		-- Total Online Guildies
-		for i = 1, GetNumGuildMembers() do	
+		for i = 1, GetNumGuildMembers() do
 			local gPrelist
 			local name, rank, _, lvl, _class, zone, note, offnote, online, status, class, _, _, mobile = GetGuildRosterInfo(i)
-			
+
 			-- Class Color
 			local classColor = { RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b }
 			class = string.format("|cff%02x%02x%02x%s|r", classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, class)
-			
+
 			-- Player Name
 			local cname
 			if status == 0 then
@@ -50,27 +50,27 @@ local function LoadGuild()
 				local curStatus = PlayerStatusValToStr[status] or ""
 				cname = string.format("%s |cff%02x%02x%02x%s|r", curStatus, classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, name)
 			end
-			
+
 			-- Mobile
 			if mobile then
 				cname = ChatFrame_GetMobileEmbeddedTexture(73/255, 177/255, 73/255)..cname
 				zone = REMOTE_CHAT
 			end
-			
+
 			-- Note
 			if CanViewOfficerNote() then
 				gPrelist = { cname, lvl, zone, rank, note, offnote, name }
 			else
 				gPrelist = { cname, lvl, zone, rank, note, " ", name }
 			end
-			
+
 			-- Add to list
 			if online then
 				tinsert(GuildTabletData, gPrelist)
 				guildonline = guildonline + 1
 			end
 		end
-		
+
 		-- OnEnter
 		GuildOnline = guildonline
 	end
@@ -80,20 +80,20 @@ local function LoadGuild()
 			resSizeExtra = 2
 			local Cols, lineHeader
 			wipe(GuildSection)
-			
+
 			-- Guild Name
 			local gname, _, _ = GetGuildInfo("player")
 			GuildSection.headerCat = guildTablet:AddCategory()
 			GuildSection.headerCat:AddLine("text", gname, "size", 13 + resSizeExtra, "textR", ttheader[1], "textG", ttheader[2], "textB", ttheader[3])
 			GuildSection.headerCat:AddLine("isLine", true, "text", "")
-			
+
 			-- Guild Level
 			GuildSection.headerCat:AddLine("text", (GetGuildFactionGroup() == 0) and string.format(GUILD_LEVEL_AND_FACTION, GetGuildLevel(), FACTION_HORDE) or string.format(GUILD_LEVEL_AND_FACTION, GetGuildLevel(), FACTION_ALLIANCE), "size", 10 + resSizeExtra, "textR", 0.7, "textG", 0.7, "textB", 0.7)
-			
+
 			-- Reputation
 			GuildSection.headerCat:AddLine("text", GetText("FACTION_STANDING_LABEL"..GetGuildFactionInfo(), UnitSex("player")), "size", 11 + resSizeExtra, "textR", 0.7, "textG", 0.7, "textB", 0.7)
 			R:AddBlankTabLine(GuildSection.headerCat, 5)
-			
+
 			-- GMOTD
 			local gmotd = GetGuildRosterMOTD()
 			if gmotd ~= "" then
@@ -101,7 +101,7 @@ local function LoadGuild()
 				R:AddBlankTabLine(GuildSection.headerCat, 5)
 			end
 			R:AddBlankTabLine(GuildSection.headerCat)
-			
+
 			-- Titles
 			local Cols = {
 				NAME,
@@ -113,12 +113,12 @@ local function LoadGuild()
 			if CanViewOfficerNote() then
 				tinsert(Cols, GUILD_OFFICERNOTES_LABEL)
 			end
-			
+
 			GuildSection.guildCat = guildTablet:AddCategory("columns", #Cols)
 			lineHeader = R:MakeTabletHeader(Cols, 10 + resSizeExtra, 0, {"LEFT", "RIGHT", "LEFT", "LEFT", "LEFT", "LEFT"})
 			GuildSection.guildCat:AddLine(lineHeader)
 			R:AddBlankTabLine(GuildSection.guildCat)
-			
+
 			-- Guild Members
 			local nameslot = #Cols + 1
 			local isPlayer, isFriend, isGM, normColor
@@ -159,7 +159,7 @@ local function LoadGuild()
 				end
 				GuildSection.guildCat:AddLine(line)
 			end
-			
+
 			-- Hint
 			guildTablet:SetHint(L["<点击玩家>发送密语, <Alt+点击玩家>邀请玩家."])
 		end
@@ -194,7 +194,7 @@ local function LoadGuild()
 			guildTablet:SetColor(self, 0, 0, 0)
 			guildTablet:SetTransparency(self, .65)
 			guildTablet:SetFontSizePercent(self, 1)
-			
+
 			-- Open
 			if ( IsInGuild() and GuildOnline > 0 ) then
 				GuildRoster()
@@ -215,7 +215,7 @@ local function LoadGuild()
 		infobar.Text:SetFormattedText(displayString, online)
 		self:SetMinMaxValues(0, total)
 		self:SetValue(online)
-		
+
 		if online > 0 then
 			self:SetScript("OnEnter", Guild_OnEnter)
 		else

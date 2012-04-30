@@ -26,7 +26,7 @@ function AB:CreateBarPet()
 			petAutoCastableTexture = _G[buttonName.."AutoCastable"]
 			petAutoCastShine = _G[buttonName.."Shine"]
 			local name, subtext, texture, isToken, isActive, autoCastAllowed, autoCastEnabled = GetPetActionInfo(i)
-			
+
 			if not isToken then
 				petActionIcon:SetTexture(texture)
 				petActionButton.tooltipName = name
@@ -34,7 +34,7 @@ function AB:CreateBarPet()
 				petActionIcon:SetTexture(_G[texture])
 				petActionButton.tooltipName = _G[name]
 			end
-			
+
 			petActionButton.isToken = isToken
 			petActionButton.tooltipSubtext = subtext
 
@@ -47,21 +47,21 @@ function AB:CreateBarPet()
 				petActionButton:SetChecked(0)
 				if IsPetAttackAction(i) then
 					PetActionButton_StopFlash(petActionButton)
-				end			
+				end
 			end
-			
+
 			if autoCastAllowed then
 				petAutoCastableTexture:Show()
 			else
 				petAutoCastableTexture:Hide()
 			end
-			
+
 			if autoCastEnabled then
 				AutoCastShine_AutoCastStart(petAutoCastShine)
 			else
 				AutoCastShine_AutoCastStop(petAutoCastShine)
 			end
-			
+
 			if texture then
 				if GetPetActionSlotUsable(i) then
 					SetDesaturation(petActionIcon, nil)
@@ -72,7 +72,7 @@ function AB:CreateBarPet()
 			else
 				petActionIcon:Hide()
 			end
-			
+
 			-- between level 1 and 10 on cata, we don't have any control on Pet. (I lol'ed so hard)
 			-- Setting desaturation on button to true until you learn the control on class trainer.
 			-- you can at least control "follow" button.
@@ -97,10 +97,10 @@ function AB:CreateBarPet()
 	bar:RegisterEvent("UNIT_FLAGS")
 	bar:RegisterEvent("UNIT_AURA")
 	bar:SetScript("OnEvent", function(self, event, ...)
-		if event == "PLAYER_LOGIN" then	
+		if event == "PLAYER_LOGIN" then
 			-- bug reported by Affli on t12 BETA
 			PetActionBarFrame.showgrid = 1 -- hack to never hide pet button. :X
-		
+
 			RegisterStateDriver(self, "visibility", "[pet,novehicleui,nobonusbar:5] show; hide")
 			hooksecurefunc("PetActionBar_Update", PetBarUpdate)
 		elseif event == "PET_BAR_UPDATE" or event == "UNIT_PET" and arg1 == "player" 
@@ -111,7 +111,7 @@ function AB:CreateBarPet()
 			PetActionBar_UpdateCooldowns()
 		end
 	end)
-		
+
 	for i=1, num do
 		local button = _G["PetActionButton"..i]
 		local cd = _G["PetActionButton"..i.."Cooldown"]
@@ -126,7 +126,7 @@ function AB:CreateBarPet()
 		end
 		cd:SetAllPoints(button)
 	end
-		
+
 	if AB.db.petbarmouseover then    
 		AB.db.petbarfade = false
 		bar:SetAlpha(0)

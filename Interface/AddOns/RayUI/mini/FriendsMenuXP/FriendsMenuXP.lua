@@ -74,14 +74,14 @@ function FriendsMenuXPButton_OnClick(self)
 	if ( func ) then
 		func(self:GetParent().NAME, self:GetParent().flags);
 	end;
-	
+
 	self:GetParent():Hide();
 	if(getglobal("DropDownList1")) then DropDownList1:Hide(); end;
 	PlaySound("UChatScrollButton");
 end
 
 function FriendsMenuXP_ChatFrame_OnHyperlinkShow(self, playerString, text, button)
-	
+
 	if(playerString and strsub(playerString, 1, 6) == "player") then
 		if ( IsAltKeyDown() ) then
 			--we must do reverse action against ItemRef#SetItemRef()
@@ -92,7 +92,7 @@ function FriendsMenuXP_ChatFrame_OnHyperlinkShow(self, playerString, text, butto
 					DEFAULT_CHAT_FRAME.editBox:Hide();
 				end
 			end
-			
+
 			--do our defined action
 			InviteUnit(GetNameFromLink(playerString));
 			return;
@@ -164,7 +164,7 @@ function FriendsMenuXP_OnEvent(self, event, ...)
 		end;
 	elseif(event=="ADDON_LOADED") then -- hook the raid button click.
 		if(arg1=="Blizzard_RaidUI") then
-			hooksecurefunc("RaidGroupButton_ShowMenu", FriendsMenuXP_ShowRaidDropdown);	
+			hooksecurefunc("RaidGroupButton_ShowMenu", FriendsMenuXP_ShowRaidDropdown);
 			hooksecurefunc("RaidPullout_Update", function(pullOutFrame) 
 				if ( not pullOutFrame ) then
 					pullOutFrame = this;
@@ -242,7 +242,7 @@ function FriendsMenuXP_Show(listFrame, name, connected, lineID, relativeFrame, b
 		uiScale = tonumber(GetCVar("uiscale"));
 	end
 	listFrame:SetScale(uiScale);
-	
+
 	-- Hide the listframe anyways since it is redrawn OnShow() 
 	listFrame:Hide();
 	listFrame:ClearAllPoints();
@@ -257,7 +257,7 @@ function FriendsMenuXP_Show(listFrame, name, connected, lineID, relativeFrame, b
 	cursorX = cursorX/uiScale;
 	cursorY = cursorY/uiScale
 	listFrame:SetPoint("TOPLEFT", nil, "BOTTOMLEFT", cursorX, cursorY);
-	
+
 	-- If no items in the drop down don't show it
 	if ( listFrame.numButtons == 0 ) then
 		return;
@@ -278,9 +278,9 @@ function FriendsMenuXP_Show(listFrame, name, connected, lineID, relativeFrame, b
 		offscreenY = 1;
 	end
 	if ( listFrame:GetRight() > GetScreenWidth() ) then
-		offscreenX = 1;	
+		offscreenX = 1;
 	end
-	
+
 	if ( offscreenY and offscreenX ) then
 		anchorPoint = "BOTTOMRIGHT";
 	elseif ( offscreenY ) then
@@ -290,7 +290,7 @@ function FriendsMenuXP_Show(listFrame, name, connected, lineID, relativeFrame, b
 	else
 		anchorPoint = "TOPLEFT";
 	end
-	
+
 	listFrame:ClearAllPoints();
 	listFrame:SetPoint(anchorPoint, nil, "BOTTOMLEFT", cursorX, cursorY);
 end
@@ -325,8 +325,8 @@ function FriendsMenu_Initialize(dropDownList, buttonSet)
 	local inBattleground = 0;
 	if ( UnitInBattleground("player") ) then
 		inBattleground = 1;
-	end	
-	
+	end
+
 	dropDownList.flags = {
 		["inInstance"] = inInstance,
 		["instanceType"] = instanceType,
@@ -366,14 +366,14 @@ function FriendsMenu_Initialize(dropDownList, buttonSet)
 end
 
 function FriendsMenuXP_AddButton(listFrame, info)
-	
+
 	local listFrameName = listFrame:GetName();
 	local index = listFrame.numButtons + 1;
 	local width;
 
 	-- Set the number of buttons in the listframe
 	listFrame.numButtons = index;
-	
+
 	local button = getglobal(listFrameName.."Button"..index);
 	if(not button) then return end;
 	local normalText = getglobal(button:GetName().."NormalText");
@@ -381,12 +381,12 @@ function FriendsMenuXP_AddButton(listFrame, info)
 	-- This button is used to capture the mouse OnEnter/OnLeave events if the dropdown button is disabled, since a disabled button doesn't receive any events
 	-- This is used specifically for drop down menu time outs
 	local invisibleButton = getglobal(button:GetName().."InvisibleButton");
-	
+
 	-- Default settings
 	button:SetDisabledFontObject(GameFontDisableSmallLeft);
 	invisibleButton:Hide();
 	button:Enable();
-	
+
 	-- If not clickable then disable the button and set it white
 	if ( info.notClickable ) then
 		info.disabled = 1;
@@ -398,7 +398,7 @@ function FriendsMenuXP_AddButton(listFrame, info)
 		info.disabled = 1;
 		button:SetDisabledFontObject(GameFontNormalSmallLeft);
 	end
-	
+
 	-- Disable the button if disabled and turn off the color code
 	if ( info.disabled ) then
 		button:Disable();

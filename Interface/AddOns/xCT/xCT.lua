@@ -97,6 +97,8 @@ elseif ct.myclass=="PALADIN"then
 		ct.aoespam[94289]=true		-- Protector of the Innocent
 		ct.aoespam[53652]=true		-- Beacon of Light
 		ct.aoespam[85222]=true		-- Light of Dawn		
+		ct.aoespam[82327]=true		-- 神聖光輝
+		ct.aoespam[86452]=true		-- 神聖光輝
 	end
 elseif ct.myclass=="PRIEST"then
 	if(ct.mergeaoespam)then
@@ -1140,6 +1142,7 @@ if(ct.healing)then
 			if(eventType=='SPELL_HEAL')or(eventType=='SPELL_PERIODIC_HEAL'and ct.showhots)then
 				if(ct.healing)then
 					local spellId,spellName,spellSchool,amount,overhealing,absorbed,critical = select(10,...)
+					-- print(spellId)
 					if(ct.healfilter[spellId]) then
 						return
 					end

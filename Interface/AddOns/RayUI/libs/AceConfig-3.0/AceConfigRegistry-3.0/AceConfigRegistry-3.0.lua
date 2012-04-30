@@ -202,13 +202,13 @@ local function validate(options,errlvl,...)
 	if type(options.type)~="string" then
 		err(".type: expected a string, got a "..type(options.type), errlvl,...)
 	end
-	
+
 	-- get type and 'typedkeys' member
 	local tk = typedkeys[options.type]
 	if not tk then
 		err(".type: unknown type '"..options.type.."'", errlvl,...)
 	end
-	
+
 	-- make sure that all options[] are known parameters
 	for k,v in pairs(options) do
 		if not (tk[k] or basekeys[k]) then
@@ -338,7 +338,7 @@ function AceConfigRegistry:GetOptionsTable(appName, uiType, uiName)
 	if not f then
 		return nil
 	end
-	
+
 	if uiType then
 		return f(uiType,uiName,1)	-- get the table for us
 	else

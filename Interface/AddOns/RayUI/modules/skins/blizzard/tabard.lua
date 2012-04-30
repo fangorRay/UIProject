@@ -24,7 +24,7 @@ local function LoadSkin()
 	for i = 1, 5 do
 		S:ReskinArrow(_G["TabardFrameCustomization"..i.."LeftButton"], 1)
 		S:ReskinArrow(_G["TabardFrameCustomization"..i.."RightButton"], 2)
-	end	
+	end
 end
 
 S:RegisterSkin("RayUI", LoadSkin)

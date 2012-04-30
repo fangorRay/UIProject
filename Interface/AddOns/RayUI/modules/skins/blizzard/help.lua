@@ -60,7 +60,7 @@ local function LoadSkin()
 		local button = _G[buttons[i]]
 		S:Reskin(button)
 	end
-	
+
 	S:ReskinClose(HelpFrameCloseButton)
 
 	local layers = {
@@ -107,7 +107,7 @@ local function LoadSkin()
 		tex:SetTexture(S["media"].backdrop)
 		tex:SetGradientAlpha("VERTICAL", 0, 0, 0, .3, .35, .35, .35, .35)
 	end
-	
+
 	S:ReskinInput(HelpFrameKnowledgebaseSearchBox)
 
 	for i = 1, 6 do
@@ -124,7 +124,7 @@ local function LoadSkin()
 				navButton:ClearAllPoints()
 				navButton:SetPoint("LEFT", lastNav, "RIGHT", 1, 0)
 			end
-		end			
+		end
 	end
 
 	hooksecurefunc("NavBar_AddButton", function(self, buttonData)

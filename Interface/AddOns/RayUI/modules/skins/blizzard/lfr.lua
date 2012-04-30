@@ -26,7 +26,7 @@ local function LoadSkin()
 	LFRQueueFrameCommentInset:DisableDrawLayer("BORDER")
 	LFRQueueFrameRoleInsetBg:Hide()
 	LFRQueueFrameListInsetBg:Hide()
-	LFRQueueFrameCommentInsetBg:Hide()	
+	LFRQueueFrameCommentInsetBg:Hide()
 	RaidFinderQueueFrameBackground:Hide()
 	RaidParentFrameInsetBg:Hide()
 	RaidFinderFrameRoleInsetBg:Hide()
@@ -34,7 +34,7 @@ local function LoadSkin()
 	RaidParentFramePortraitFrame:Hide()
 	RaidParentFramePortrait:Hide()
 	RaidParentFrameTopBorder:Hide()
-	RaidParentFrameTopRightCorner:Hide()			
+	RaidParentFrameTopRightCorner:Hide()
 	RaidFinderFrameFindRaidButton_RightSeparator:Hide()
 	RaidFinderFrameCancelButton_LeftSeparator:Hide()
 
@@ -48,12 +48,12 @@ local function LoadSkin()
 		S:CreateBG(tab)
 		S:CreateSD(tab, 5, 0, 0, 0, 1, 1)
 		select(2, tab:GetRegions()):SetTexCoord(.08, .92, .08, .92)
-		
+
 		if i == 1 then
 			local a1, p, a2, x, y = tab:GetPoint()
-			tab:SetPoint(a1, p, a2, x + 11, y)			
+			tab:SetPoint(a1, p, a2, x + 11, y)
 		end
-		
+
 		tab:StyleButton(true)
 		tab:SetPushedTexture(nil)
 	end
@@ -92,7 +92,7 @@ local function LoadSkin()
 	S:Reskin(RaidFinderFrameFindRaidButton)
 	S:Reskin(RaidFinderFrameCancelButton)
 	S:Reskin(RaidFinderQueueFrameIneligibleFrameLeaveQueueButton)
-	S:ReskinDropDown(RaidFinderQueueFrameSelectionDropDown)		
+	S:ReskinDropDown(RaidFinderQueueFrameSelectionDropDown)
 	S:ReskinClose(RaidParentFrameCloseButton)
 end
 

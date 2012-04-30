@@ -50,7 +50,7 @@ local function LoadFunc()
 			6307, -- Blood Pact
 			90364, -- Qiraji Fortitude
 			72590, -- Drums of fortitude
-			21562, -- Fortitude	
+			21562, -- Fortitude
 		},
 	}
 
@@ -82,7 +82,7 @@ local function LoadFunc()
 		52109, --"Flametongue Totem" (6% SP)
 		53646, --"Demonic Pact" (10% SP)
 		77747, --"Totemic Wrath" (10% SP)
-		1459, --"Arcane Brilliance" (6% SP)	
+		1459, --"Arcane Brilliance" (6% SP)
 	}
 
 	local MeleeSpell5Buffs = {
@@ -104,7 +104,7 @@ local function LoadFunc()
 		19506, --Trushot
 		19740, --"Blessing of Might"
 	}
-	
+
 	local CasterLocale1 = L["法力上限Buff"]
 	local CasterLocale2 = L["法力恢复Buff"]
 	local MeleeLocale1 = L["力量与敏捷Buff"]
@@ -158,10 +158,10 @@ local function LoadFunc()
 
 			if (hasBattle and hasGuardian) or not hasGuardian and hasBattle then
 				frame.spell1:SetAlpha(1)
-				frame.spell1.t:SetTexture(battleTex)				
+				frame.spell1.t:SetTexture(battleTex)
 			elseif hasGuardian then
 				frame.spell1:SetAlpha(1)
-				frame.spell1.t:SetTexture(guardianTex)		
+				frame.spell1.t:SetTexture(guardianTex)
 			else
 				frame.spell1:SetAlpha(1)
 				frame.spell1.t:SetTexture(flaskTex)
@@ -198,7 +198,7 @@ local function LoadFunc()
 		button.t:SetTexCoord(.08, .92, .08, .92)
 		button.t:SetAllPoints()
 		button.t:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
-		
+
 		button:SetScript("OnEnter", function(self)
 			GameTooltip:SetOwner(RaidBuffReminder, 'ANCHOR_BOTTOM', 0, -10)
 			if self.locale and self:GetAlpha() == 1 then
@@ -212,7 +212,7 @@ local function LoadFunc()
 
 		return button
 	end
-	
+
 	local bsize = ((Minimap:GetWidth() - 6) / 6) - 4
 	local frame = CreateFrame("Frame", "RaidBuffReminder", Minimap)
 	frame:SetHeight(bsize)
@@ -225,12 +225,12 @@ local function LoadFunc()
 	frame.spell4 = CreateButton(frame.spell3)
 	frame.spell5 = CreateButton(frame.spell4)
 	frame.spell6 = CreateButton(frame.spell5, nil, true)
-	
+
 	frame.spell1.locale = L["合剂"]
 	frame.spell2.locale = L["食物Buff"]
 	frame.spell3.locale = L["全属性Buff"]
 	frame.spell4.locale = L["血量上限Buff"]
-	
+
 	frame:Show()
 	frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 	frame:RegisterEvent("UNIT_INVENTORY_CHANGED")

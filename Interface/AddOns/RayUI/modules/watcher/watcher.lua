@@ -39,7 +39,7 @@ local function CreatePopup()
 	title:SetPoint("TOP", f, "TOP", 0, -10)
 	title:SetJustifyH("CENTER")
 	title:SetText("RayUI")
-		
+
 	local desc = f:CreateFontString(nil, "ARTWORK")
 	desc:SetFontObject("GameFontHighlight")
 	desc:SetJustifyV("TOP")
@@ -55,10 +55,10 @@ local function CreatePopup()
 		RW:TestMode()
 		AceConfigDialog["Open"](AceConfigDialog,"RayUI") 
 	end)
-	
+
 	lock:SetPoint("BOTTOMRIGHT", -14, 14)
 	S:Reskin(lock)
-	
+
 	f:RegisterEvent("PLAYER_REGEN_DISABLED")
 	f:SetScript("OnEvent", function(self)
 		if self:IsShown() then
@@ -74,7 +74,7 @@ function watcherPrototype:OnEnable()
 		self:TestMode(RW.testing)
 		self:Update()
 end
-	
+
 function watcherPrototype:OnDisable()
 	if self.parent then
 		self.parent:Hide()
@@ -138,11 +138,11 @@ function watcherPrototype:CreateButton(mode)
 		button.name:SetPoint("BOTTOMLEFT", button.statusbar, "TOPLEFT", 0, 2)
 		button.name:SetText("技能名称")
 		button.mode = "BAR"
-	else			
+	else
 		button.cooldown = CreateFrame("Cooldown", nil, button, "CooldownFrameTemplate")
 		button.cooldown:SetAllPoints(button.icon)
 		button.cooldown:SetReverse()
-		button.mode = "ICON"	
+		button.mode = "ICON"
 	end
 	button.count = (button.cooldown or button):CreateFontString(nil, "OVERLAY")
 	button.count:SetFont(R["media"].font, R["media"].fontsize * (R:Round(self.size) / 30), R["media"].fontflag)
@@ -195,7 +195,7 @@ local function OnUpdate(self, elapsed)
 				else
 					self.time:SetFormattedText("%d:%.2d", time/60, time%60)
 				end
-			end			
+			end
 		elseif self.filter == "CD" or self.filter == "itemCD" then
 			local start, duration = (self.filter == "CD" and GetSpellCooldown or GetItemCooldown)(self.spellID)
 			if self.mode == "BAR" then
@@ -226,7 +226,7 @@ function watcherPrototype:CheckAura()
 				if (self.BUFF[spellID] and self.BUFF[spellID].unitID == unitID and ( caster == self.BUFF[spellID].caster or self.BUFF[spellID].caster:lower() == "all" )) or
 					(self.BUFF[spellName] and self.BUFF[spellName].unitID == unitID and ( caster == self.BUFF[spellName].caster or self.BUFF[spellName].caster:lower() == "all" )) then
 					if not self.button[self.current] then
-						self.button[self.current] = self:CreateButton(self.mode)					
+						self.button[self.current] = self:CreateButton(self.mode)
 						self:SetPosition(self.current)
 					end
 					self:UpdateButton(self.button[self.current], index, icon, count, duration, expires, spellID, unitID, "BUFF")
@@ -249,9 +249,9 @@ function watcherPrototype:CheckAura()
 				if (self.DEBUFF[spellID] and self.DEBUFF[spellID].unitID == unitID and ( caster == self.DEBUFF[spellID].caster or self.DEBUFF[spellID].caster:lower() == "all" )) or
 					(self.DEBUFF[spellName] and self.DEBUFF[spellName].unitID == unitID and ( caster == self.DEBUFF[spellName].caster or self.DEBUFF[spellName].caster:lower() == "all" )) then
 					if not self.button[self.current] then
-						self.button[self.current] = self:CreateButton(self.mode)					
+						self.button[self.current] = self:CreateButton(self.mode)
 						self:SetPosition(self.current)
-					end	
+					end
 					self:UpdateButton(self.button[self.current], index, icon, count, duration, expires, spellID, unitID, "DEBUFF")
 					if self.mode == "BAR" then
 						self.button[self.current]:SetScript("OnUpdate", OnUpdate)
@@ -274,9 +274,9 @@ function watcherPrototype:CheckCooldown()
 				local _, _, icon = GetSpellInfo(spellID)
 				if start ~= 0 and duration > 2.9 then
 					if not self.button[self.current] then
-						self.button[self.current] = self:CreateButton(self.mode)					
+						self.button[self.current] = self:CreateButton(self.mode)
 						self:SetPosition(self.current)
-					end	
+					end
 					self:UpdateButton(self.button[self.current], nil, icon, 0, duration, start, spellID, nil, "CD")
 					self.button[self.current]:SetScript("OnUpdate", OnUpdate)
 					self.current = self.current + 1
@@ -291,9 +291,9 @@ function watcherPrototype:CheckCooldown()
 				local _, _, _, _, _, _, _, _, _, icon = GetItemInfo(itemID)
 				if start ~= 0 and duration > 2.9 then
 					if not self.button[self.current] then
-						self.button[self.current] = self:CreateButton(self.mode)					
+						self.button[self.current] = self:CreateButton(self.mode)
 						self:SetPosition(self.current)
-					end	
+					end
 					self:UpdateButton(self.button[self.current], nil, icon, 0, duration, start, itemID, nil, "itemCD")
 					self.button[self.current]:SetScript("OnUpdate", OnUpdate)
 					self.current = self.current + 1
@@ -374,7 +374,7 @@ function watcherPrototype:ApplyStyle()
 				button.name:SetFont(R["media"].font, R["media"].fontsize, R["media"].fontflag)
 				button.name:SetPoint("BOTTOMLEFT", button.statusbar, "TOPLEFT", 0, 2)
 				button.name:SetText("技能名称")
-				button.mode = "BAR"					
+				button.mode = "BAR"
 				button.cooldown:Hide()
 				button.cooldown = nil
 				button:SetScript("OnUpdate", nil)
@@ -394,7 +394,7 @@ function watcherPrototype:ApplyStyle()
 				button.name = nil
 				button:SetScript("OnUpdate", nil)
 			end
-		end		
+		end
 		button:SetSize(self.size, self.size)
 		self.parent:SetSize(self.size, self.size)
 		if button.mode == "BAR" then
@@ -423,7 +423,7 @@ function watcherPrototype:TestMode(arg)
 				if i ~= "unitIDs" then
 					if type(i) == "string" then i = self[subt][i].spellID end
 					if not self.button[num] then
-						self.button[num] = self:CreateButton(self.mode)					
+						self.button[num] = self:CreateButton(self.mode)
 						self:SetPosition(num)
 					end
 					local icon
@@ -511,7 +511,7 @@ function RW:Initialize()
 	-- self.db.casterinput = nil
 	-- self.db.fuzzy = nil
 	-- self:UpdateGroup()
-	
+
 	for group, options in pairs(R.db.Watcher) do
 		if self.modules[group] then
 			for option, value in pairs(options) do
@@ -593,8 +593,8 @@ function RW:NewWatcher(data)
 	end
 	local oldmeta = getmetatable(module)
 	module = setmetatable(module, { __index = createClass(oldmeta, watcherPrototype) })
-	module.button = {}	
-	
+	module.button = {}
+
 	for i,v in pairs(data) do
 		if type(v) ~= "table" or (type(v) == "table" and type(i) ~= "number") then
 			module[i:lower()] = v
@@ -626,7 +626,7 @@ function RW:NewWatcher(data)
 	module.holder:SetSize(module.size, module.size)
 	module.parent = CreateFrame("Frame", module.name, UIParent)
 	module.parent:SetAllPoints(holder)
-	
+
 	local mover = CreateFrame("Frame", nil, module.parent)
 	module.moverFrame = mover
 	module.moverFrame.owner = module
@@ -638,7 +638,7 @@ function RW:NewWatcher(data)
 	mover.text = mover:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 	mover.text:SetPoint("CENTER")
 	mover.text:SetText(module.name)
-	
+
 	mover:RegisterForDrag("LeftButton")
 	mover:SetScript("OnDragStart", function(self) self:GetParent():StartMoving() end)
 	mover:SetScript("OnDragStop", function(self) self:GetParent():StopMovingOrSizing() end)
@@ -652,9 +652,9 @@ function RW:NewWatcher(data)
 	end)
 
 	mover:SetScript("OnUpdate", nil)
-	
+
 	mover:Hide()
-	
+
 	if module.BUFF or module.DEBUFF then
 		module:RegisterEvent("UNIT_AURA", "OnEvent")
 		module:RegisterEvent("PLAYER_TARGET_CHANGED", "OnEvent")
@@ -674,7 +674,7 @@ function RW:TestMode()
 		WatcherMoverPopupWindow:Hide()
 	end
 	RW.testing = not RW.testing
-	for _, v in pairs(RW.modules) do		
+	for _, v in pairs(RW.modules) do
 		v:TestMode(RW.testing)
 	end
 end

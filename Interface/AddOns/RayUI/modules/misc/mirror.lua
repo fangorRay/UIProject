@@ -77,12 +77,12 @@ local function LoadFunc()
 			bg:SetAllPoints(frame)
 			bg:SetTexture(R["media"].blank)
 			bg:SetVertexColor(r * .2, g * .2, b * .2)
-			
+
 			local border = CreateFrame("Frame", nil, frame)
 			border:SetAllPoints()
 			border:CreateShadow("Background")
 			border:SetFrameLevel(0)
-		
+
 			local text = frame:CreateFontString(nil, "OVERLAY")
 			text:SetFont(R["media"].font, R["media"].fontsize, "THINOUTLINE")
 
@@ -105,7 +105,7 @@ local function LoadFunc()
 			spark:SetAlpha(.8)
 			spark:Point("TOPLEFT", frame:GetStatusBarTexture(), "TOPRIGHT", -10, 13)
 			spark:Point("BOTTOMRIGHT", frame:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -13)
-			
+
 			frame.type = type
 			frame.text = text
 
@@ -154,7 +154,7 @@ local function LoadFunc()
 		return PauseAll((duration > 0 and duration) or nil)
 	end
 	frame:RegisterEvent"MIRROR_TIMER_PAUSE"
-	
+
 	UIParent:UnregisterEvent"MIRROR_TIMER_START"
 end
 

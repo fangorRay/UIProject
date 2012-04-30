@@ -196,7 +196,7 @@ end
 
 function AB:CreateCooldown(event, addon)
 	self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
-	self:SecureHook("SetActionUIButton", "RegisterCooldown")		
+	self:SecureHook("SetActionUIButton", "RegisterCooldown")
 	for i, button in pairs(ActionBarButtonEventsFrame.frames) do
 		self:RegisterCooldown(button, button.action, button.cooldown)
 	end

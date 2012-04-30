@@ -35,7 +35,7 @@ function UF:GetOptions()
 					type = "toggle",
 				},
 			},
-		},		
+		},
 		visible = {
 			order = 6,
 			type = "group",
@@ -114,7 +114,7 @@ function UF:Initialize()
 			[5] = {0.2, 1, 0.2}, -- Friendly
 			[6] = {0.2, 1, 0.2}, -- Honored
 			[7] = {0.2, 1, 0.2}, -- Revered
-			[8] = {0.2, 1, 0.2}, -- Exalted	
+			[8] = {0.2, 1, 0.2}, -- Exalted
 		}, {__index = RayUF["colors"].reaction}),
 		class = setmetatable({
 			-- ["DEATHKNIGHT"] = { 0.77, 0.12, 0.23 },
@@ -128,7 +128,7 @@ function UF:Initialize()
 			-- ["WARLOCK"]     = { 0.6, 0.47, 0.85 },
 			-- ["WARRIOR"]     = { 0.9, 0.65, 0.45 },
 		}, {__index = RayUF["colors"].class}),
-		
+
 	}, {__index = RayUF["colors"]})
 
 	for layout, spawnFunc in pairs(UF.Layouts) do

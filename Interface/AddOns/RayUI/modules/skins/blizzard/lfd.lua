@@ -2,7 +2,7 @@ local R, L, P = unpack(select(2, ...)) --Inport: Engine, Locales, ProfileDB
 local S = R:GetModule("Skins")
 
 local function LoadSkin()
-	S:SetBD(LFDParentFrame)	
+	S:SetBD(LFDParentFrame)
 	S:Reskin(LFDQueueFrameFindGroupButton)
 	S:Reskin(LFDQueueFrameCancelButton)
 	S:Reskin(LFDRoleCheckPopupAcceptButton)
@@ -61,7 +61,7 @@ local function LoadSkin()
 	LFDQueueFrameCapBar.backdrop:SetPoint("BOTTOMRIGHT", LFDQueueFrameCapBar, "BOTTOMRIGHT", 1, 2)
 	LFDQueueFrameCapBar.backdrop:SetFrameLevel(0)
 	S:CreateBD(LFDQueueFrameCapBar.backdrop)
-	
+
 	for i = 1, 4 do
 		_G["LFDQueueFrameCapBarDivider"..i]:Hide()
 	end

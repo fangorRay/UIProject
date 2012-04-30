@@ -12,7 +12,7 @@ local function LoadFunc()
 				VehicleSeatIndicator:Point("LEFT", VehicleSeatMover, "LEFT", 0, 0)
 			else
 				VehicleSeatIndicator:Point("LEFT", UIParent, "LEFT", 45, 120)
-				R:CreateMover(VehicleSeatIndicator, "VehicleSeatMover", L["载具指示锚点"])	
+				R:CreateMover(VehicleSeatIndicator, "VehicleSeatMover", L["载具指示锚点"])
 			end
 		end
 	end)

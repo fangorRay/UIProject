@@ -362,7 +362,7 @@ function TT:PLAYER_ENTERING_WORLD(event)
 		})
 		self:HookScript(tt, "OnShow", "SetStyle")
 	end
-	
+
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 

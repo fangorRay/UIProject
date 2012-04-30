@@ -214,7 +214,7 @@ local methods = {
 		end
 		Layout(self)
 	end,
-	
+
 	["ClearFocus"] = function(self)
 		self.editBox:ClearFocus()
 		self.frame:SetScript("OnShow", nil)
@@ -240,7 +240,7 @@ local backdrop = {
 local function Constructor()
 	local frame = CreateFrame("Frame", nil, UIParent)
 	frame:Hide()
-	
+
 	local widgetNum = AceGUI:GetNextWidgetNum(Type)
 
 	local label = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
@@ -257,7 +257,7 @@ local function Constructor()
 	button:SetText(ACCEPT)
 	button:SetScript("OnClick", OnClick)
 	button:Disable()
-	
+
 	local text = button:GetFontString()
 	text:ClearAllPoints()
 	text:SetPoint("TOPLEFT", button, "TOPLEFT", 5, -5)
@@ -306,7 +306,7 @@ local function Constructor()
 	editBox:SetScript("OnTextChanged", OnTextChanged)
 	editBox:SetScript("OnTextSet", OnTextSet)
 	editBox:SetScript("OnEditFocusGained", OnFocusGained)
-	
+
 
 	scrollFrame:SetScrollChild(editBox)
 

@@ -229,7 +229,7 @@ local function new(...)
 	else
 		pool[t] = nil
 	end
-	
+
 	for i = 1, select('#', ...), 2 do
 		local k = select(i, ...)
 		if k then
@@ -304,7 +304,7 @@ do
 		return self
 	end
 	TabletData.new = wrap(TabletData.new, "TabletData:new")
-	
+
 	function TabletData:checkMinWidth()
 		local min = self.minWidth or MIN_TOOLTIP_SIZE
 		local width = (min - 20)*self.tablet.fontSizePercent
@@ -369,7 +369,7 @@ do
 				self.width = width
 			end
 		end
-		
+
 		local good = false
 		local lastTitle = true
 		for k, v in ipairs(self.categories) do
@@ -427,17 +427,17 @@ do
 		return cat
 	end
 	TabletData.AddCategory = wrap(TabletData.AddCategory, "TabletData:AddCategory")
-	
+
 	function TabletData:SetHint(hint)
 		self.hint = hint
 	end
 	TabletData.SetHint = wrap(TabletData.SetHint, "TabletData:SetHint")
-	
+
 	function TabletData:SetTitle(title)
 		self.title = title or "Title"
 	end
 	TabletData.SetTitle = wrap(TabletData.SetTitle, "TabletData:SetTitle")
-	
+
 	function TabletData:SetTitleColor(r, g, b)
 		self.titleR = r
 		self.titleG = g
@@ -869,7 +869,7 @@ do
 					end
 				end
 			end
-			
+
 			for i = 3, columns do
 				local text = self['text' .. i]
 				if text then
@@ -920,7 +920,7 @@ do
 			return i, x
 		end
 	end
-	
+
 	local tmp = {}
 	function fake_ipairs(...)
 		for i = 1, select('#', ...) do
@@ -940,7 +940,7 @@ local function argunpack(t, key, i)
 	if v then
 		return v, argunpack(t, key, i+1)
 	end
-end	
+end
 argunpack = wrap(argunpack, "argunpack")
 
 
@@ -981,7 +981,7 @@ local function button_OnEnter(this, ...)
 			geterrorhandler()(ret)
 		end
 	end
-end	
+end
 button_OnEnter = wrap(button_OnEnter, "button_OnEnter")
 
 local function button_OnLeave(this, ...)
@@ -1136,7 +1136,7 @@ local function RecalculateTabletHeight(detached)
 			local top, bottom
 			for i = 1, detached:GetNumPoints() do
 				local a,b,c,d,e = detached:GetPoint(i)
-		
+
 				if a:find("^TOP") then
 					if c:find("^TOP") then
 						top = b:GetTop()
@@ -1268,7 +1268,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 			tooltip:Scroll(arg1 < 0)
 			tooltip.updating = false
 		end)
-		
+
 		local scrollFrame = CreateFrame("ScrollFrame", "Tablet20FrameScrollFrame", tooltip)
 		scrollFrame:SetFrameLevel(11)
 		local scrollChild = CreateFrame("Frame", "Tablet20FrameScrollChild", scrollFrame)
@@ -1310,13 +1310,13 @@ local function AcquireFrame(self, registration, data, detachedData)
 		slider.tablet = tooltip
 		slider:SetScript("OnValueChanged", function(this)
 			local max = this.tablet.scrollChild:GetHeight() - this.tablet:GetHeight()
-			
+
 			local val = this:GetValue() * max
-			
+
 			if math.abs(this.tablet.scrollFrame:GetVerticalScroll() - val) < 1 then
 				return
 			end
-			
+
 			this.tablet.scrollFrame:SetVerticalScroll(val)
 		end)
 		local sliderArrowTop = CreateFrame("Frame", nil, tooltip)
@@ -1336,7 +1336,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 		sliderArrowBottom.bg:SetTexture("Interface\\AddOns\\RayUI\\libs\\Tablet-2.0\\SliderArrow")
 		sliderArrowBottom.bg:SetTexCoord(0, 1, 1, 0)
 		tooltip.sliderArrowBottom = sliderArrowBottom
-		
+
 		NewLine(tooltip)
 
 		function tooltip:SetOwner(o)
@@ -1392,16 +1392,16 @@ local function AcquireFrame(self, registration, data, detachedData)
 			if not self.tmpHidden then
 				old_tooltip_Show(self)
 			end
-			
+
 			testString = self.buttons[1].col1
-			
+
 			local maxWidth = tabletData and tabletData.width or self:GetWidth() - 22
 			local hasWrap = false
 			local numColumns
-			
+
 			local height = 22
 			self:SetWidth(maxWidth + 22)
-			
+
 			for i = 1, self.numLines do
 				local button = self.buttons[i]
 				local col1 = button.col1
@@ -1451,7 +1451,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 			self.slider:SetValue(val/max)
 		end
 		tooltip.Show = wrap(tooltip.Show, "tooltip:Show")
-		
+
 		function tooltip:AddLine(info)
 			local category = info.category.superCategory
 			local maxWidth = category.tabletData.width
@@ -1500,7 +1500,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 				col1:SetText(text)
 				col1:SetJustifyH(info.justify)
 				col1:Show()
-				
+
 				if info.textR and info.textG and info.textB then
 					col1:SetTextColor(info.textR, info.textG, info.textB)
 				else
@@ -1568,7 +1568,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 					end
 				end
 			end
-			
+
 			check:SetWidth(info.size * fontSizePercent)
 			check:SetHeight(info.size * fontSizePercent)
 			check.width = info.size * fontSizePercent
@@ -1583,7 +1583,7 @@ local function AcquireFrame(self, registration, data, detachedData)
 					else
 						check:SetAlpha(self.transparency)
 						check:SetTexCoord(0, 0.25, 0, 1)
-					end	
+					end
 					check:SetVertexColor(1, 1, 1)
 				else
 					if info.checkIcon then
@@ -2335,7 +2335,7 @@ function Tablet:Open(fakeParent, parent)
 	if not parent then
 		parent = fakeParent
 	end
-	
+
 	local info = self.registry[parent]
 	if not info then
 		self:error("You cannot open a tablet with an unregistered parent frame.")
@@ -2762,7 +2762,7 @@ function Tablet:Detach(parent)
 	else
 		info.detachedData.detached = true
 		local detached = AcquireDetachedFrame(self, info, info.data, info.detachedData)
-		
+
 		detached.menu = info.menu
 		detached.runChildren = info.children
 		detached.minWidth = info.minWidth
@@ -2909,9 +2909,9 @@ local function activate(self, oldLib, oldDeactivate)
 		self.registry = {}
 		self.onceRegistered = {}
 	end
-	
+
 	tooltip = self.tooltip
-	
+
 	if oldDeactivate then
 		oldDeactivate(oldLib)
 	end

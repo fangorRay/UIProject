@@ -136,7 +136,7 @@ function M:GetOptions()
 					disabled = function() return not M.db.raidbuffreminder end,
 				},
 			},
-		},		
+		},
 	}
 	return options
 end

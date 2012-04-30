@@ -52,7 +52,7 @@ local function LoadSkin()
 		bg:SetPoint("BOTTOMRIGHT", 0, 6)
 		bg:SetFrameLevel(bu:GetFrameLevel()-1)
 		S:CreateBD(bg, .25)
-		
+
 		bu:StyleButton()
 		bu:GetHighlightTexture():SetPoint("TOPLEFT", 43, -6)
 		bu:GetHighlightTexture():SetPoint("BOTTOMRIGHT", -1, 7)

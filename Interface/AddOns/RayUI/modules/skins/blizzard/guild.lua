@@ -275,7 +275,7 @@ local function LoadSkin()
 
 		bu.bg = S:CreateBG(ic)
 	end
-	
+
 	local function createButtonBg(bu)
 		bu:SetHighlightTexture(S["media"].backdrop)
 		bu:GetHighlightTexture():SetVertexColor(r, g, b, .2)

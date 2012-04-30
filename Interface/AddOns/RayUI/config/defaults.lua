@@ -126,27 +126,27 @@ P["ActionBar"]={
 	itemcount = true,
 	hotkeys = true,
 	showgrid = true,
-	
+
 	bar1fade = true,
-	
+
 	bar2mouseover = false,
 	bar2fade = true,
-	
+
 	bar3mouseover = false,
 	bar3fade = true,
-	
+
 	bar4mouseover = false,
 	bar4fade = false,
-	
+
 	bar5mouseover = true,
 	bar5fade = true,
-	
+
 	stancebarmouseover = false,
 	stancebarfade = false,
-	
+
 	petbarmouseover = false,
 	petbarfade = true,
-	
+
 	cooldownalpha = false,
 	cdalpha = 1,
 	readyalpha = 0.3,

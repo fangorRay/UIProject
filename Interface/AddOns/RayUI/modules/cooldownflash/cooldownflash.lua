@@ -34,7 +34,7 @@ function CF:Initialize()
 	end)
 	flash:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	flash:SetScript("OnEvent", nil)
-	
+
 	lib:RegisterCallback("stop", function(id, class)
 		if filter[class]=="all" or filter[class][id] then return end
 		flash.icon:SetTexture(class=="item" and GetItemIcon(id) or select(3, GetSpellInfo(id)))

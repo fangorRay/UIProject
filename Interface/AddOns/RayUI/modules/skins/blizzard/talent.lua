@@ -51,7 +51,7 @@ local function LoadSkin()
 	StripTalentFramePanelTextures(PlayerTalentFramePanel2)
 	StripTalentFramePanelTextures(PlayerTalentFramePanel3)
 	StripTalentFramePanelTextures(PlayerTalentFramePetPanel)
-	
+
 	local KillTextures = {
 		"PlayerTalentFramePanel1InactiveShadow",
 		"PlayerTalentFramePanel2InactiveShadow",
@@ -65,7 +65,7 @@ local function LoadSkin()
 	for _, texture in pairs(KillTextures) do
 		_G[texture]:Kill()
 	end
-	
+
 	local function TalentSummaryButtons(self, first, active, i, j)
 		if active then
 			button = _G["PlayerTalentFramePanel"..i.."SummaryActiveBonus1"]
@@ -102,12 +102,12 @@ local function LoadSkin()
 		tex2:ClearAllPoints()
 		tex2:Point("TOPLEFT", _G["PlayerTalentFramePanel"..i.."Summary"], 1, 2)
 		tex2:Point("BOTTOMRIGHT", _G["PlayerTalentFramePanel"..i.."Summary"], -1, 1)
-		
+
 		local bg = _G["PlayerTalentFramePanel"..i.."Summary"]:CreateTexture(nil, "BACKGROUND")
 		bg:Point("TOPLEFT", _G["PlayerTalentFramePanel"..i.."Summary"], -1, 4)
 		bg:Point("BOTTOMRIGHT", _G["PlayerTalentFramePanel"..i.."Summary"], 1, -1)
 		bg:SetTexture(0, 0, 0)
-		
+
 		textl:Point("TOPLEFT", 0, 2)
 		textr:Point("TOPRIGHT", 0, 2)
 		texbl:Point("BOTTOMLEFT", 0, 0)
@@ -166,7 +166,7 @@ local function LoadSkin()
 					bu:GetPushedTexture():Point("BOTTOMRIGHT", -1, 1)
 					bu.SetHighlightTexture = R.dummy
 					bu.SetPushedTexture = R.dummy
-					
+
 					ic:SetTexCoord(.08, .92, .08, .92)
 					ic:Point("TOPLEFT", 1, -1)
 					ic:Point("BOTTOMRIGHT", -1, 1)

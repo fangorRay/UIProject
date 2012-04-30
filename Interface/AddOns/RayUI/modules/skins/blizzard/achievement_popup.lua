@@ -25,7 +25,7 @@ local function LoadSkin()
 				previousFrame = aFrame
 			end
 		end
-		
+
 	end
 
 	hooksecurefunc("AchievementAlertFrame_FixAnchors", AchievementMove)
@@ -37,8 +37,8 @@ local function LoadSkin()
 				DungeonCompletionAlertFrame1:ClearAllPoints()
 				DungeonCompletionAlertFrame1:SetPoint("TOP", aFrame, "BOTTOM", 0, -10)
 				return
-			end		
-			DungeonCompletionAlertFrame1:ClearAllPoints()	
+			end
+			DungeonCompletionAlertFrame1:ClearAllPoints()
 			DungeonCompletionAlertFrame1:SetPoint("TOP", AchievementHolder, "BOTTOM")
 		end
 	end)
@@ -46,7 +46,7 @@ local function LoadSkin()
 	local achieveframe = CreateFrame("Frame")
 	achieveframe:RegisterEvent("ACHIEVEMENT_EARNED")
 	achieveframe:SetScript("OnEvent", function(self, event, ...) AchievementMove(self, event, ...) end)
-	
+
 	S:SetBD(DungeonCompletionAlertFrame1, 6, -14, -6, 6)
 
 	DungeonCompletionAlertFrame1DungeonTexture:SetDrawLayer("ARTWORK")
@@ -74,7 +74,7 @@ local function LoadSkin()
 			select(i, DungeonCompletionAlertFrame1:GetRegions()):Hide()
 		end
 	end)
-	
+
 	--Guild Alert
 	--/run GuildChallengeAlertFrame_ShowAlert(3, 2, 5)
 	hooksecurefunc("GuildChallengeAlertFrame_FixAnchors", function()
@@ -84,15 +84,15 @@ local function LoadSkin()
 				aFrame = _G["AchievementAlertFrame"..i]
 			end
 		end
-		
+
 		if DungeonCompletionAlertFrame1:IsShown() then
 			aFrame = DungeonCompletionAlertFrame1
 		end
-		
+
 		if aFrame == nil then
 			aFrame = AchievementHolder
 		end
-		
+
 		GuildChallengeAlertFrame:ClearAllPoints()
 		if pos == "TOP" then
 			GuildChallengeAlertFrame:SetPoint("TOP", aFrame, "BOTTOM", 0, -10)
@@ -100,14 +100,14 @@ local function LoadSkin()
 			GuildChallengeAlertFrame:SetPoint("BOTTOM", aFrame, "TOP", 0, 10)
 		end
 	end)
-	
+
 	for i=1, GuildChallengeAlertFrame:GetNumRegions() do
 		local region = select(i, GuildChallengeAlertFrame:GetRegions()) 
 		if region and region:GetObjectType() == "Texture" and not region:GetName() then
 			region:SetTexture(nil)
 		end
 	end
-	
+
 	S:SetBD(GuildChallengeAlertFrame)
 	GuildChallengeAlertFrame:Height(65)
 end

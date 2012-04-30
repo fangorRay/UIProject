@@ -49,7 +49,7 @@ local function update()
 		end
 	end
 	lastupdate = 0
-	
+
 	if nextupdate < 0 then addon:Hide() end
 end
 
@@ -62,11 +62,11 @@ local function start(id, starttime, duration, class)
 		["class"] = class,
 	}
 	addon:Show()
-	
+
 	for _, func in next, lib.startcalls do
 		func(id, duration, class)
 	end
-	
+
 	update()
 end
 
@@ -81,13 +81,13 @@ local function parsespellbook(spellbook)
 	while true do
 		skilltype, id = GetSpellBookItemInfo(i, spellbook)
 		if not id then break end
-		
+
 		name = GetSpellBookItemName(i, spellbook)
 		if name and skilltype == "SPELL" and spellbook == BOOKTYPE_SPELL and not IsPassiveSpell(i, spellbook) then
 			spells[id] = true
 		elseif name and skilltype == "PETACTION" and spellbook == BOOKTYPE_PET and not IsPassiveSpell(i, spellbook) then
 			pets[id] = true
-		end		
+		end
 		i = i + 1
 		if (id == 88625 or id == 88625 or id == 88625) and (skilltype == "SPELL" and spellbook == BOOKTYPE_SPELL) then
 		   spells[88625] = true
@@ -108,14 +108,14 @@ function addon:SPELL_UPDATE_COOLDOWN()
 
 	for id in next, spells do
 		local starttime, duration, enabled = GetSpellCooldown(id)
-		
+
 		if starttime == nil then
 			watched[id] = nil
 		elseif starttime == 0 and watched[id] then
 			stop(id, "spell")
 		elseif starttime ~= 0 then
 			local timeleft = starttime + duration - now
-		
+
 			if enabled == 1 and timeleft > 1.51 then
 				if not watched[id] or watched[id].start ~= starttime then
 					start(id, starttime, timeleft, "spell")
@@ -125,7 +125,7 @@ function addon:SPELL_UPDATE_COOLDOWN()
 			end
 		end
 	end
-	
+
 	for id in next, pets do
 		local starttime, duration, enabled = GetSpellCooldown(id)
 
@@ -135,7 +135,7 @@ function addon:SPELL_UPDATE_COOLDOWN()
 			stop(id, "pet")
 		elseif starttime ~= 0 then
 			local timeleft = starttime + duration - now
-		
+
 			if enabled == 1 and timeleft > 1.51 then
 				if not watched[id] or watched[id].start ~= starttime then
 					start(id, starttime, timeleft, "pet")
@@ -198,7 +198,7 @@ local function onupdate(self, elapsed)
 	nextupdate = nextupdate - elapsed
 	lastupdate = lastupdate + elapsed
 	if nextupdate > 0 then return end
-	
+
 	update(self)
 end
 

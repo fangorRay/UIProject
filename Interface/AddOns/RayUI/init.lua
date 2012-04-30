@@ -77,14 +77,14 @@ function AddOn:OnInitialize()
 	self.data.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
 	self.db = self.data.profile
 
-	AceConfig:RegisterOptionsTable("RayUI", AddOn.Options)	
+	AceConfig:RegisterOptionsTable("RayUI", AddOn.Options)
 	self.Options.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.data)
 	AceConfig:RegisterOptionsTable("RayUIProfiles", self.Options.args.profiles)
 	self.Options.args.profiles.order = -10
 
 	self:UIScale()
 	self:UpdateMedia()
-	
+
 	for k, v in self:IterateModules() do
 		if self.db[k] and (( self.db[k].enable~=nil and self.db[k].enable == true) or self.db[k].enable == nil) and v.GetOptions then
 			AddOn.Options.args[k:gsub(" ", "_")] = {
@@ -164,7 +164,7 @@ function AddOn:PLAYER_ENTERING_WORLD()
 	SetCVar("uiScale", AddOn.db.general.uiscale)
 	DEFAULT_CHAT_FRAME:AddMessage("欢迎使用|cff7aa6d6Ray|r|cffff0000U|r|cff7aa6d6I|r(v"..AddOn.version..")，插件发布网址: |cff8A9DDE[|Hurl:http://fgprodigal.com|hhttp://fgprodigal.com|h]|r")
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD" )
-	
+
 	local eventcount = 0
 	local RayUIGarbageCollector = CreateFrame("Frame")
 	RayUIGarbageCollector:RegisterAllEvents()
@@ -196,7 +196,7 @@ function AddOn:Initialize()
 	self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "CheckRole")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:Delay(5, function() collectgarbage("collect") end)
-	
+
 	local configButton = CreateFrame("Button", "RayUIConfigButton", GameMenuFrame, "GameMenuButtonTemplate")
 	configButton:SetSize(GameMenuButtonMacros:GetWidth(), GameMenuButtonMacros:GetHeight())
 	GameMenuFrame:SetHeight(GameMenuFrame:GetHeight()+GameMenuButtonMacros:GetHeight());
@@ -211,7 +211,7 @@ function AddOn:Initialize()
 		HideUIPanel(GameMenuFrame)
 		self:OpenConfig()
 	end)
-	
+
 	local S = self:GetModule("Skins")
 	S:Reskin(configButton)
 end

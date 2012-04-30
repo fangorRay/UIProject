@@ -55,19 +55,19 @@ local function FilterLine(event, source, message, ...)
 							toInsert = false
 						end
 					end
-					
+
 					if toInsert then table.insert(j.data, message) end
 					return true, false, nil
 				end
 			end
 		end
 	end
-	
+
 	for k, v in ipairs(firstLines) do
 		local newID = 0
 		if message:match(v) then
 			local curTime = time()
-			
+
 			for i, j in ipairs(CH.meters) do
 				local elapsed = curTime - j.time
 				if j.source == source and j.event == event and elapsed < 1 then
@@ -75,7 +75,7 @@ local function FilterLine(event, source, message, ...)
 					return true, true, string.format("|HRayUIDamegeMeters:%1$d|h|cFFFFFF00[%2$s]|r|h", newID or 0, message or "nil")
 				end
 			end
-			
+
 			table.insert(CH.meters, {
 				source	= source,
 				event	= event,
@@ -83,13 +83,13 @@ local function FilterLine(event, source, message, ...)
 				data	= {},
 				title	= message
 			})
-			
+
 			for i, j in ipairs(CH.meters) do
 				if j.source == source and j.event == event and j.time == curTime then
 					newID = i
 				end
 			end
-			
+
 			return true, true, string.format("|HRayUIDamegeMeters:%1$d|h|cFFFFFF00[%2$s]|r|h", newID or 0, message or "nil")
 		end
 	end

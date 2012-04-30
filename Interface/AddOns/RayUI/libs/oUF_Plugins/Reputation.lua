@@ -25,7 +25,7 @@ local function update(self, event, unit)
 			bar.Text:SetFormattedText('%d / %d - %s', value - min, max - min, name)
 		end
 	end
-	
+
 	if(bar.colorStanding) then
 		local color = FACTION_BAR_COLORS[standing]
 		bar:SetStatusBarColor(color.r, color.g, color.b)

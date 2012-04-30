@@ -86,7 +86,7 @@ local function LoadSkin()
 
 		_G["VoidStorageStorageButton"..i.."Bg"]:Hide()
 		_G["VoidStorageStorageButton"..i.."IconTexture"]:SetTexCoord(.08, .92, .08, .92)
-		
+
 		bu:StyleButton()
 		bu:GetHighlightTexture():Point("TOPLEFT", -1, 1)
 		bu:GetHighlightTexture():Point("BOTTOMRIGHT", 1, -1)

@@ -41,11 +41,11 @@ local function SkinDBM()
 					local icon2 = _G[frame:GetName().."BarIcon2"]
 					local name = _G[frame:GetName().."BarName"]
 					local timer = _G[frame:GetName().."BarTimer"]
-					
+
 					if not (icon1.overlay) then
 						icon1.overlay = CreateFrame("Frame", "$parentIcon1Overlay", tbar)
 						icon1.overlay:CreatePanel(template, buttonsize, buttonsize, "RIGHT", tbar, "LEFT", - 4, 0)
-						
+
 						local backdroptex = icon1.overlay:CreateTexture(nil, "BORDER")
 						backdroptex:SetTexture([=[Interface\Icons\Spell_Nature_WispSplode]=])
 						backdroptex:Point("TOPLEFT", icon1.overlay, "TOPLEFT", 0, 0)
@@ -56,12 +56,12 @@ local function SkinDBM()
 					if not (icon2.overlay) then
 						icon2.overlay = CreateFrame("Frame", "$parentIcon2Overlay", tbar)
 						icon2.overlay:CreatePanel(template, buttonsize, buttonsize, "LEFT", tbar, "RIGHT", 4, 0)
-						
+
 						local backdroptex = icon2.overlay:CreateTexture(nil, "BORDER")
 						backdroptex:SetTexture([=[Interface\Icons\Spell_Nature_WispSplode]=])
 						backdroptex:Point("TOPLEFT", icon2.overlay, "TOPLEFT", 0, 0)
 						backdroptex:Point("BOTTOMRIGHT", icon2.overlay, "BOTTOMRIGHT", 0, 0)
-						backdroptex:SetTexCoord(0.08, 0.92, 0.08, 0.92)					
+						backdroptex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 					end
 
 					if bar.color then
@@ -69,7 +69,7 @@ local function SkinDBM()
 					else
 						tbar:SetStatusBarColor(bar.owner.options.StartColorR, bar.owner.options.StartColorG, bar.owner.options.StartColorB)
 					end
-					
+
 					if bar.enlarged then frame:Width(bar.owner.options.HugeWidth) else frame:Width(bar.owner.options.Width) end
 					if bar.enlarged then tbar:Width(bar.owner.options.HugeWidth) else tbar:Width(bar.owner.options.Width) end
 
@@ -86,7 +86,7 @@ local function SkinDBM()
 						spark:SetTexture(nil)
 						spark.killed=true
 					end
-		
+
 					if not icon1.styled then
 						icon1:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 						icon1:ClearAllPoints()
@@ -94,7 +94,7 @@ local function SkinDBM()
 						icon1:Point("BOTTOMRIGHT", icon1.overlay, 0, 0)
 						icon1.styled=true
 					end
-					
+
 					if not icon2.styled then
 						icon2:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 						icon2:ClearAllPoints()
@@ -107,12 +107,12 @@ local function SkinDBM()
 						texture:SetTexture(R["media"].normal)
 						texture.styled=true
 					end
-					
+
 					tbar:SetStatusBarTexture(R["media"].normal)
 					if not tbar.styled then
 						tbar:Point("TOPLEFT", frame, "TOPLEFT", 0, 0)
 						tbar:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, 0)
-						
+
 						tbar.styled=true
 					end
 
@@ -127,8 +127,8 @@ local function SkinDBM()
 						name.SetFont = R.dummy
 						name.styled=true
 					end
-					
-					if not timer.styled then	
+
+					if not timer.styled then
 						timer:ClearAllPoints()
 						timer:Point("RIGHT", frame, "RIGHT", -4, 0)
 						timer:SetFont(R["media"].font, 12, "OUTLINE")
@@ -161,7 +161,7 @@ local function SkinDBM()
 					header[1]:SetFont(R["media"].font, 12, "OUTLINE")
 					header[1]:SetTextColor(1,1,1,1)
 					header[1]:SetShadowColor(0, 0, 0, 0)
-					anchor.styled=true	
+					anchor.styled=true
 				end
 			header=nil
 		end
@@ -176,7 +176,7 @@ local function SkinDBM()
 			local progress = _G[bar:GetName().."Bar"]
 			local name = _G[bar:GetName().."BarName"]
 			local timer = _G[bar:GetName().."BarTimer"]
-			local prev = _G[format("DBM_BossHealth_Bar_%d", count-1)]	
+			local prev = _G[format("DBM_BossHealth_Bar_%d", count-1)]
 
 			if (count == 1) then
 				local	_, anch, _ ,_, _ = bar:GetPoint()
@@ -200,12 +200,12 @@ local function SkinDBM()
 				bar:CreateShadow("Background")
 				background:SetNormalTexture(nil)
 				bar.styled=true
-			end	
-			
+			end
+
 			if not progress.styled then
 				progress:SetStatusBarTexture(R["media"].normal)
 				progress.styled=true
-			end				
+			end
 			progress:ClearAllPoints()
 			progress:Point("TOPLEFT", bar, "TOPLEFT", 0, 0)
 			progress:Point("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0, 0)
@@ -218,7 +218,7 @@ local function SkinDBM()
 				name:SetShadowColor(0, 0, 0, 0)
 				name.styled=true
 			end
-			
+
 			if not timer.styled then
 				timer:ClearAllPoints()
 				timer:Point("RIGHT", bar, "RIGHT", -4, 0)

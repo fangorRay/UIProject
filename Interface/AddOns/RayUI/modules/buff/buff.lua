@@ -73,7 +73,7 @@ function BF:StyleBuffs(button, index, framekind, anchor)
    		_G[buff]:Height(buttonsize)
 		_G[buff]:Width(buttonsize)
 	end
-	
+
 	if _G[buff.."Border"] then 
 		_G[buff.."Border"]:Kill()
 	end

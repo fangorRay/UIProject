@@ -7,7 +7,7 @@ P["Reminder"]["filters"] = {
 		["护甲"] = { --inner fire/will group
 			["spellGroup"] = {
 				[588] = true, -- inner fire
-				[73413] = true, -- inner will			
+				[73413] = true, -- inner will
 			},
 			["instance"] = true,
 			["pvp"] = true,
@@ -19,32 +19,32 @@ P["Reminder"]["filters"] = {
 			["spellGroup"] = {
 				[5118] = true, -- cheetah
 				[20043] = true, -- wild
-				[82661] = true, -- fox	
+				[82661] = true, -- fox
 				[13165] = true, -- hawk
 			},
 			["combat"] = true,
 			["instance"] = true,
 			["personal"] = true,
 			["enable"] = true;
-		},				
+		},
 	},
 	MAGE = {
 		["护甲"] = { --armors group
 			["spellGroup"] = {
 				[7302] = true, -- frost armor
 				[6117] = true, -- mage armor
-				[30482] = true, -- molten armor		
+				[30482] = true, -- molten armor
 			},
 			["instance"] = true,
 			["pvp"] = true,
 			["enable"] = true;
-		},		
+		},
 	},
 	WARLOCK = {
 		["护甲"] = { --armors group
 			["spellGroup"] = {
 				[28176] = true, -- fel armor
-				[687] = true, -- demon armor			
+				[687] = true, -- demon armor
 			},
 			["instance"] = true,
 			["pvp"] = true,
@@ -57,7 +57,7 @@ P["Reminder"]["filters"] = {
 				[20154] = true, -- seal of righteousness
 				[20164] = true, -- seal of justice
 				[20165] = true, -- seal of insight
-				[31801] = true, -- seal of truth				
+				[31801] = true, -- seal of truth
 			},
 			["instance"] = true,
 			["pvp"] = true,
@@ -89,7 +89,7 @@ P["Reminder"]["filters"] = {
 		["护盾"] = { --shields group
 			["spellGroup"] = {
 				[52127] = true, -- water shield
-				[324] = true, -- lightning shield			
+				[324] = true, -- lightning shield
 			},
 			["instance"] = true,
 			["pvp"] = true,
@@ -112,12 +112,12 @@ P["Reminder"]["filters"] = {
 				[6307] = true, -- Blood Pact
 				[90364] = true, -- Qiraji Fortitude
 				[72590] = true, -- Drums of fortitude
-				[21562] = true, -- Fortitude				
+				[21562] = true, -- Fortitude
 			},
 			["role"] = "Tank",
 			["instance"] = true,
 			["pvp"] = true,
-			["enable"] = true;			
+			["enable"] = true;
 		},
 		["战斗怒吼"] = { -- battle Shout group
 			["spellGroup"] = {
@@ -126,10 +126,10 @@ P["Reminder"]["filters"] = {
 			["negateGroup"] = {
 				[8076] = true, -- strength of earth
 				[57330] = true, -- horn of Winter
-				[93435] = true, -- roar of courage (hunter pet)						
+				[93435] = true, -- roar of courage (hunter pet)
 			},
 			["instance"] = true,
-			["pvp"] = true,	
+			["pvp"] = true,
 			["role"] = "Melee",
 			["enable"] = true;
 		},
@@ -142,10 +142,10 @@ P["Reminder"]["filters"] = {
 			["negateGroup"] = {
 				[8076] = true, -- strength of earth totem
 				[6673] = true, -- battle Shout
-				[93435] = true, -- roar of courage (hunter pet)			
+				[93435] = true, -- roar of courage (hunter pet)
 			},
 			["instance"] = true,
-			["pvp"] = true,	
+			["pvp"] = true,
 			["enable"] = true;
 		},
 		["鲜血灵气"] = { -- blood presence group
@@ -153,7 +153,7 @@ P["Reminder"]["filters"] = {
 				[48263] = true, 
 			},
 			["role"] = "Tank",
-			["instance"] = true,	
+			["instance"] = true,
 			["reverseCheck"] = true,
 			["enable"] = true;
 		},

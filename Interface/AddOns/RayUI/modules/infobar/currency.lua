@@ -12,7 +12,7 @@ local function LoadCurrency()
 	RayUIData.Class[R.myrealm][R.myname] = R.myclass
 	RayUIData.Gold = RayUIData.Gold or {}
 	RayUIData.Gold[R.myrealm] = RayUIData.Gold[R.myrealm] or {}
-	
+
 	-- CURRENCY DATA BARS
 	local CurrencyData = {}
 	local tokens = {
@@ -116,11 +116,11 @@ local function LoadCurrency()
 		if event == "PLAYER_HONOR_GAIN" then
 			updateCurrency()
 		else
-			local money	= GetMoney()		
+			local money	= GetMoney()
 			infobar.Text:SetText(formatMoney(money))
-			self:SetAllPoints(infobar)		
+			self:SetAllPoints(infobar)
 			RayUIData.Gold[R.myrealm][R.myname] = money
-			
+
 			local total = 0
 			local realmlist = RayUIData.Gold[R.myrealm]
 			for k, v in pairs(realmlist) do

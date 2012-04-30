@@ -59,7 +59,7 @@ local function SkinAce3()
 			button:ClearAllPoints()
 			button:Point("TOPRIGHT", frame, "TOPRIGHT", -15, 0)
 			button:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -15, 0)
-		
+
 			button:SetDisabledTexture(S["media"].backdrop)
 			local dis = button:GetDisabledTexture()
 			dis:SetVertexColor(0, 0, 0, .3)
@@ -70,7 +70,7 @@ local function SkinAce3()
 			downtex:Size(8, 8)
 			downtex:SetPoint("CENTER")
 			downtex:SetVertexColor(1, 1, 1)
-			
+
 			button:SetParent(bg)
 			text:SetParent(bg)
 			button:HookScript('OnClick', function(this)
@@ -85,7 +85,7 @@ local function SkinAce3()
 
 			S:Reskin(button)
 			button:Size(20, 20)
-		
+
 			button:SetDisabledTexture(S["media"].backdrop)
 			local dis = button:GetDisabledTexture()
 			dis:SetVertexColor(0, 0, 0, .3)
@@ -143,7 +143,7 @@ local function SkinAce3()
 				if self.dropdown then
 					S:CreateBD(self.dropdown)
 				end
-			end)		
+			end)
 		elseif TYPE == "EditBox" then
 			local frame = widget.editbox
 			local button = widget.button
@@ -184,7 +184,7 @@ local function SkinAce3()
 			editbox.SetBackdropBorderColor = R.dummy
 			editbox:Height(15)
 			editbox:Point("TOP", frame, "BOTTOM", 0, -1)
-			
+
 			local tex = editbox:CreateTexture(nil, "BACKGROUND")
 			tex:SetPoint("TOPLEFT")
 			tex:SetPoint("BOTTOMRIGHT")
@@ -226,8 +226,8 @@ local function SkinAce3()
 				end
 				S:CreateSD(frame)
 				S:CreateBD(frame)
-			end		
-			
+			end
+
 			if widget.treeframe then
 				S:CreateBD(widget.treeframe, .3)
 				frame:Point("TOPLEFT", widget.treeframe, "TOPRIGHT", 1, 0)
@@ -237,7 +237,7 @@ local function SkinAce3()
 				local oldCreateTab = widget.CreateTab
 				widget.CreateTab = function(self, id)
 					local tab = oldCreateTab(self, id)
-					tab:StripTextures()			
+					tab:StripTextures()
 					return tab
 				end
 			end

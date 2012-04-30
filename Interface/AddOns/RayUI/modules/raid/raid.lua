@@ -181,7 +181,7 @@ function RA:GetOptions()
 					name = L["AFK文字"],
 					type = "toggle",
 				},
-				
+
 				deficit = {
 					order = 3,
 					name = L["缺失生命文字"],

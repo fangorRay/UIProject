@@ -1,5 +1,5 @@
 ﻿local R, L, P = unpack(select(2, ...)) --Inport: Engine, Locales, ProfileDB
-local AB = R:NewModule("ActionBar", "AceEvent-3.0", "AceHook-3.0")
+local AB = R:NewModule("ActionBar", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3.0")
 
 AB.modName = L["动作条"]
 
@@ -351,12 +351,10 @@ function AB:Style(button)
 	local action = button.action
 
 	if name:match("MultiCast") then return end
-	
+
 	if not button.equipped then
 		local equipped = button:CreateTexture(nil, "OVERLAY")
-		equipped:SetTexture(R["media"].blank)
-		equipped:SetVertexColor(0, 1, 0, 0.2)
-		equipped:SetGradientAlpha("VERTICAL", 0, 1, 0, 0, 0, 1, 0, .3)
+		equipped:SetTexture(0, 1, 0, .3)
 		equipped:SetAllPoints()
 		equipped:Hide()
 		button.equipped = equipped
@@ -393,7 +391,7 @@ function AB:Style(button)
 	if Flash then Flash:SetTexture(nil) end
 	if Normal then Normal:SetTexture(nil) Normal:Hide() Normal:SetAlpha(0) end
 	if Normal2 then Normal2:SetTexture(nil) Normal2:Hide() Normal2:SetAlpha(0) end
-	if Border then Border:Kill() end
+	if Border then Border:SetTexture(nil) end
 
 	if Count then
 		Count:ClearAllPoints()

@@ -42,10 +42,10 @@ function AB:StyleTotemFlyout(flyout)
 	flyout.top:SetTexture(nil)
 	flyout.middle:SetTexture(nil)
 	flyout:SetFrameStrata('MEDIUM')
-	
+
 	-- Skin buttons
 	local last = nil
-	
+
 	for _,button in ipairs(flyout.buttons) do
 		button:CreateShadow("Background")
 		button.shadow:SetBackdropColor(0, 0, 0)
@@ -62,17 +62,17 @@ function AB:StyleTotemFlyout(flyout)
 		button:CreateBorder(flyout.parent:GetBackdropBorderColor())
 		button:StyleButton()
 	end
-	
+
 	flyout.buttons[1]:SetPoint("BOTTOM",flyout,"BOTTOM")
-	
+
 	if flyout.type == "slot" then
 		local tcoords = SLOT_EMPTY_TCOORDS[flyout.parent:GetID()]
 		flyout.buttons[1].icon:SetTexCoord(tcoords.left,tcoords.right,tcoords.top,tcoords.bottom)
 	end
-	
+
 	-- Skin Close button
 	local close = MultiCastFlyoutFrameCloseButton
-	close:CreateShadow("Background")	
+	close:CreateShadow("Background")
 	close:GetHighlightTexture():SetTexture([[Interface\Buttons\ButtonHilight-Square]])
 	close:GetHighlightTexture():Point("TOPLEFT",close,"TOPLEFT",1,-1)
 	close:GetHighlightTexture():Point("BOTTOMRIGHT",close,"BOTTOMRIGHT",-1,1)
@@ -82,7 +82,7 @@ function AB:StyleTotemFlyout(flyout)
 	close:Point("BOTTOMRIGHT",last,"TOPRIGHT",0,4)
 	close:CreateBorder(last:GetBackdropBorderColor())
 	close:Height(8)
-	
+
 	flyout:ClearAllPoints()
 	flyout:Point("BOTTOM",flyout.parent,"TOP",0,4)
 end
@@ -191,7 +191,7 @@ function AB:CreateBarTotem()
 		MultiCastActionBarFrame:Point("BOTTOMLEFT", RayUIStanceBar, "BOTTOMLEFT", -2, -2)
 
 		hooksecurefunc("MultiCastActionButton_Update",function(actionbutton) if not InCombatLockdown() then actionbutton:SetAllPoints(actionbutton.slotButton) end end)
-		
+
 		MultiCastActionBarFrame.SetParent = R.dummy
 		MultiCastActionBarFrame.SetPoint = R.dummy
 		MultiCastRecallSpellButton.SetPoint = R.dummy -- bug fix, see http://www.tukui.org/v2/forums/topic.php?id=2405

@@ -174,7 +174,7 @@ local function LoadSkin()
 			end
 		end
 	end)
-	
+
 	AchievementFrame:HookScript("OnShow", function()
 		for i=1, 20 do
 			local frame = _G["AchievementFrameCategoriesContainerButton"..i]
@@ -184,7 +184,7 @@ local function LoadSkin()
 			frame:GetHighlightTexture():Point("BOTTOMRiGHT", 0, -3)
 			frame:GetPushedTexture():Point("TOPLEFT", 0, -4)
 			frame:GetPushedTexture():Point("BOTTOMRiGHT", 0, -3)
-		end	
+		end
 	end)
 
 	for i = 1, 8 do
@@ -202,7 +202,7 @@ local function LoadSkin()
 		bg:Point("BOTTOMRIGHT", 1, -1)
 		bg:SetFrameLevel(bu:GetFrameLevel()-1)
 		S:CreateBD(bg, .25)
-		
+
 		_G["AchievementFrameSummaryCategoriesCategory"..i.."Left"]:Hide()
 		_G["AchievementFrameSummaryCategoriesCategory"..i.."Middle"]:Hide()
 		_G["AchievementFrameSummaryCategoriesCategory"..i.."Right"]:Hide()
@@ -218,7 +218,7 @@ local function LoadSkin()
 		_G["AchievementFrameStatsContainerButton"..i.."HeaderMiddle"]:SetAlpha(0)
 		_G["AchievementFrameStatsContainerButton"..i.."HeaderRight"]:SetAlpha(0)
 	end
-	
+
 	AchievementFrameComparisonHeader:SetPoint("BOTTOMRIGHT", AchievementFrameComparison, "TOPRIGHT", 39, 25)
 
 	local headerbg = CreateFrame("Frame", nil, AchievementFrameComparisonHeader)

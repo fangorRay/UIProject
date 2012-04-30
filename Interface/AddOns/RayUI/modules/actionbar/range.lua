@@ -51,7 +51,7 @@ function AB:CreateRangeDisplay()
 	hooksecurefunc("ActionButton_OnUpdate", AB.RegisterButtonRange)
 	hooksecurefunc("ActionButton_UpdateUsable", AB.OnUpdateButtonUsable)
 	hooksecurefunc("ActionButton_Update", AB.OnButtonUpdate)
-	
+
 	local rangeDisplay = CreateFrame("Frame")
 	local updater = rangeDisplay:CreateAnimationGroup()
 	updater:SetLooping("NONE")
@@ -60,7 +60,7 @@ function AB:CreateRangeDisplay()
 			AB:Start(UPDATE_DELAY)
 		end
 	end)
-	
+
 	local a = updater:CreateAnimation("Animation")
 	a:SetOrder(1)
 

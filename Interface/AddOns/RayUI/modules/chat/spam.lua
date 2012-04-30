@@ -6,14 +6,14 @@ local CH = R:GetModule("Chat")
 ----------------------------------------------------------------------------------
 local SpamList = {
 	"蛋糕",
-	"淘寶",	
-	"旺旺",	
-	"皇冠",	
-	"牛肉",	
-	"月餅",	
-	"季餅",	
-	"手工",	
-	"皇冠",	
+	"淘寶",
+	"旺旺",
+	"皇冠",
+	"牛肉",
+	"月餅",
+	"季餅",
+	"手工",
+	"皇冠",
 }
 
 ----------------------------------------------------------------------------------
@@ -51,7 +51,7 @@ TalentSpecSpam.link = {
 function TalentSpecSpam.addBetterStuff(in_string)
 	local temp = string.gsub(in_string, "%%1$s", "(%%S+)")
 	toReturn = string.gsub(temp, "%%s", "(%%S+)")
-	
+
 	return toReturn
 end
 
@@ -72,7 +72,7 @@ function TalentSpecSpam.makeFragments(in_string)
 		[1] = "",
 		[2] = "",
 	}
-	
+
 	local value = ""
 	local mod_string = TalentSpecSpam.sanitizePeriods(in_string)
 	for i=1, mod_string:len() do
@@ -88,7 +88,7 @@ function TalentSpecSpam.makeFragments(in_string)
 			value = value .. mod_string:sub(i,i)
 		end
 	end
-	
+
 	tbl[1] = mod_string
 	return tbl
 end
@@ -102,32 +102,32 @@ function TalentSpecSpam.TalentSpecSpamFilter(self, event, msg)
 	for i=1, #(TalentSpecSpam.patterns) do
 		if (msg:find(TalentSpecSpam.patterns[i])) then
 			local tempString, finalString = "", ""
-			
+
 			if (TalentSpecSpam.patternFragments[i][1] ~= "") then
 				tempString = string.gsub(msg, TalentSpecSpam.patternFragments[i][1], "")
 			else tempString = msg
 			end
-			
+
 			if (TalentSpecSpam.patternFragments[i][2] ~= "") then
 				finalString = string.gsub(tempString, TalentSpecSpam.patternFragments[i][2], "")
 			else finalString = tempString
 			end
-			
+
 			if (TalentSpecSpam.alreadyseen[i] == nil) then TalentSpecSpam.alreadyseen[i] = {}; end
 			if (TalentSpecSpam.alreadyseen[i][finalString] == nil) then
 				TalentSpecSpam.alreadyseen[i][finalString] = true
-				
+
 				local tempTable = TalentSpecSpam.link[i]
 				tempTable[#(tempTable) + 1] = finalString
-				
+
 				TalentSpecSpam.time = GetTime()
 				TalentSpecSpam.frame:SetScript("OnUpdate", TalentSpecSpam.summarize)
 			end
-			
+
 			return true
 		end
 	end
-	
+
 	return false
 end
 
@@ -136,34 +136,34 @@ function TalentSpecSpam.print(intable)
 	for k,name in pairs(intable) do
 		toReturn = toReturn .. name .. ", "
 	end
-	
+
 	return toReturn
 end
 
 function TalentSpecSpam.removeLastComma(instring)
 	local toReturn = ""
-	
+
 	for i=instring:len(), 1, -1 do
 		if (instring:sub(i,i) == ",") then
 			return instring:sub(1,i-1)
 		end
 	end
-	
+
 	return toReturn
 end
 
 function TalentSpecSpam.summarize()
 	if ((GetTime() - TalentSpecSpam.time) > minTime) then
 		TalentSpecSpam.frame:SetScript("OnUpdate", nil)
-		
+
 		if (#(TalentSpecSpam.unlearned) > 0) then
 			DEFAULT_CHAT_FRAME:AddMessage(string.gsub(TalentSpecSpam.globalPatterns[1], "%%s", TalentSpecSpam.removeLastComma(TalentSpecSpam.print(TalentSpecSpam.unlearned))), 1, 1, 0)
 		end
-		
+
 		if ((#(TalentSpecSpam.learned) > 0) or (#(TalentSpecSpam.learnedspell) > 0)) then
 			DEFAULT_CHAT_FRAME:AddMessage(string.gsub(TalentSpecSpam.globalPatterns[2], "%%s", TalentSpecSpam.removeLastComma(TalentSpecSpam.print(TalentSpecSpam.learned) .. TalentSpecSpam.print(TalentSpecSpam.learnedspell))), 1, 1, 0)
 		end
-		
+
 		for k, tbl in ipairs (TalentSpecSpam.link) do wipe(tbl); end
 		wipe(TalentSpecSpam.alreadyseen)
 	end

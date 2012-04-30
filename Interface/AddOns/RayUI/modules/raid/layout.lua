@@ -162,7 +162,7 @@ function RA:UpdateName(name, unit)
             name:SetText(substring)
             if name:GetStringWidth() <= RA.db.width - 8 then name:SetText(nil); break end
         end
-		
+
         local str = RA.colorCache[class]..substring
         RA.nameCache[_NAME] = str
         name:UpdateTag()
@@ -184,7 +184,7 @@ local function PostHealth(hp, unit)
         hp.bg:SetVertexColor(r, g, b)
         return
     end
-	
+
 	if UF.db.healthColorClass then
 		hp.colorClass=true
 		hp.bg.multiplier = .2
@@ -196,7 +196,7 @@ local function PostHealth(hp, unit)
 		else
 			r,g,b = .12, .12, .12, 1
 		end
-		
+
 		if(b) then
 			hp:SetStatusBarColor(r, g, b, 1)
 		elseif not UnitIsConnected(unit) then
@@ -489,7 +489,7 @@ function RA:Raid15SmartVisibility(event)
 	local inInstance, instanceType = IsInInstance()
 	local _, _, _, _, maxPlayers, _, _ = GetInstanceInfo()
 	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
-	if not InCombatLockdown() then		
+	if not InCombatLockdown() then
 		if inInstance and instanceType == "raid" and maxPlayers > 15 then
 			self:SetAttribute("showRaid", false)
 			self:SetAttribute("showParty", false)
@@ -512,7 +512,7 @@ function RA:Raid25SmartVisibility(event)
 	local inInstance, instanceType = IsInInstance()
 	local _, _, _, _, maxPlayers, _, _ = GetInstanceInfo()
 	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
-	if not InCombatLockdown() then		
+	if not InCombatLockdown() then
 		if inInstance and instanceType == "raid" and maxPlayers <= 15 then
 			self:SetAttribute("showRaid", false)
 			self:SetAttribute("showParty", false)
@@ -536,7 +536,7 @@ function RA:SpawnHeader(name, group, temp, pet, MT, layout)
     local horiz, grow = RA.db.horizontal, RA.db.growth
 	local width, height = RA.db.width, RA.db.height
 	local visibility = "custom [@raid16,noexists] hide;show"
-	
+
 	if layout == 15 then
 		width = width * 1.3
 		height = height * 1.3
@@ -599,7 +599,7 @@ function RA:SpawnHeader(name, group, temp, pet, MT, layout)
     "unitsPerColumn", 5,
     "columnSpacing", RA.db.spacing,
     "columnAnchorPoint", growth)
-	
+
 	header:RegisterEvent("PLAYER_ENTERING_WORLD")
 	header:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	if layout == 15 then

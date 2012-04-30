@@ -150,12 +150,12 @@ function WM:SkinWorldMap()
 	WorldMapDetailFrame.backdrop:Point("TOPLEFT", WorldMapDetailFrame, -2, 2)
 	WorldMapDetailFrame.backdrop:Point("BOTTOMRIGHT", WorldMapDetailFrame, 2, -2)
 	WorldMapDetailFrame.backdrop:SetFrameLevel(WorldMapDetailFrame:GetFrameLevel() - 2)
-		
+
 	S:ReskinDropDown(WorldMapZoneMinimapDropDown)
 	S:ReskinDropDown(WorldMapContinentDropDown)
 	S:ReskinDropDown(WorldMapZoneDropDown)
 
-	S:ReskinDropDown(WorldMapShowDropDown)	
+	S:ReskinDropDown(WorldMapShowDropDown)
 	WorldMapShowDropDown:ClearAllPoints()
 	WorldMapShowDropDown:SetPoint("TOPRIGHT", WorldMapButton, "BOTTOMRIGHT", 18, 2)
 
@@ -177,7 +177,7 @@ function WM:SkinWorldMap()
 	WorldMapLevelUpButton.SetFrameStrata = R.dummy
 	WorldMapLevelDownButton:SetFrameStrata("HIGH")
 	WorldMapLevelDownButton.SetFrameStrata = R.dummy
-	
+
 	S:CreateSD(WorldMapFrame.backdrop)
 end
 
@@ -264,11 +264,11 @@ function WM:QuestSkin()
 		SetUIPanelAttribute(WorldMapFrame, "area", "center");
 		SetUIPanelAttribute(WorldMapFrame, "allowOtherPanels", true)
 	end
-	
+
 	WorldMapFrame.backdrop:ClearAllPoints()
 	WorldMapFrame.backdrop:Point("TOPLEFT", WorldMapDetailFrame, "TOPLEFT", -25, 70)
 	WorldMapFrame.backdrop:Point("BOTTOMRIGHT", WorldMapDetailFrame, "BOTTOMRIGHT", 325, -235)  
-	
+
 	if not WorldMapQuestDetailScrollFrame.backdrop then
 		WorldMapQuestDetailScrollFrame.backdrop = CreateFrame("Frame", nil, WorldMapQuestDetailScrollFrame)
 		S:CreateBD(WorldMapQuestDetailScrollFrame.backdrop)
@@ -276,21 +276,21 @@ function WM:QuestSkin()
 		WorldMapQuestDetailScrollFrame.backdrop:Point("TOPLEFT", -22, 2)
 		WorldMapQuestDetailScrollFrame.backdrop:Point("BOTTOMRIGHT", 23, -4)
 	end
-	
+
 	if not WorldMapQuestRewardScrollFrame.backdrop then
 		WorldMapQuestRewardScrollFrame.backdrop = CreateFrame("Frame", nil, WorldMapQuestRewardScrollFrame)
 		S:CreateBD(WorldMapQuestRewardScrollFrame.backdrop)
 		WorldMapQuestRewardScrollFrame.backdrop:SetFrameLevel(0)
 		WorldMapQuestRewardScrollFrame.backdrop:Point("TOPLEFT", -2, 2)
-		WorldMapQuestRewardScrollFrame.backdrop:Point("BOTTOMRIGHT", 22, -4)				
+		WorldMapQuestRewardScrollFrame.backdrop:Point("BOTTOMRIGHT", 22, -4)
 	end
-	
+
 	if not WorldMapQuestScrollFrame.backdrop then
 		WorldMapQuestScrollFrame.backdrop = CreateFrame("Frame", nil, WorldMapQuestScrollFrame)
 		S:CreateBD(WorldMapQuestScrollFrame.backdrop)
 		WorldMapQuestScrollFrame.backdrop:SetFrameLevel(0)
 		WorldMapQuestScrollFrame.backdrop:Point("TOPLEFT", 0, 2)
-		WorldMapQuestScrollFrame.backdrop:Point("BOTTOMRIGHT", 24, -3)				
+		WorldMapQuestScrollFrame.backdrop:Point("BOTTOMRIGHT", 24, -3)
 	end
 end
 
@@ -350,8 +350,8 @@ function WM:OnUpdate(self, elapsed)
 		WorldMapFrameSizeUpButton:Disable()
 	else
 		WorldMapFrameSizeDownButton:Enable()
-		WorldMapFrameSizeUpButton:Enable()			
-	end	
+		WorldMapFrameSizeUpButton:Enable()
+	end
 	if WORLDMAP_SETTINGS.size == WORLDMAP_FULLMAP_SIZE then
 		WorldMapFrameSizeUpButton:Hide()
 		WorldMapFrameSizeDownButton:Show()
@@ -361,8 +361,8 @@ function WM:OnUpdate(self, elapsed)
 	elseif WORLDMAP_SETTINGS.size == WORLDMAP_QUESTLIST_SIZE then
 		WorldMapFrameSizeUpButton:Hide()
 		WorldMapFrameSizeDownButton:Show()
-	end			
-end	
+	end
+end
 
 function WM:FixSkin()
 	WorldMapFrame:SetFrameStrata("HIGH")
@@ -381,17 +381,17 @@ function WM:FixSkin()
 	else
 		WorldMapFrameSizeDownButton:Disable()
 		WorldMapFrameSizeUpButton:Disable()
-	end	
-	
+	end
+
 	WorldMapFrameAreaLabel:SetFont(GameFontNormalSmall:GetFont(), 50, "OUTLINE")
 	WorldMapFrameAreaLabel:SetShadowOffset(2, -2)
-	WorldMapFrameAreaLabel:SetTextColor(0.90, 0.8294, 0.6407)	
-	
+	WorldMapFrameAreaLabel:SetTextColor(0.90, 0.8294, 0.6407)
+
 	WorldMapFrameAreaDescription:SetFont(GameFontNormalSmall:GetFont(), 40, "OUTLINE")
-	WorldMapFrameAreaDescription:SetShadowOffset(2, -2)	
-	
+	WorldMapFrameAreaDescription:SetShadowOffset(2, -2)
+
 	WorldMapZoneInfo:SetFont(GameFontNormalSmall:GetFont(), 27, "OUTLINE")
-	WorldMapZoneInfo:SetShadowOffset(2, -2)		
+	WorldMapZoneInfo:SetShadowOffset(2, -2)
 end
 
 function WM:Initialize()

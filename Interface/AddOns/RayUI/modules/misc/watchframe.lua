@@ -19,12 +19,12 @@ local function LoadFunc()
 		RayUIWatchFrame:SetPoint("TOP", RayUIWatchFrameHolder, "TOP", 0, 5)
 	end
 
-	local function setup()	
+	local function setup()
 		local screenheight = GetScreenHeight()
 		RayUIWatchFrame:SetHeight(screenheight / 1.6)
-		
+
 		RayUIWatchFrame:SetWidth(250)
-		
+
 		WatchFrame:SetParent(RayUIWatchFrame)
 		WatchFrame:SetClampedToScreen(false)
 		WatchFrame:ClearAllPoints()
@@ -36,7 +36,7 @@ local function LoadFunc()
 		-- WatchFrameTitle:SetParent(RayUIWatchFrame)
 		WatchFrameCollapseExpandButton:SetParent(RayUIWatchFrame)
 		WatchFrameCollapseExpandButton.Disable = R.dummy
-		
+
 		-- WatchFrameTitle:Hide()
 		-- WatchFrameTitle.Show = R.dummy
 	end

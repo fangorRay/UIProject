@@ -114,7 +114,7 @@ local function LoadSkin()
 				lootSlot.texture:SetVertexColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
 			else
 				lootSlot.texture:SetVertexColor(1, 1, 1)
-			end		
+			end
 			lootSlot:Show()
 		end
 
@@ -187,7 +187,7 @@ local function LoadSkin()
 		loot:RegisterEvent("OPEN_MASTER_LOOT_LIST")
 		loot:RegisterEvent("UPDATE_MASTER_LOOT_LIST")
 		LootFrame:UnregisterAllEvents()
-		
+
 		S:CreateBD(loot)
 		loot:SetWidth(200)
 		loot:SetPoint("TOP", anchorframe, 0, 0)
@@ -210,7 +210,7 @@ local function LoadSkin()
 		loot.button:SetScript("OnClick", function()
 			CloseLoot()
 		end)
-		
+
 		local chn = { "say", "guild", "party", "raid"}
 		local chncolor = {
 			say = { 1, 1, 1},

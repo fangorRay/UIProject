@@ -15,22 +15,22 @@ local function LoadFunc()
 				region:SetShadowColor(0,0,0,0)
 			end
 		end
-		
+
 		bar:SetStatusBarTexture(R["media"].normal)
 		bar:SetStatusBarColor(95/255, 182/255, 255/255)
 		bar:Height(18)
-		
+
 		local spark = bar:CreateTexture(nil, "OVERLAY")
 		spark:SetTexture[[Interface\CastingBar\UI-CastingBar-Spark]]
 		spark:SetBlendMode("ADD")
 		spark:SetAlpha(.8)
 		spark:Point("TOPLEFT", bar:GetStatusBarTexture(), "TOPRIGHT", -10, 13)
 		spark:Point("BOTTOMRIGHT", bar:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -13)
-		
+
 		bar:CreateShadow("Background")
 	end
 
-	local function SkinBlizzTimer()	
+	local function SkinBlizzTimer()
 		for _, b in pairs(TimerTracker.timerList) do
 			if b["bar"] and not b["bar"].skinned then
 				SkinIt(b["bar"])

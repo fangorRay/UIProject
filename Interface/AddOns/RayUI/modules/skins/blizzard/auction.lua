@@ -112,7 +112,7 @@ local function LoadSkin()
 	AuctionsCancelAuctionButton:Point("RIGHT", AuctionsCloseButton, "LEFT", -1, 0)
 	BrowseSearchButton:ClearAllPoints()
 	BrowseSearchButton:SetPoint("TOPRIGHT", AuctionFrameBrowse, "TOPRIGHT", 25, -30)
-	
+
 	-- Blizz needs to be more consistent
 
 	BrowseBidPriceSilver:Point("LEFT", BrowseBidPriceGold, "RIGHT", 1, 0)
@@ -242,7 +242,7 @@ local function LoadSkin()
 	S:ReskinArrow(BrowseNextPageButton, 2)
 	S:ReskinCheck(IsUsableCheckButton)
 	S:ReskinCheck(ShowOnPlayerCheckButton)
-	
+
 	BrowsePrevPageButton:GetRegions():SetPoint("LEFT", BrowsePrevPageButton, "RIGHT", 2, 0)
 
 	-- seriously, consistency
@@ -294,7 +294,7 @@ local function LoadSkin()
 	for i = 1, #inputs do
 		S:ReskinInput(_G[inputs[i]])
 	end
-	
+
 	BrowseMinLevel:SetPoint("TOPLEFT", BrowseLevelText, "BOTTOMLEFT", -7, -1)
 	BrowseDropDown:SetPoint("TOPLEFT", BrowseLevelText, "BOTTOMRIGHT", 2, 4)
 	BrowseNameText:ClearAllPoints()

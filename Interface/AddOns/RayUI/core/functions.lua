@@ -49,7 +49,7 @@ local function CreateWarningFrame()
 	-- frame:Hide()
 	frame:EnableMouse(true)
 	frame:SetFrameStrata("DIALOG")
-	
+
 	local titile = frame:CreateFontString(nil, "OVERLAY")
 	titile:Point("TOPLEFT", 0, -10)
 	titile:Point("TOPRIGHT", 0, -10)
@@ -59,7 +59,7 @@ local function CreateWarningFrame()
 	local scrollArea = CreateFrame("ScrollFrame", "RayUIWarningFrameScroll", frame, "UIPanelScrollFrameTemplate")
 	scrollArea:Point("TOPLEFT", frame, "TOPLEFT", 8, -40)
 	scrollArea:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -30, 50)
-	
+
 	S:ReskinScroll(RayUIWarningFrameScrollScrollBar)
 
 	local messageFrame = CreateFrame("EditBox", nil, frame)
@@ -71,12 +71,12 @@ local function CreateWarningFrame()
 	messageFrame:Size(400, 400)
 
 	scrollArea:SetScrollChild(messageFrame)
-	
+
 	for i in pairs(AddonNotSupported) do
 		local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo(i)
 		messageFrame:SetText(messageFrame:GetText().."\n"..name)
 	end
-	
+
 	local button1 = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
 	button1:Size(150, 30)
 	button1:Point("BOTTOMLEFT", 10, 10)
@@ -90,7 +90,7 @@ local function CreateWarningFrame()
 		end
 		ReloadUI()
 	end)
-	
+
 	local button2 = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
 	button2:Size(150, 30)
 	button2:Point("BOTTOMRIGHT", -10, 10)
@@ -254,11 +254,11 @@ function R:GetScreenQuadrant(frame)
 	local screenWidth = GetScreenWidth()
 	local screenHeight = GetScreenHeight()
 	local point
-	
+
 	if not frame:GetCenter() then
 		return "UNKNOWN", frame:GetName()
 	end
-	
+
 	if (x > (screenWidth / 4) and x < (screenWidth / 4)*3) and y > (screenHeight / 4)*3 then
 		point = "TOP"
 	elseif x < (screenWidth / 4) and y > (screenHeight / 4)*3 then
@@ -340,7 +340,7 @@ function R:MakeTabletHeader(col, size, indentation, justifyTable)
 	local header = {}
 	local colors = {}
 	colors = {0.9, 0.8, 0.7}
-	
+
 	for i = 1, #col do
 		if ( i == 1 ) then
 			header["text"] = col[i]
@@ -365,7 +365,7 @@ end
 
 R["media"] = {}
 
-function R:UpdateMedia()	
+function R:UpdateMedia()
 	--Fonts
 	self["media"].font = LSM:Fetch("font", self.db["media"].font)
 	self["media"].dmgfont = LSM:Fetch("font", self.db["media"].dmgfont)
@@ -384,7 +384,7 @@ function R:UpdateMedia()
 
 	--Backdrop Color
 	self["media"].backdropcolor = self.db["media"].backdropcolor
-	
+
 	--Sound
 	self["media"].warning = LSM:Fetch("sound", self.db["media"].warning)
 	self["media"].errorsound = LSM:Fetch("sound", self.db["media"].errorsound)

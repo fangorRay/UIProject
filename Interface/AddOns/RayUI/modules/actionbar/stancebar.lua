@@ -26,14 +26,14 @@ function AB:CreateStanceBar()
 			button:SetPoint("LEFT", previous, "RIGHT", AB.db.buttonspacing, 0)
 		end
 	end
-		
+
 	local function RayUIMoveShapeshift()
 		if InCombatLockdown() then return end
 		ShapeshiftButton1:SetPoint("BOTTOMLEFT", bar, 0,0)
 	end
 	hooksecurefunc("ShapeshiftBar_Update", RayUIMoveShapeshift)
-		
-		
+
+
 	if AB.db.stancebarmouseover then    
 		AB.db.stancebarfade = false  
 		bar:SetAlpha(0)

@@ -185,7 +185,7 @@ HelpIDs = ( {
 	MAGE = { 475 }; -- Remove Curse (40yd) - Lvl 30
 	PALADIN = { 85673 }; -- Word of Glory (40yd) - Lvl 9
 	PRIEST = { 2061 }; -- Flash Heal (40yd) - Lvl 3
-	-- ROGUE = {};
+	-- ROGUE = {57934}; --偷天換日
 	SHAMAN = { 331 }; -- Healing Wave (40yd) - Lvl 7
 	WARLOCK = { 5697 }; -- Unending Breath (30yd) - Lvl 16
 	-- WARRIOR = {};
@@ -201,7 +201,7 @@ HarmIDs = ( {
 		879, -- Exorcism (30yd) - Lvl 18
 	};
 	PRIEST = { 589 }; -- Shadow Word: Pain (40yd) - Lvl 4
-	-- ROGUE = {};
+	ROGUE = {1752}; -- 邪惡攻擊
 	SHAMAN = { 403 }; -- Lightning Bolt (30yd) - Starter
 	WARLOCK = { 686 }; -- Shadow Bolt (40yd) - Starter
 	WARRIOR = { 355 }; -- Taunt (30yd) - Lvl 12

@@ -36,7 +36,7 @@ function CH:CHAT_MSG_LOOT(event, msg)
 		rolltype, rollval, link, player = msg:match(L["（(.+)）(%d+)点：(.+)（(.+)）"])
 		if iszhTW then link, player, rollval = rollval, link, player end
 	end
-	
+
 	if player then
 		local roll = FindRoll(link, player, true)
 		roll[player] = {rolltype, rollcolors[rolltype]..rollval, select(2, UnitClass(player))}

@@ -6,7 +6,7 @@ local function LoadSkin()
 	GossipFramePortrait:Hide()
 	GossipFrameGreetingPanel:DisableDrawLayer("BACKGROUND")
 	GossipFrameGreetingPanel:DisableDrawLayer("ARTWORK")
-	
+
 	GreetingText:SetTextColor(1, 1, 1)
 	GreetingText.SetTextColor = R.dummy
 
@@ -25,7 +25,7 @@ local function LoadSkin()
 
 	S:SetBD(ItemTextFrame, 16, -8, -28, 62)
 	ItemTextFrame:DisableDrawLayer("BORDER")
-	
+
 	ItemTextPageText:SetTextColor(1, 1, 1)
 	ItemTextPageText.SetTextColor = R.dummy
 

@@ -11,7 +11,7 @@ local function LoadSkin()
 	ChannelRosterScrollFrameTop:SetAlpha(0)
 	ChannelRosterScrollFrameBottom:SetAlpha(0)
 	FriendsFrameStatusDropDown:ClearAllPoints()
-	
+
 	S:ReskinScroll(FriendsFrameFriendsScrollFrameScrollBar)
 	S:ReskinScroll(WhoListScrollFrameScrollBar)
 	S:ReskinScroll(FriendsFriendsScrollFrameScrollBar)
@@ -64,7 +64,7 @@ local function LoadSkin()
 	for i = 1, #bglayers do
 		_G[bglayers[i]]:DisableDrawLayer("BACKGROUND")
 	end
-	
+
 	local borderlayers = {
 		"FriendsFrame",
 		"FriendsFrameInset",
@@ -77,7 +77,7 @@ local function LoadSkin()
 	for i = 1, #borderlayers do
 		_G[borderlayers[i]]:DisableDrawLayer("BORDER")
 	end
-	
+
 	local lightbds = {
 		"FriendsFriendsList",
 		"AddFriendNoteFrame",
@@ -116,16 +116,16 @@ local function LoadSkin()
 			select(i, _G["FriendsTabHeaderTab"..j]:GetRegions()).Show = R.dummy
 		end
 	end
-	
+
 	for i = 1, 4 do
 		S:CreateTab(_G["FriendsFrameTab"..i])
 	end
-	
+
 	for i = 1, 9 do
 		select(i, FriendsFriendsNoteFrame:GetRegions()):Hide()
 		select(i, AddFriendNoteFrame:GetRegions()):Hide()
 	end
-	
+
 	for i = 1, MAX_DISPLAY_CHANNEL_BUTTONS do
 		_G["ChannelButton"..i]:SetNormalTexture("")
 	end

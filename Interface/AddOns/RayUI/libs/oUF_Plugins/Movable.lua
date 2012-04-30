@@ -390,7 +390,7 @@ do
 		end)
 		backdrop:HookScript("OnLeave", function(self)
 			self.name:SetTextColor(1, 1, 1)
-		end)	
+		end)
 		backdrop:SetScript('OnSizeChanged', OnSizeChanged)
 
 		backdropPool[target] = backdrop
@@ -429,7 +429,7 @@ do
 				end
 			end
 		end
-		
+
 		function R:MoveoUF()
 			if(InCombatLockdown()) then return end
 

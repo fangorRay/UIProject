@@ -17,7 +17,7 @@ local function LoadFunc()
 				frame.text = region
 			end
 		end
-		
+
 		frame:SetBackdrop({
 			bgFile = R["media"].blank,
 			edgeFile = R["media"].glow,
@@ -27,7 +27,7 @@ local function LoadFunc()
 		frame:SetClampedToScreen(false)
 		frame:SetBackdropBorderColor(unpack(R["media"].bordercolor))
 		frame:SetBackdropColor(.1, .1, .1, .6)
-		
+
 		tinsert(bubbles, frame)
 	end
 
@@ -54,10 +54,10 @@ local function LoadFunc()
 				end
 				numkids = newnumkids
 			end
-			
+
 			for i, frame in next, bubbles do
 				local r, g, b = frame.text:GetTextColor()
-				frame:SetBackdropBorderColor(r, g, b, .8)	
+				frame:SetBackdropBorderColor(r, g, b, .8)
 			end
 		end
 	end)

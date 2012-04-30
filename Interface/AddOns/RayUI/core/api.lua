@@ -17,7 +17,7 @@ function R:UIScale()
 	elseif R.screenwidth >= 3840 or (UIParent:GetWidth() + 1 > R.screenwidth) then
 		local width = R.screenwidth
 		local height = R.screenheight
-	
+
 		-- because some user enable bezel compensation, we need to find the real width of a single monitor.
 		-- I don"t know how it really work, but i"m assuming they add pixel to width to compensate the bezel. :P
 
@@ -38,7 +38,7 @@ function R:UIScale()
 		if width < 1600 then
 			R.lowversion = true
 		end
-		
+
 		-- register a constant, we will need it later for launch.lua
 		R.eyefinity = width
 	end
@@ -48,7 +48,7 @@ function R:UIScale()
 	else
 		R.ResScale = 1
 	end
-	
+
 	self.mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/self.db.general.uiscale
 end
 
@@ -83,7 +83,7 @@ end
 
 local function CreateShadow(f, t, thickness, texture)
 	if f.shadow then return end
-	
+
 	local borderr, borderg, borderb, bordera = unpack(R["media"].bordercolor)
 	local backdropr, backdropg, backdropb, backdropa = unpack(R["media"].backdropcolor)
 	local frameLevel = f:GetFrameLevel() > 1 and f:GetFrameLevel() or 1
@@ -95,7 +95,7 @@ local function CreateShadow(f, t, thickness, texture)
 	else
 		backdropa = 0
 	end
-	
+
 	local border = CreateFrame("Frame", nil, f)
 	border:SetFrameLevel(frameLevel)
 	border:Point("TOPLEFT", -1, 1)
@@ -104,7 +104,7 @@ local function CreateShadow(f, t, thickness, texture)
 	border:Point("BOTTOMLEFT", -1, -1)
 	border:CreateBorder()
 	f.border = border
-	
+
 	local shadow = CreateFrame("Frame", nil, border)
 	shadow:SetFrameLevel(frameLevel - 1)
 	shadow:Point("TOPLEFT", -offset, offset)
@@ -156,7 +156,7 @@ local function StyleButton(button, setallpoints)
 		button.hover = hover
 		button:SetHighlightTexture(hover)
 	end
-	
+
 	if button.SetPushedTexture and not button.pushed then
 		local pushed = button:CreateTexture(nil, "OVERLAY")
 		pushed:SetTexture(0.9, 0.8, 0.1, 0.3)
@@ -169,7 +169,7 @@ local function StyleButton(button, setallpoints)
 		button.pushed = pushed
 		button:SetPushedTexture(pushed)
 	end
-	
+
 	if button.SetCheckedTexture and not button.checked then
 		local checked = button:CreateTexture(nil, "OVERLAY")
 		checked:SetTexture(23/255,132/255,209/255,0.3)
@@ -226,7 +226,7 @@ end
 local function FadeIn(f)
 	UIFrameFadeIn(f, .4, f:GetAlpha(), 1)
 end
-	
+
 local function FadeOut(f)
 	UIFrameFadeOut(f, .4, f:GetAlpha(), 0)
 end
@@ -241,7 +241,7 @@ local function StripTextures(object, kill)
 				region:SetTexture(nil)
 			end
 		end
-	end		
+	end
 end
 
 local function CreatePulse(frame, speed, mult, alpha)

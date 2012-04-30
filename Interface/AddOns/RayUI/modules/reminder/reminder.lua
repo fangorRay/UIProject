@@ -18,26 +18,26 @@ function RM:PlayerHasFilteredBuff(db, checkPersonal)
 			end
 		end
 	end
-	
+
 	return false
 end
 
 function RM:UpdateReminderIcon(event, unit)
 	if (event == "UNIT_AURA" and unit ~= "player") then return end
-	
+
 	local db = P["Reminder"].filters[R.myclass][self.groupName]
 
 	self:Hide()
 	self.icon:SetTexture(nil)
-	
+
 	if not db or not db.enable or (not db.spellGroup and not db.weaponCheck) then return end
 
 	--Level Check
 	if db.level and UnitLevel("player") < db.level then return end
-	
+
 	--Negate Spells Check
 	if db.negateGroup and RM:PlayerHasFilteredBuff(db.negateGroup) then return end
-	
+
 	local hasOffhandWeapon = OffhandHasWeapon()
 	local hasMainHandEnchant, _, _, hasOffHandEnchant, _, _ = GetWeaponEnchantInfo()
 	if db.spellGroup then
@@ -48,7 +48,7 @@ function RM:UpdateReminderIcon(event, unit)
 				if (usable or nomana) then
 					self.icon:SetTexture(select(3, GetSpellInfo(buff)))
 					break
-				end		
+				end
 			end
 		end
 
@@ -63,48 +63,48 @@ function RM:UpdateReminderIcon(event, unit)
 				self:RegisterEvent("PLAYER_REGEN_ENABLED")
 				self:RegisterEvent("PLAYER_REGEN_DISABLED")
 			end
-			
+
 			if db.instance or db.pvp then
 				self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 			end
-			
+
 			if db.role then
 				self:RegisterEvent("UNIT_INVENTORY_CHANGED")
 			end
-		end		
+		end
 	elseif db.weaponCheck then
 		self:UnregisterAllEvents()
 		self:RegisterEvent("UNIT_INVENTORY_CHANGED")
-		
+
 		if not hasOffhandWeapon and hasMainHandEnchant then
 			self.icon:SetTexture(GetInventoryItemTexture("player", 16))
 		else
 			if not hasOffHandEnchant then
 				self.icon:SetTexture(GetInventoryItemTexture("player", 17))
 			end
-			
+
 			if not hasMainHandEnchant then
 				self.icon:SetTexture(GetInventoryItemTexture("player", 16))
 			end
 		end
-		
+
 		if db.combat then
 			self:RegisterEvent("PLAYER_REGEN_ENABLED")
 			self:RegisterEvent("PLAYER_REGEN_DISABLED")
 		end
-		
+
 		if db.instance or db.pvp then
 			self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 		end
-		
+
 		if db.role then
 			self:RegisterEvent("UNIT_INVENTORY_CHANGED")
 		end
 	end
-	
+
 	local _, instanceType = IsInInstance()
 	local roleCheck, treeCheck, combatCheck, instanceCheck, PVPCheck
-	
+
 	if db.role then
 		if db.role == R.Role then
 			roleCheck = true
@@ -124,7 +124,7 @@ function RM:UpdateReminderIcon(event, unit)
 	else
 		treeCheck = true
 	end
-	
+
 	if db.combat then
 		if InCombatLockdown() then
 			combatCheck = true
@@ -134,7 +134,7 @@ function RM:UpdateReminderIcon(event, unit)
 	else
 		combatCheck = true
 	end
-	
+
 	if db.instance and (instanceType == "party" or instanceType == "raid") then
 		instanceCheck = true
 	else
@@ -146,15 +146,15 @@ function RM:UpdateReminderIcon(event, unit)
 	else
 		PVPCheck = nil
 	end
-	
+
 	if not db.pvp and not db.instance then
 		PVPCheck = true
 		instanceCheck = true
 	end
-	
+
 	if db.reverseCheck and not (db.role or db.tree) then db.reverseCheck = nil end
 	if not self.icon:GetTexture() or UnitInVehicle("player") then self:Hide() return end
-	
+
 	if db.spellGroup then
 		if roleCheck and treeCheck and combatCheck and (instanceCheck or PVPCheck) and not RM:PlayerHasFilteredBuff(db.spellGroup, db.personal) then
 			self.hint = L["缺少"]..L[self.groupName]
@@ -180,7 +180,7 @@ function RM:UpdateReminderIcon(event, unit)
 			end
 		end
 	end
-	
+
 	if self:IsShown() then
 		if not RM.SoundThrottled then
 			RM.SoundThrottled = true
@@ -211,7 +211,7 @@ function RM:CreateReminder(name, index)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 5)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(self.hint)
-		GameTooltip:Show()		
+		GameTooltip:Show()
 	end)
 	frame:SetScript("OnLeave", GameTooltip_Hide)
 	frame:Hide()
@@ -227,7 +227,7 @@ function RM:CreateReminder(name, index)
 	frame:RegisterEvent("UNIT_EXITING_VEHICLE")
 	frame:RegisterEvent("UNIT_EXITED_VEHICLE")
 	frame:SetScript("OnEvent", RM.UpdateReminderIcon)
-	
+
 	self.CreatedReminders[name] = frame
 end
 
@@ -240,13 +240,13 @@ end
 function RM:CheckForNewReminders()
 	local db = P["Reminder"].filters[R.myclass]
 	if not db then return end
-	
+
 	local index = 0
 	for groupName, _ in pairs(db) do
 		index = index + 1
 		self:CreateReminder(groupName, index)
 	end
-	
+
 	self:UpdateAllIcons()
 end
 

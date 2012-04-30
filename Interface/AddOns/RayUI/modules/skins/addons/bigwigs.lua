@@ -16,7 +16,7 @@ local function SkinBigWigs()
 
 	-- styling functions
 	local createbg = function()
-		local bg = CreateFrame("Frame")	
+		local bg = CreateFrame("Frame")
 		bg:CreateShadow("Background")
 		return bg
 	end
@@ -45,30 +45,30 @@ local function SkinBigWigs()
 		bar.candyBarBar.SetPoint=bar.candyBarBar.OldSetPoint
 		bar.candyBarIconFrame.SetWidth=bar.candyBarIconFrame.OldSetWidth
 		bar.SetScale=bar.OldSetScale
-		
+
 		--Reset Positions
 		--Icon
 		bar.candyBarIconFrame:ClearAllPoints()
 		bar.candyBarIconFrame:SetPoint("TOPLEFT")
 		bar.candyBarIconFrame:SetPoint("BOTTOMLEFT")
 		bar.candyBarIconFrame:SetTexCoord(0.07, 0.93, 0.07, 0.93)
-		
+
 		--Status Bar
 		bar.candyBarBar:ClearAllPoints()
 		bar.candyBarBar:SetPoint("TOPRIGHT")
 		bar.candyBarBar:SetPoint("BOTTOMRIGHT")
-		
+
 		--BG
 		bar.candyBarBackground:SetAllPoints()
-		
+
 		--Duration
 		bar.candyBarDuration:ClearAllPoints()
 		bar.candyBarDuration:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)
-		
+
 		--Name
 		bar.candyBarLabel:ClearAllPoints()
 		bar.candyBarLabel:SetPoint("LEFT", bar.candyBarBar, "LEFT", 2, 0)
-		bar.candyBarLabel:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)	
+		bar.candyBarLabel:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)
 	end
 
 	local applystyle = function(bar)
@@ -80,7 +80,7 @@ local function SkinBigWigs()
 		bar.SetScale=R.dummy
 		bar:Height(buttonsize)
 		bar:SetScale(1)
-		
+
 		-- create or reparent and use bar background
 		local bg = nil
 		if #freebg > 0 then
@@ -143,7 +143,7 @@ local function SkinBigWigs()
 		bar.candyBarIconFrame.OldSetWidth = bar.candyBarIconFrame.SetWidth
 		bar.candyBarIconFrame.SetWidth=R.dummy
 		bar.candyBarIconFrame:ClearAllPoints()
-		bar.candyBarIconFrame:Point("BOTTOMRIGHT", bar, "BOTTOMLEFT", -5, 0)	
+		bar.candyBarIconFrame:Point("BOTTOMRIGHT", bar, "BOTTOMLEFT", -5, 0)
 		bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
 		bar.candyBarIconFrame:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 	end
@@ -173,7 +173,7 @@ local function SkinBigWigs()
 	local function PositionBWAnchor()
 		if not BigWigsAnchor then return end
 		BigWigsAnchor:ClearAllPoints()
-		BigWigsAnchor:Point("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -5, 8)		
+		BigWigsAnchor:Point("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -5, 8)
 	end
 
 
@@ -187,13 +187,13 @@ local function SkinBigWigs()
 			path.texture = "RayUI Normal"
 			path.barStyle = "RayUI"
 			path.font = "RayUI Font"
-			
+
 			local path = BigWigs3DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"][profile]
 			path.font = "RayUI Font"
-			
+
 			local path = BigWigs3DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"][profile]
 			path.font = "RayUI Font"
-			
+
 			f:UnregisterEvent("ADDON_LOADED")
 		elseif event == "PLAYER_ENTERING_WORLD" then
 			LoadAddOn("BigWigs")

@@ -16,7 +16,7 @@ function IF:CreateInfoBar(name, width, height, p1, rel, p2, x, y, noStatus)
 	bar.Status:SetStatusBarColor(unpack(IF.InfoBarStatusColor[3]))
 	bar.Status:SetAllPoints()
 	bar.Status:SetValue(100)
-	
+
 	bar.Text = bar.Status:CreateFontString(nil, "OVERLAY")
 	bar.Text:SetFont(R["media"].font, R["media"].fontsize, R["media"].fontflag)
 	bar.Text:Point("CENTER", bar, "CENTER", 0, -4)
@@ -24,7 +24,7 @@ function IF:CreateInfoBar(name, width, height, p1, rel, p2, x, y, noStatus)
 	bar.Text:SetShadowOffset(R.mult, -R.mult)
 
 	bar:SetAlpha(0)
-	
+
 	tinsert(bars, bar)
 end
 

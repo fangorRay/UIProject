@@ -9,7 +9,7 @@ local function LoadSkin()
 	ScriptErrorsFrameDialogBG:Hide()
 	S:CreateBD(ScriptErrorsFrame)
 	S:CreateSD(ScriptErrorsFrame)
-	
+
 	S:CreateBD(EventTraceFrame)
 	S:CreateSD(EventTraceFrame)
 	S:ReskinClose(EventTraceFrameCloseButton)
@@ -44,7 +44,7 @@ local function LoadSkin()
 	S:Reskin(select(4, ScriptErrorsFrame:GetChildren()))
 	S:Reskin(select(5, ScriptErrorsFrame:GetChildren()))
 	S:Reskin(select(6, ScriptErrorsFrame:GetChildren()))
-	
+
 	local texs = {
 		"TopLeft",
 		"TopRight",
@@ -57,15 +57,15 @@ local function LoadSkin()
 		"TitleBG",
 		"DialogBG",
 	}
-	
+
 	for i=1, #texs do
 		_G["ScriptErrorsFrame"..texs[i]]:SetTexture(nil)
 		_G["EventTraceFrame"..texs[i]]:SetTexture(nil)
 	end
-	
+
 	for i=1, ScriptErrorsFrame:GetNumChildren() do
 		local child = select(i, ScriptErrorsFrame:GetChildren())
-		if child:GetObjectType() == "Button" and not child:GetName() then	
+		if child:GetObjectType() == "Button" and not child:GetName() then
 			S:Reskin(child)
 		end
 	end

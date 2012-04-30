@@ -44,27 +44,27 @@ function RW:UpdateGroup()
 	if next(buffs) == nil then
 		R.Options.args.Watcher.args.buffs.hidden  = true
 	else
-		R.Options.args.Watcher.args.buffs.hidden  = false			
+		R.Options.args.Watcher.args.buffs.hidden  = false
 	end
 	if next(debuffs) == nil then
 		R.Options.args.Watcher.args.debuffs.hidden  = true
 	else
-		R.Options.args.Watcher.args.debuffs.hidden  = false			
+		R.Options.args.Watcher.args.debuffs.hidden  = false
 	end
 	if next(cooldowns) == nil then
 		R.Options.args.Watcher.args.cooldowns.hidden  = true
 	else
-		R.Options.args.Watcher.args.cooldowns.hidden  = false			
+		R.Options.args.Watcher.args.cooldowns.hidden  = false
 	end
 	if next(itemcooldowns) == nil then
 		R.Options.args.Watcher.args.itemcooldowns.hidden  = true
 	else
-		R.Options.args.Watcher.args.itemcooldowns.hidden  = false			
+		R.Options.args.Watcher.args.itemcooldowns.hidden  = false
 	end
 end
 
 local function UpdateInput(id, filter)
-	RW.db.idinput = tostring(id)		
+	RW.db.idinput = tostring(id)
 	RW.db.filterinput = filter
 	local current = RW.db.GroupSelect
 	if not RW.modules[current][filter][id] then
@@ -74,7 +74,7 @@ local function UpdateInput(id, filter)
 	RW.db.casterinput = RW.modules[current][filter][id].caster
 	RW.db.fuzzy = RW.modules[current][filter][id].fuzzy
 end
-	
+
 function RW:GetOptions()
 	local options = {
 		ToggleAnchors = {
@@ -98,7 +98,7 @@ function RW:GetOptions()
 			get = function()
 				return RW.db.GroupSelect
 			end,
-			values = RW.GroupName,						
+			values = RW.GroupName,
 		},
 		disabled = {
 			type = 'toggle',
@@ -141,7 +141,7 @@ function RW:GetOptions()
 				["ICON"] = L["图标"],
 				["BAR"] = L["计时条"],
 			},
-		},	
+		},
 		spacer2 = {
 			type = 'description',
 			name = '',
@@ -176,13 +176,13 @@ function RW:GetOptions()
 					}
 				end
 			end,
-		},	
+		},
 		spacer3 = {
 			type = 'description',
 			name = '',
 			desc = '',
 			order = 12,
-		},					
+		},
 		size = {
 			order = 13,
 			name = L["图标大小"],
@@ -349,7 +349,7 @@ function RW:GetOptions()
 			desc = L["添加到当前分组或编辑当前列表中已有法术"],
 			width = "half",
 			disabled = function(info) return (not RW.db.filterinput or not RW.db.idinput) or RW.db[RW.db.GroupSelect].disabled end,
-			func = function()							
+			func = function()
 				local id = RW.db.fuzzy and GetSpellInfo(tonumber(RW.db.idinput)) or tonumber(RW.db.idinput)
 				RW.db[RW.db.GroupSelect][RW.db.filterinput] = RW.db[RW.db.GroupSelect][RW.db.filterinput] or {}
 				RW.modules[RW.db.GroupSelect][RW.db.filterinput] = RW.modules[RW.db.GroupSelect][RW.db.filterinput] or {}
@@ -357,20 +357,20 @@ function RW:GetOptions()
 					RW.modules[RW.db.GroupSelect][RW.db.filterinput][tonumber(RW.db.idinput)] = false
 					RW.db[RW.db.GroupSelect][RW.db.filterinput][tonumber(RW.db.idinput)] = false
 					RW.modules[RW.db.GroupSelect][RW.db.filterinput][GetSpellInfo(tonumber(RW.db.idinput))] = false
-					RW.db[RW.db.GroupSelect][RW.db.filterinput][GetSpellInfo(tonumber(RW.db.idinput))] = false			
-				end							
+					RW.db[RW.db.GroupSelect][RW.db.filterinput][GetSpellInfo(tonumber(RW.db.idinput))] = false
+				end
 				RW.db[RW.db.GroupSelect][RW.db.filterinput][id] = {
 					["caster"] = RW.db.casterinput,
 					["unitID"] = RW.db.unitidinput,
 					["fuzzy"] = RW.db.fuzzy and true or nil,
 					["spellID"] = RW.db.fuzzy and tonumber(RW.db.idinput) or nil,
-				}							
+				}
 				RW.modules[RW.db.GroupSelect][RW.db.filterinput][id] = {
 					["caster"] = RW.db.casterinput,
 					["unitID"] = RW.db.unitidinput,
 					["fuzzy"] = RW.db.fuzzy and true or nil,
 					["spellID"] = RW.db.fuzzy and tonumber(RW.db.idinput) or nil,
-				}							
+				}
 				RW:UpdateGroup()
 				if not RW.testing then
 					RW.modules[RW.db.GroupSelect]:Update()

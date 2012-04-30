@@ -61,7 +61,7 @@ local function LoadSkin()
 	TradeSkillRankFrame:SetStatusBarTexture(S["media"].backdrop)
 	TradeSkillRankFrame.SetStatusBarColor = R.dummy
 	TradeSkillRankFrame:GetStatusBarTexture():SetGradient("VERTICAL", .1, .3, .9, .2, .4, 1)
-	
+
 	local bg = CreateFrame("Frame", nil, TradeSkillRankFrame)
 	bg:Point("TOPLEFT", -1, 1)
 	bg:Point("BOTTOMRIGHT", 1, -1)

@@ -40,7 +40,7 @@ local function CreatCopyFrame()
 	local scrollArea = CreateFrame("ScrollFrame", "CopyScroll", frame, "UIPanelScrollFrameTemplate")
 	scrollArea:Point("TOPLEFT", frame, "TOPLEFT", 8, -30)
 	scrollArea:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -30, 8)
-	
+
 	S:ReskinScroll(CopyScrollScrollBar)
 
 	editBox = CreateFrame("EditBox", "CopyBox", frame)
@@ -54,15 +54,15 @@ local function CreatCopyFrame()
 	editBox:SetScript("OnEscapePressed", function()
 		frame:Hide()
 	end)
-	
+
 	--EXTREME HACK..
 	editBox:SetScript("OnTextSet", function(self)
 		local text = self:GetText()
-		
+
 		for _, size in pairs(sizes) do
 			if string.find(text, size) then
 				self:SetText(string.gsub(text, size, ":12:12"))
-			end		
+			end
 		end
 	end)
 
@@ -73,8 +73,8 @@ local function CreatCopyFrame()
 	close:SetScript("OnMouseUp", function()
 		frame:Hide()
 	end)
-	
-	S:ReskinClose(close)	
+
+	S:ReskinClose(close)
 	close:ClearAllPoints()
 	close:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -7, -5)
 	isf = true
@@ -112,7 +112,7 @@ local function ChatCopyButtons(id)
 	local point = GetChatWindowSavedPosition(id)
 	local _, fontSize = FCF_GetChatWindowInfo(id)
 	local button = _G[format("ButtonCF%d", id)]
-	
+
 	if not button then
 		local button = CreateFrame("Button", format("ButtonCF%d", id), cf)
 		button:Height(22)
@@ -120,12 +120,12 @@ local function ChatCopyButtons(id)
 		button:SetAlpha(0)
 		button:SetPoint("TOPRIGHT", 0, 0)
 		button:SetTemplate("Default", true)
-		
+
 		local buttontex = button:CreateTexture(nil, "OVERLAY")
 		buttontex:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -2)
 		buttontex:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 2)
 		buttontex:SetTexture([[Interface\AddOns\RayUI\media\copy.tga]])
-		
+
 		if id == 1 then
 			button:SetScript("OnMouseUp", function(self, btn)
 				if btn == "RightButton" then
@@ -137,9 +137,9 @@ local function ChatCopyButtons(id)
 		else
 			button:SetScript("OnMouseUp", function(self, btn)
 				Copy(cf)
-			end)		
+			end)
 		end
-		
+
 		button:SetScript("OnEnter", function() 
 			button:SetAlpha(1) 
 		end)
@@ -573,7 +573,8 @@ function CH:OnHyperlinkEnter(frame, linkData, link)
 	local t = linkData:match("^(.-):")
 	if CH.LinkHoverShow[t] then
 		ShowUIPanel(GameTooltip)
-		GameTooltip:SetOwner(UIParent, "ANCHOR_CURSOR")
+		-- GameTooltip:SetOwner(UIParent, "ANCHOR_CURSOR")
+		GameTooltip:SetOwner(ChatBG, "ANCHOR_TOPLEFT", 0, 80)
 		GameTooltip:SetHyperlink(link)
 		GameTooltip:Show()
 	end
@@ -655,7 +656,7 @@ function CH:SetChatPosition()
 			_G["ChatFrame"..i]:ClearAllPoints()
 			_G["ChatFrame"..i]:SetPoint("TOPLEFT", _G["ChatBG"], "TOPLEFT", 2,  -CombatLogQuickButtonFrame_Custom:GetHeight())
 			_G["ChatFrame"..i]:SetPoint("BOTTOMRIGHT", _G["ChatBG"], "BOTTOMRIGHT", -2, 4)
-		else				
+		else
 			_G["ChatFrame"..i]:ClearAllPoints()
 			_G["ChatFrame"..i]:SetPoint("TOPLEFT", _G["ChatBG"], "TOPLEFT", 2, -2)
 			_G["ChatFrame"..i]:SetPoint("BOTTOMRIGHT", _G["ChatBG"], "BOTTOMRIGHT", -2, 4)
@@ -671,21 +672,21 @@ end
 local function updateFS(self, inc, flags, ...)
 	local fstring = self:GetFontString()
 		if (inc or self.ffl) then
-			fstring:SetFont(R["media"].font, R["media"].fontsize+2, R["media"].fontflag)	
+			fstring:SetFont(R["media"].font, R["media"].fontsize+2, R["media"].fontflag)
 		else
-			fstring:SetFont(R["media"].font, R["media"].fontsize, R["media"].fontflag)	
+			fstring:SetFont(R["media"].font, R["media"].fontsize, R["media"].fontflag)
 		end
-		
+
 		fstring:SetShadowOffset(1,-1)
 
 	if(...) then
 		fstring:SetTextColor(...)
 	end
-	
+
 	if (inc or self.ffl) then
 		fstring:SetTextColor(1,0,0)
 	end
-	
+
 	local x = fstring:GetText()
 	if x then
 		fstring:SetText(x:upper())
@@ -723,7 +724,7 @@ function CH:ApplyStyle()
 		ChatBG:CreatePanel("Default", self.db.width, self.db.height, "BOTTOMLEFT",UIParent,"BOTTOMLEFT",15,30)
 		GeneralDockManager:SetParent(ChatBG)
 	end
-	
+
 	for i = 1, NUM_CHAT_WINDOWS do
 		local cf = _G["ChatFrame"..i]
 		local tab = _G["ChatFrame"..i.."Tab"]
@@ -879,7 +880,7 @@ function CH:SetChat()
 	ToggleChatColorNamesByClassGroup(true, "RAID_LEADER")
 	ToggleChatColorNamesByClassGroup(true, "RAID_WARNING")
 	ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND")
-	ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND_LEADER")	
+	ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND_LEADER")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL1")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL2")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL3")
@@ -891,7 +892,7 @@ function CH:SetChat()
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL9")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL10")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL11")
-	
+
 	FCFDock_SelectWindow(GENERAL_CHAT_DOCK, ChatFrame1)
 end
 
@@ -996,7 +997,7 @@ function CH:Initialize()
 
 	CHAT_FRAME_TAB_NORMAL_NOMOUSE_ALPHA = 0
 	CHAT_FRAME_TAB_SELECTED_NOMOUSE_ALPHA = 0
-	
+
 	ChatTypeInfo.EMOTE.sticky = 0
 	ChatTypeInfo.YELL.sticky = 0
 	ChatTypeInfo.RAID_WARNING.sticky = 1
@@ -1040,11 +1041,11 @@ function CH:Initialize()
 	self:EasyChannel()
 	self:ScheduleRepeatingTimer("SetChatPosition", 1)
 	self:RawHook("SetItemRef", true)
-	
+
 	SetCVar("showTimestamps", "none")
 	SetCVar("profanityFilter", 0)
 	SetCVar("chatStyle", "classic")
-	
+
 	self:RegisterChatCommand("setchat", "SetChat")
 end
 

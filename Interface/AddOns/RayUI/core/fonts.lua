@@ -8,21 +8,21 @@ SetFont = function(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
 	elseif r then obj:SetAlpha(r) end
 end
 
-function R:UpdateBlizzardFonts()	
+function R:UpdateBlizzardFonts()
 	local NORMAL     = self["media"].font
 	local COMBAT     = self["media"].dmgfont
-	local NUMBER     = self["media"].font	
+	local NUMBER     = self["media"].font
 
 	local _, editBoxFontSize, _, _, _, _, _, _, _, _ = GetChatWindowInfo(1)
-	
+
 	UIDROPDOWNMENU_DEFAULT_TEXT_HEIGHT = 12
 	CHAT_FONT_HEIGHTS = {12, 13, 14, 15, 16, 17, 18, 19, 20}
-	
+
 	UNIT_NAME_FONT     = NORMAL
 	NAMEPLATE_FONT     = NORMAL
 	DAMAGE_TEXT_FONT   = COMBAT
 	STANDARD_TEXT_FONT = NORMAL
-	
+
 	-- Base fonts
 	SetFont(GameTooltipHeader,                  NORMAL, self["media"].fontsize)
 	SetFont(NumberFont_OutlineThick_Mono_Small, NUMBER, self["media"].fontsize, "OUTLINE")

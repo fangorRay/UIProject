@@ -51,13 +51,13 @@ local function LoadFriend()
 			if online then
 				if ( not FriendsTabletData or FriendsTabletData == nil ) then FriendsTabletData = {} end
 				if ( not FriendsTabletDataNames or FriendsTabletDataNames == nil ) then FriendsTabletDataNames = {} end
-				
+
 				curFriendsOnline = curFriendsOnline + 1
-				
+
 				-- Class
 				local classColor = RAID_CLASS_COLORS[ClassLookup[class]] and { RAID_CLASS_COLORS[ClassLookup[class]].r, RAID_CLASS_COLORS[ClassLookup[class]].g, RAID_CLASS_COLORS[ClassLookup[class]].b } or {1, 1, 1}
 				class = string.format("|cff%02x%02x%02x%s|r", classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, class)
-				
+
 				-- Name
 				local cname
 				if ( status == "" and name ) then
@@ -65,7 +65,7 @@ local function LoadFriend()
 				elseif ( name ) then
 					cname = string.format("%s |cff%02x%02x%02x%s|r", status, classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, name)
 				end
-				
+
 				-- Add Friend to list
 				local _, faction = UnitFactionGroup("player")
 				tinsert(FriendsTabletData, { cname, lvl, area, faction, "WoW", name, note, "" })
@@ -74,19 +74,19 @@ local function LoadFriend()
 				end
 			end
 		end
-		
+
 		-- Battle.net Friends
 		for t = 1, BNGetNumFriends() do
 			local BNid, BNfirstname, BNlastname, toonname, toonid, client, online, lastonline, isafk, isdnd, broadcast, note = BNGetFriendInfo(t)
-			
+
 			-- WoW friends
 			if ( online and client=="WoW" ) then
 				if ( not FriendsTabletData or FriendsTabletData == nil ) then FriendsTabletData = {} end
 				if ( not FriendsTabletDataNames or FriendsTabletDataNames == nil ) then FriendsTabletDataNames = {} end
-				
+
 				local _,name, _, realmName, _, faction, race, class, guild, area, lvl = BNGetToonInfo(toonid)
 				curFriendsOnline = curFriendsOnline + 1
-				
+
 				if (realmName == R.myrealm) then
 					FriendsTabletDataNames[toonname] = true
 				end
@@ -94,7 +94,7 @@ local function LoadFriend()
 				-- Class
 				local classColor = RAID_CLASS_COLORS[ClassLookup[class]] and { RAID_CLASS_COLORS[ClassLookup[class]].r, RAID_CLASS_COLORS[ClassLookup[class]].g, RAID_CLASS_COLORS[ClassLookup[class]].b } or {1, 1, 1}
 				class = string.format("|cff%02x%02x%02x%s|r", classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, class)
-				
+
 				-- Name
 				local cname
 				local realname = string.format("%s %s", BNfirstname, BNlastname)
@@ -123,7 +123,7 @@ local function LoadFriend()
 				elseif(isdnd and name) then
 					cname = string.format("%s %s", CHAT_FLAG_DND, cname)
 				end
-				
+
 				-- Faction
 				if faction == 0 then
 					faction = FACTION_HORDE
@@ -133,15 +133,15 @@ local function LoadFriend()
 
 				-- Add Friend to list
 				tinsert(FriendsTabletData, { cname, lvl, area, faction, client, realname, note, name, ["toonid"] = toonid })
-				
+
 			-- SC2 friends
 			elseif ( online and client=="S2" ) then
 				if ( not FriendsTabletData or FriendsTabletData == nil ) then FriendsTabletData = {} end
-				
+
 				local _,name, _, realmName, faction, _, race, class, guild, area, lvl, gametext = BNGetToonInfo(toonid)
 				client = "SC2"
 				curFriendsOnline = curFriendsOnline + 1
-				
+
 				-- Name
 				local cname
 				local realname = string.format("%s %s", BNfirstname, BNlastname)
@@ -156,12 +156,12 @@ local function LoadFriend()
 				elseif ( isdnd and toonname ) then
 					cname = string.format("%s %s", CHAT_FLAG_DND, cname)
 				end
-				
+
 				-- Add Friend to list
 				tinsert(FriendsTabletData, { cname, "", gametext, "", client, realname, note })
 			end
 		end
-		
+
 		-- OnEnter
 		FriendsOnline = curFriendsOnline
 	end
@@ -171,7 +171,7 @@ local function LoadFriend()
 			resSizeExtra = 2
 			local Cols, lineHeader
 			Friends_BuildTablet()
-			
+
 			-- Title
 			local Cols = {
 				NAME,
@@ -184,7 +184,7 @@ local function LoadFriend()
 			lineHeader = R:MakeTabletHeader(Cols, 10 + resSizeExtra, 0, {"LEFT", "RIGHT", "LEFT", "LEFT", "LEFT"})
 			FriendsCat:AddLine(lineHeader)
 			R:AddBlankTabLine(FriendsCat)
-			
+
 			-- Friends
 			for _, val in ipairs(FriendsTabletData) do
 				local line = {}
@@ -213,7 +213,7 @@ local function LoadFriend()
 				end
 				FriendsCat:AddLine(line)
 			end
-			
+
 			-- Hint
 			friendsTablets:SetHint(L["<点击玩家>发送密语, <Alt+点击玩家>邀请玩家."])
 		end
@@ -241,13 +241,13 @@ local function LoadFriend()
 				"hideWhenEmpty", true
 			)
 		end
-		
+
 		if friendsTablets:IsRegistered(self) then
 			-- friendsTablets appearance
 			friendsTablets:SetColor(self, 0, 0, 0)
 			friendsTablets:SetTransparency(self, .65)
 			friendsTablets:SetFontSizePercent(self, 1)
-			
+
 			-- Open
 			if ( FriendsOnline > 0 ) then
 				ShowFriends()
@@ -262,7 +262,7 @@ local function LoadFriend()
 		infobar.Text:SetFormattedText(displayString, FRIENDS, onlineFriends + numBNetOnline)
 		self:SetMinMaxValues(0, totalFriends + totalBN)
 		self:SetValue(onlineFriends + numBNetOnline)
-		
+
 		if onlineFriends + numBNetOnline > 0 then
 			self:SetScript("OnEnter", Friends_OnEnter)
 		else

@@ -18,7 +18,7 @@ local function LoadSkin()
 	TimeManagerAlarmEnabledButton:SetNormalTexture(nil)
 	TimeManagerAlarmEnabledButton.SetNormalTexture = R.dummy
 	S:Reskin(TimeManagerAlarmEnabledButton)
-	
+
 	TimeManagerStopwatchFrame:StripTextures()
 	TimeManagerStopwatchCheck:CreateBorder()
 	TimeManagerStopwatchCheck:GetNormalTexture():SetTexCoord(.08, .92, .08, .92)
@@ -30,10 +30,10 @@ local function LoadSkin()
 	hover:Point("TOPLEFT", TimeManagerStopwatchCheck, 2, -2)
 	hover:Point("BOTTOMRIGHT", TimeManagerStopwatchCheck, -2, 2)
 	TimeManagerStopwatchCheck:SetHighlightTexture(hover)
-	
+
 	StopwatchFrame:StripTextures()
 	S:SetBD(StopwatchFrame)
-	
+
 	StopwatchTabFrame:StripTextures()
 	S:ReskinClose(StopwatchCloseButton)
 	-- S:HandleNextPrevButton(StopwatchPlayPauseButton)

@@ -67,8 +67,8 @@ function UF:ContructHealthBar(frame, bg, text)
 
 	if self.db.smooth == true then
 		health.Smooth = true
-	end	
-	
+	end
+
 	if bg then
 		health.bg = health:CreateTexture(nil, 'BORDER')
 		health.bg:SetAllPoints()
@@ -80,23 +80,23 @@ function UF:ContructHealthBar(frame, bg, text)
 		end
 		health.bg.multiplier = .2
 	end
-	
+
 	if text then
 		health.value = frame.textframe:CreateFontString(nil, "OVERLAY")
 		health.value:SetFont(R["media"].font, R["media"].fontsize, R["media"].fontflag)
 		health.value:SetJustifyH("LEFT")
 		health.value:SetParent(frame.textframe)
 	end
-	
+
 	if self.db.healthColorClass ~= true then
 		health:SetStatusBarColor(.1, .1, .1)
 	else
-		health.colorTapping = true	
+		health.colorTapping = true
 		health.colorClass = true
 		health.colorReaction = true
 	end
-	health.colorDisconnected = true	
-	
+	health.colorDisconnected = true
+
 	return health
 end
 
@@ -106,18 +106,18 @@ function UF:ConstructPowerBar(frame, bg, text)
 	power.frequentUpdates = true
 	power:SetFrameStrata("LOW")
 	power.PostUpdate = self.PostUpdatePower
-	
+
 	if self.db.smooth == true then
 		power.Smooth = true
-	end	
-	
+	end
+
 	if bg then
 		power.bg = power:CreateTexture(nil, 'BORDER')
 		power.bg:SetAllPoints()
 		power.bg:SetTexture(R["media"].blank)
 		power.bg.multiplier = 0.2
 	end
-	
+
 	if text then
 		local textframe = CreateFrame("Frame", nil, power)
 		textframe:SetAllPoints(frame)
@@ -129,14 +129,14 @@ function UF:ConstructPowerBar(frame, bg, text)
 		power.value:SetJustifyH("LEFT")
 		power.value:SetParent(textframe)
 	end
-	
+
 	if self.db.powerColorClass == true then
 		power.colorClass = true
 		power.colorReaction = true
 	else
 		power.colorPower = true
 	end
-	
+
 	power.colorDisconnected = true
 	power.colorTapping = false
 
@@ -157,15 +157,15 @@ function UF:ConstructPortrait(frame)
 		frame:SetCamDistanceScale(1 - 0.01) --Blizzard bug fix
 		frame:SetCamDistanceScale(1)
 	end
-	
+
 	portrait.overlay = CreateFrame("Frame", nil, frame)
 	portrait.overlay:SetFrameLevel(frame:GetFrameLevel() - 5)
-	
+
 	frame.Health.bg:ClearAllPoints()
 	frame.Health.bg:Point('BOTTOMLEFT', frame.Health:GetStatusBarTexture(), 'BOTTOMRIGHT')
 	frame.Health.bg:Point('TOPRIGHT', frame.Health)
 	frame.Health.bg:SetParent(portrait.overlay)
-	
+
 	return portrait
 end
 
@@ -177,7 +177,7 @@ function UF:ConstructCastBar(frame)
 	castbar:GetStatusBarTexture():SetVertTile(false)
 	castbar:SetFrameStrata("HIGH")
 	castbar:SetHeight(4)
-	
+
 	local spark = castbar:CreateTexture(nil, "OVERLAY")
 	spark:SetDrawLayer("OVERLAY", 7)
 	spark:SetTexture[[Interface\CastingBar\UI-CastingBar-Spark]]
@@ -253,7 +253,7 @@ function UF:ConstructThreatBar()
 		local party = GetNumPartyMembers()
 		local raid = GetNumRaidMembers()
 		local pet = select(1, HasPetUI())
-		
+
 		if event == "PLAYER_ENTERING_WORLD" then
 			self:Hide()
 			self:UnregisterEvent("PLAYER_ENTERING_WORLD")
@@ -282,10 +282,10 @@ function UF:ConstructThreatBar()
 		if UnitAffectingCombat(self.unit) then
 			local _, _, threatpct, rawthreatpct, _ = UnitDetailedThreatSituation(self.unit, self.tar)
 			local threatval = threatpct or 0
-			
+
 			self:SetValue(threatval)
 			self.text:SetFormattedText("%s%3.1f%%", L["当前仇恨"]..": ", threatval)
-			
+
 			if R.Role ~= "Tank" then
 				if( threatval < 30 ) then
 					self:SetStatusBarColor(unpack(self.Colors[1]))
@@ -301,14 +301,14 @@ function UF:ConstructThreatBar()
 					self:SetStatusBarColor(unpack(self.Colors[2]))
 				else
 					self:SetStatusBarColor(unpack(self.Colors[1]))
-				end		
+				end
 			end
-					
+
 			if threatval > 0 then
 				self:SetAlpha(1)
 			else
 				self:SetAlpha(0)
-			end		
+			end
 		end
 	end
 
@@ -482,7 +482,7 @@ function UF:OnCastbarUpdate(elapsed)
 		if(self.Spark) then
 			self.Spark:Show()
 			self.Spark:SetPoint("CENTER", self, "LEFT", (duration / self.max) * self:GetWidth(), 0)
-		end	
+		end
 	else
 		if(self.SafeZone) then
 			self.SafeZone:Hide()
@@ -661,7 +661,7 @@ end
 
 function UF:ComboDisplay(event, unit)
 	if(unit == 'pet') then return end
-	
+
 	local cpoints = self.CPoints
 	local cp
 	if (UnitHasVehicleUI("player") or UnitHasVehicleUI("vehicle")) then
@@ -679,12 +679,12 @@ function UF:ComboDisplay(event, unit)
 			cpoints[i]:SetAlpha(0.15)
 		end
 	end
-	
+
 	if cpoints[1]:GetAlpha() == 1 then
 		for i=1, MAX_COMBO_POINTS do
 			cpoints[i]:Show()
 		end
-		
+
 	else
 		for i=1, MAX_COMBO_POINTS do
 			cpoints[i]:Hide()
@@ -761,7 +761,7 @@ function UF:PostUpdateIcon(unit, icon, index, offset)
 	else
 		icon.remaining:Hide()
 	end
-	
+
 	icon.duration = duration
 	icon.expires = expirationTime
 	icon:SetScript("OnUpdate", CreateAuraTimer)
@@ -787,7 +787,7 @@ function UF:PostCreateIcon(button)
 	button.remaining:SetJustifyH("LEFT")
 	button.remaining:SetTextColor(0.99, 0.99, 0.99)
 	button.remaining:Point("CENTER", 0, 0)
-	
+
 	button:StyleButton(true)
 	button:SetPushedTexture(nil)
 end
@@ -803,7 +803,7 @@ function UF:CustomFilter(unit, icon, name, rank, texture, count, dtype, duration
 		icon.isPlayer = isPlayer
 		icon.owner = caster
 	end
-	
+
 	if UnitCanAttack(unit, "player") and UnitLevel(unit) == -1 then
 		if (R.Role == "Melee" and name and UF.PvEMeleeBossDebuffs[name]) or 
 			(R.Role == "Caster" and name and UF.PvECasterBossDebuffs[name]) or
@@ -814,7 +814,7 @@ function UF:CustomFilter(unit, icon, name, rank, texture, count, dtype, duration
 			return false
 		end
 	end
-	
+
 	return true
 end
 
@@ -849,7 +849,7 @@ function UF:FocusText(frame)
 	focusdummytext:SetVertexColor(1,0.2,0.1,0)
 
 	focusdummy:SetScript("OnLeave", function(frame) focusdummytext:SetVertexColor(1,0.2,0.1,0) end)
-	focusdummy:SetScript("OnEnter", function(frame) focusdummytext:SetTextColor(.6,.6,.6) end)	
+	focusdummy:SetScript("OnEnter", function(frame) focusdummytext:SetTextColor(.6,.6,.6) end)
 end
 
 function UF:ClearFocusText(frame)
@@ -862,7 +862,7 @@ function UF:ClearFocusText(frame)
 	clearfocus:RegisterForClicks("AnyUp")
 	clearfocus:SetAttribute("type", "macro")
 	clearfocus:SetAttribute("macrotext", "/clearfocus")
-	
+
 	clearfocus:SetBackdrop({
 		bgFile =  [=[Interface\ChatFrame\ChatFrameBackground]=],
         edgeFile = "Interface\\Buttons\\WHITE8x8",

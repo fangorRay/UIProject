@@ -20,7 +20,7 @@ local function LoadFunc()
 
 	local function DisbandRaidGroup()
 			if InCombatLockdown() then return end -- Prevent user error in combat
-			
+
 			SendChatMessage(L["正在解散队伍.."], "RAID" or "PARTY")
 			if UnitInRaid("player") then
 				for i = 1, GetNumRaidMembers() do
@@ -95,7 +95,7 @@ local function LoadFunc()
 			local t = b:CreateTexture(nil,"OVERLAY",nil)
 			t:SetTexture(texture)
 			t:SetPoint("TOPLEFT", b, "TOPLEFT", R.mult, -R.mult)
-			t:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -R.mult, R.mult)	
+			t:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -R.mult, R.mult)
 		end
 		b:SetFrameStrata("HIGH")
 	end
@@ -197,11 +197,11 @@ local function LoadFunc()
 			self:RegisterEvent("PLAYER_REGEN_ENABLED")
 			return
 		end
-		
+
 		if CheckRaidStatus() then
 			if RaidUtilityPanel.toggled == true then
 				ShowButton:Hide()
-				RaidUtilityPanel:Show()		
+				RaidUtilityPanel:Show()
 			else
 				ShowButton:Show()
 				RaidUtilityPanel:Hide()
@@ -210,7 +210,7 @@ local function LoadFunc()
 			ShowButton:Hide()
 			RaidUtilityPanel:Hide()
 		end
-		
+
 		if event == "PLAYER_REGEN_ENABLED" then
 			self:UnregisterEvent("PLAYER_REGEN_ENABLED")
 		end

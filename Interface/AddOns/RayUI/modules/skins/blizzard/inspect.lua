@@ -110,9 +110,9 @@ local function LoadSkin()
 			target:SetBackdropColor(0, 0, 0, 0)
 		end
 	end
-	
+
 	local _MISSING = {}
-	
+
 	CheckItemBorderColor:SetScript("OnUpdate", function(self, elapsed)
 		local unit = InspectFrame.unit
 		if(not unit) then
@@ -132,8 +132,8 @@ local function LoadSkin()
 		if(not next(_MISSING)) then
 			self:Hide()
 		end
-	end)	
-	
+	end)
+
 	local function update()
 		if(not InspectFrame or not InspectFrame:IsShown()) then return end
 
@@ -150,7 +150,7 @@ local function LoadSkin()
 			ColorItemBorder(slotName, itemLink)
 		end
 	end
-	
+
 	CheckItemBorderColor:RegisterEvent("PLAYER_TARGET_CHANGED")
 	CheckItemBorderColor:RegisterEvent("UNIT_INVENTORY_CHANGED")
 	CheckItemBorderColor:RegisterEvent("INSPECT_READY")
@@ -164,7 +164,7 @@ local function LoadSkin()
 		end
 	end)
 	InspectFrame:HookScript("OnShow", update)
-	
+
 	for i = 1, MAX_NUM_TALENTS do
 		local bu = _G["InspectTalentFrameTalent"..i]
 		local ic = _G["InspectTalentFrameTalent"..i.."IconTexture"]
@@ -176,7 +176,7 @@ local function LoadSkin()
 			bu:GetPushedTexture():Point("BOTTOMRIGHT", -1, 1)
 			bu.SetHighlightTexture = R.dummy
 			bu.SetPushedTexture = R.dummy
-			
+
 			_G["InspectTalentFrameTalent"..i.."Slot"]:SetAlpha(0)
 			_G["InspectTalentFrameTalent"..i.."SlotShadow"]:SetAlpha(0)
 			_G["InspectTalentFrameTalent"..i.."GoldBorder"]:SetAlpha(0)
@@ -184,7 +184,7 @@ local function LoadSkin()
 			ic:SetTexCoord(.08, .92, .08, .92)
 			ic:SetPoint("TOPLEFT", 1, -1)
 			ic:SetPoint("BOTTOMRIGHT", -1, 1)
-			
+
 			S:CreateBD(bu)
 		end
 	end

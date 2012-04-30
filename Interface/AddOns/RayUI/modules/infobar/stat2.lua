@@ -3,7 +3,7 @@ local IF = R:GetModule("InfoBar")
 
 local function LoadStatus()
 	local infobar = _G["RayUIBottomInfoBar"]
-	local Status = CreateFrame("Frame")
+	local Status = CreateFrame("Frame", nil, infobar)
 	Status:EnableMouse(true)
 	Status:SetFrameStrata("MEDIUM")
 	Status:SetFrameLevel(3)
@@ -13,7 +13,7 @@ local function LoadStatus()
 	Text:SetShadowOffset(1.25, -1.25)
 	Text:SetShadowColor(0, 0, 0, 0.4)
 	Text:SetPoint("BOTTOMRIGHT", infobar, "TOPRIGHT", -10, -3)
-	Status:SetParent(Text:GetParent())
+	Status:SetAllPoints(Text)
 
 	local _G = getfenv(0)
 	local format = string.format
@@ -26,11 +26,11 @@ local function LoadStatus()
 
 	local function CalculateMitigation(level, effective)
 		local mitigation
-		
+
 		if not effective then
 			_, effective, _, _, _ = UnitArmor("player")
 		end
-		
+
 		if level < 60 then
 			mitigation = (effective/(effective + 400 + (85 * level)));
 		else
@@ -47,33 +47,42 @@ local function LoadStatus()
 	end
 
 	local function ShowTooltip(self)
-		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:ClearLines()
-		
-		if R.Role == "Tank" then
-			AddTooltipHeader(L["等级缓和"]..": ")
-			local lv = R.level +3
-			for i = 1, 4 do
-				GameTooltip:AddDoubleLine(lv,format(chanceString, CalculateMitigation(lv, effectiveArmor) * 100),1,1,1)
-				lv = lv - 1
-			end
-			lv = UnitLevel("target")
-			if lv and lv > 0 and (lv > R.level + 3 or lv < R.level) then
-				GameTooltip:AddDoubleLine(lv, format(chanceString, CalculateMitigation(lv, effectiveArmor) * 100),1,1,1)
-			end	
-		elseif R.Role == "Caster" or R.Role == "Melee" then
-			AddTooltipHeader(MAGIC_RESISTANCES_COLON)
-			
-			local baseResistance, effectiveResistance, posResitance, negResistance
-			for i = 2, 6 do
-				baseResistance, effectiveResistance, posResitance, negResistance = UnitResistance("player", i)
-				GameTooltip:AddDoubleLine(_G["DAMAGE_SCHOOL"..(i+1)], format(chanceString, (effectiveResistance / (effectiveResistance + (500 + R.level + 2.5))) * 100),1,1,1)
-			end
-			
-			local spellpen = GetSpellPenetration()
-			if (R.myclass == "SHAMAN" or R.Role == "Caster") and spellpen > 0 then
-				GameTooltip:AddLine' '
-				GameTooltip:AddDoubleLine(ITEM_MOD_SPELL_PENETRATION_SHORT, spellpen,1,1,1)
+
+		local inInstance, instanceType = IsInInstance()
+		if inInstance and instanceType == "pvp" then
+			GameTooltip:AddLine(STATS_LABEL)
+			local name, killingBlows, honorableKills, deaths = GetBattlefieldScore(self.index)
+			GameTooltip:AddDoubleLine(SCORE_KILLING_BLOWS, killingBlows,1,1,1)
+			GameTooltip:AddDoubleLine(SCORE_HONORABLE_KILLS:gsub("\n", ""), honorableKills,1,1,1)
+			GameTooltip:AddDoubleLine(DEATHS, deaths,1,1,1)
+		else
+			if R.Role == "Tank" then
+				AddTooltipHeader(L["等级缓和"]..": ")
+				local lv = R.level +3
+				for i = 1, 4 do
+					GameTooltip:AddDoubleLine(lv,format(chanceString, CalculateMitigation(lv, effectiveArmor) * 100),1,1,1)
+					lv = lv - 1
+				end
+				lv = UnitLevel("target")
+				if lv and lv > 0 and (lv > R.level + 3 or lv < R.level) then
+					GameTooltip:AddDoubleLine(lv, format(chanceString, CalculateMitigation(lv, effectiveArmor) * 100),1,1,1)
+				end
+			elseif R.Role == "Caster" or R.Role == "Melee" then
+				AddTooltipHeader(MAGIC_RESISTANCES_COLON)
+
+				local baseResistance, effectiveResistance, posResitance, negResistance
+				for i = 2, 6 do
+					baseResistance, effectiveResistance, posResitance, negResistance = UnitResistance("player", i)
+					GameTooltip:AddDoubleLine(_G["DAMAGE_SCHOOL"..(i+1)], format(chanceString, (effectiveResistance / (effectiveResistance + (500 + R.level + 2.5))) * 100),1,1,1)
+				end
+
+				local spellpen = GetSpellPenetration()
+				if (R.myclass == "SHAMAN" or R.Role == "Caster") and spellpen > 0 then
+					GameTooltip:AddLine' '
+					GameTooltip:AddDoubleLine(ITEM_MOD_SPELL_PENETRATION_SHORT, spellpen,1,1,1)
+				end
 			end
 		end
 		GameTooltip:Show()
@@ -81,7 +90,7 @@ local function LoadStatus()
 
 	local function UpdateTank(self)
 		baseArmor, effectiveArmor, armor, posBuff, negBuff = UnitArmor("player");
-		
+
 		Text:SetFormattedText(displayNumberString, armorString, effectiveArmor)
 		--Setup Tooltip
 		self:SetAllPoints(Text)
@@ -99,38 +108,63 @@ local function LoadStatus()
 		local meleecrit = GetCritChance()
 		local rangedcrit = GetRangedCritChance()
 		local critChance
-			
+
 		if R.myclass == "HUNTER" then    
 			critChance = rangedcrit
 		else
 			critChance = meleecrit
 		end
-		
+
 		Text:SetFormattedText(displayFloatString, MELEE_CRIT_CHANCE..": ", critChance)
 		--Setup Tooltip
 		self:SetAllPoints(Text)
 	end
 
-	-- initial delay for update (let the ui load)
-	local int = 5	
-	local function Update(self, t)
-		int = int - t
-		if int > 0 then return end
-		
-		if R.Role == "Tank" then
-			UpdateTank(self)
-		elseif R.Role == "Caster" then
-			UpdateCaster(self)
-		elseif R.Role == "Melee" then
-			UpdateMelee(self)		
+	local function UpdateBattlefieldScore(self)
+		for index = 1, GetNumBattlefieldScores() do
+			local name, _, _, _, honorGained = GetBattlefieldScore(index)
+			if name and name == R.myname then
+				Text:SetFormattedText(displayNumberString, SCORE_HONOR_GAINED:gsub("\n", "")..": ", honorGained)
+				self.index = index
+			end
 		end
-		int = 2
+	end
+
+	local function Update(self, t)
+		local inInstance, instanceType = IsInInstance()
+		if inInstance and instanceType == "pvp" then
+			RequestBattlefieldScoreData()
+			UpdateBattlefieldScore(self)
+		else
+			if R.Role == "Tank" then
+				UpdateTank(self)
+			elseif R.Role == "Caster" then
+				UpdateCaster(self)
+			elseif R.Role == "Melee" then
+				UpdateMelee(self)
+			end
+		end
 	end
 
 	Status:SetScript("OnEnter", function() ShowTooltip(Status) end)
-	Status:SetScript("OnLeave", function() GameTooltip:Hide() end)
-	Status:SetScript("OnUpdate", Update)
-	Update(Status, 6)
+	Status:SetScript("OnLeave", GameTooltip_Hide)
+	Status:SetScript("OnMouseDown", function()
+		local inInstance, instanceType = IsInInstance()
+		if inInstance and instanceType == "pvp" then
+			ToggleFrame(WorldStateScoreFrame)
+		end
+	end)
+	Status:RegisterEvent("UNIT_STATS")
+	Status:RegisterEvent("UNIT_AURA")
+	Status:RegisterEvent("FORGE_MASTER_ITEM_CHANGED")
+	Status:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+	Status:RegisterEvent("PLAYER_TALENT_UPDATE")
+	Status:RegisterEvent("UNIT_ATTACK_POWER")
+	Status:RegisterEvent("UNIT_RANGED_ATTACK_POWER")
+	Status:RegisterEvent("UPDATE_BATTLEFIELD_SCORE")
+	Status:RegisterEvent("PLAYER_ENTERING_WORLD")
+	Status:SetScript("OnEvent", Update)
+	Update(Status)
 end
 
 IF:RegisterInfoText("Status2", LoadStatus)

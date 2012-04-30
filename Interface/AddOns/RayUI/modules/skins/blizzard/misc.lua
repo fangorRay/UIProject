@@ -2,7 +2,7 @@ local R, L, P = unpack(select(2, ...)) --Inport: Engine, Locales, ProfileDB
 local S = R:GetModule("Skins")
 
 local function LoadSkin()
-	GameFontBlackMedium:SetTextColor(1, 1, 1)		
+	GameFontBlackMedium:SetTextColor(1, 1, 1)
 	InvoiceTextFontNormal:SetTextColor(1, 1, 1)
 	InvoiceTextFontSmall:SetTextColor(1, 1, 1)
 	AvailableServicesText:SetTextColor(1, 1, 1)
@@ -22,7 +22,7 @@ local function LoadSkin()
 		"MacOptions",
 		"Help"
 	}
-	
+
 	for i = 1, getn(BlizzardMenuButtons) do
 		local MenuButtons = _G["GameMenuButton"..BlizzardMenuButtons[i]]
 		if MenuButtons then
@@ -32,7 +32,7 @@ local function LoadSkin()
 			GameMenuFrame:SetHeight(GameMenuFrame:GetHeight()+1)
 		end
 	end
-	
+
 	for i = 1, 3 do
 		for j = 1, 3 do
 			S:Reskin(_G["StaticPopup"..i.."Button"..j])
@@ -43,10 +43,10 @@ local function LoadSkin()
 
 		bu:StyleButton(true)
 		S:CreateBG(bu)
-		
+
 		S:ReskinInput(_G["StaticPopup"..i.."EditBox"], 20)
 	end
-	
+
 	local inputs = {
 		"StaticPopup1MoneyInputFrameGold",
 		"StaticPopup1MoneyInputFrameSilver",
@@ -64,7 +64,7 @@ local function LoadSkin()
 		input = _G[inputs[i]]
 		S:ReskinInput(input)
 	end
-	
+
 	StaticPopup1MoneyInputFrameSilver:SetPoint("LEFT", StaticPopup1MoneyInputFrameGold, "RIGHT", 1, 0)
 	StaticPopup1MoneyInputFrameCopper:SetPoint("LEFT", StaticPopup1MoneyInputFrameSilver, "RIGHT", 1, 0)
 	StaticPopup2MoneyInputFrameSilver:SetPoint("LEFT", StaticPopup2MoneyInputFrameGold, "RIGHT", 1, 0)
@@ -72,7 +72,7 @@ local function LoadSkin()
 	StaticPopup3MoneyInputFrameSilver:SetPoint("LEFT", StaticPopup3MoneyInputFrameGold, "RIGHT", 1, 0)
 	StaticPopup3MoneyInputFrameCopper:SetPoint("LEFT", StaticPopup3MoneyInputFrameSilver, "RIGHT", 1, 0)
 	StackSplitFrame:GetRegions():Hide()
-	
+
 	local buttons = {
 		"VideoOptionsFrameOkay",
 		"VideoOptionsFrameCancel",
@@ -105,15 +105,15 @@ local function LoadSkin()
 		"GhostFrame",
 		"InterfaceOptionsHelpPanelResetTutorials"
 	}
-	
+
 	for i = 1, #buttons do
 		local button = _G[buttons[i]]
 		S:Reskin(button)
 	end
-	
+
 	S:ReskinClose(RolePollPopupCloseButton)
 	S:ReskinClose(ItemRefCloseButton)
-	
+
 	local FrameBDs = {
 			"StaticPopup1",
 			"StaticPopup2",
@@ -140,11 +140,11 @@ local function LoadSkin()
 		S:CreateBD(FrameBD)
 		S:CreateSD(FrameBD)
 	end
-	
+
 	for i = 1, 10 do
 		select(i, GuildInviteFrame:GetRegions()):Hide()
 	end
-	
+
 	-- [[ Headers ]]
 	local header = {
 		"GameMenuFrame",
@@ -166,7 +166,7 @@ local function LoadSkin()
 			end
 		end
 	end
-	
+
 	-- [[ Simple backdrops ]]
 	local bds = {
 		"AutoCompleteBox",
@@ -182,7 +182,7 @@ local function LoadSkin()
 	for i = 1, #bds do
 		S:CreateBD(_G[bds[i]])
 	end
-	
+
 	-- Skin all DropDownList[i]
 	local function SkinDropDownList(level, index)
 		for i = 1, UIDROPDOWNMENU_MAXLEVELS do
@@ -199,7 +199,7 @@ local function LoadSkin()
 		end
 	end
 	hooksecurefunc("UIDropDownMenu_CreateFrames", SkinDropDownList)
-	
+
 	-- Ghost frame
 	GhostFrameContentsFrameIcon:SetTexCoord(.08, .92, .08, .92)
 	GhostFrameLeft:Hide()
@@ -207,13 +207,13 @@ local function LoadSkin()
 	GhostFrameMiddle:Hide()
 	for i = 3, 6 do
 		select(i, GhostFrame:GetRegions()):Hide()
-	end	
+	end
 
 	local GhostBD = CreateFrame("Frame", nil, GhostFrameContentsFrame)
 	GhostBD:SetPoint("TOPLEFT", GhostFrameContentsFrameIcon, -1, 1)
 	GhostBD:SetPoint("BOTTOMRIGHT", GhostFrameContentsFrameIcon, 1, -1)
 	S:CreateBD(GhostBD, 0)
-	
+
 	-- Option panels
 	local line = VideoOptionsFrame:CreateTexture(nil, "ARTWORK")
 	line:Size(1, 536)
@@ -505,7 +505,7 @@ local function LoadSkin()
 	}
 	for i = 1, #dropdowns do
 		S:ReskinDropDown(_G[dropdowns[i]])
-	end		
+	end
 
 	local sliders = {
 		"InterfaceOptionsCombatPanelSpellAlertOpacitySlider",
@@ -528,10 +528,10 @@ local function LoadSkin()
 	S:Reskin(InterfaceOptionsHelpPanelResetTutorials)
 
 	CompactUnitFrameProfilesGeneralOptionsFrameAutoActivateBG:Hide()
-	
-	VideoOptionsFrameCategoryFrame:DisableDrawLayer("BACKGROUND")	
-	InterfaceOptionsFrameCategories:DisableDrawLayer("BACKGROUND")	
-	InterfaceOptionsFrameAddOns:DisableDrawLayer("BACKGROUND")	
+
+	VideoOptionsFrameCategoryFrame:DisableDrawLayer("BACKGROUND")
+	InterfaceOptionsFrameCategories:DisableDrawLayer("BACKGROUND")
+	InterfaceOptionsFrameAddOns:DisableDrawLayer("BACKGROUND")
 	VideoOptionsFramePanelContainer:DisableDrawLayer("BORDER")
 	InterfaceOptionsFramePanelContainer:DisableDrawLayer("BORDER")
 	InterfaceOptionsFrameTab1TabSpacer:SetAlpha(0)
@@ -543,10 +543,10 @@ local function LoadSkin()
 		_G["InterfaceOptionsFrameTab"..i.."MiddleDisabled"]:SetAlpha(0)
 		_G["InterfaceOptionsFrameTab"..i.."RightDisabled"]:SetAlpha(0)
 		_G["InterfaceOptionsFrameTab2TabSpacer"..i]:SetAlpha(0)
-	end	
+	end
 	VideoOptionsFrameOkay:SetPoint("BOTTOMRIGHT", VideoOptionsFrameCancel, "BOTTOMLEFT", -1, 0)
 	InterfaceOptionsFrameOkay:SetPoint("BOTTOMRIGHT", InterfaceOptionsFrameCancel, "BOTTOMLEFT", -1, 0)
-	
+
 	local lightbds = {
 		"ChatConfigCategoryFrame",
 		"ChatConfigBackgroundFrame",
@@ -579,7 +579,7 @@ local function LoadSkin()
 	ChatConfigFrameDefaultButton:SetWidth(125)
 	ChatConfigFrameDefaultButton:SetPoint("TOPLEFT", ChatConfigCategoryFrame, "BOTTOMLEFT", 0, -4)
 	ChatConfigFrameOkayButton:SetPoint("TOPRIGHT", ChatConfigBackgroundFrame, "BOTTOMRIGHT", 0, -4)
-	
+
 	if IsMacClient() then
 		S:CreateBD(MacOptionsFrame)
 		MacOptionsFrameHeader:SetTexture("")

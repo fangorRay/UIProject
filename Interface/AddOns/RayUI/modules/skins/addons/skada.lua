@@ -49,7 +49,7 @@ local function SkinSkada()
 		skada:SetTexture(R["media"].normal)
 		skada:SetSpacing(barSpacing)
 		skada:SetFrameLevel(5)
-		
+
 		local titlefont = CreateFont("TitleFont"..win.db.name)
 		titlefont:SetFont(R["media"].font, R["media"].fontsize, "OUTLINE")
 		win.bargroup.button:SetNormalFontObject(titlefont)
@@ -68,9 +68,9 @@ local function SkinSkada()
 			skada.shadow:Point('TOPLEFT', win.bargroup, 'TOPLEFT', -5, 5)
 		end
 		skada.shadow:Point('BOTTOMRIGHT', win.bargroup, 'BOTTOMRIGHT', 5, -5)
-		
+
 		win.bargroup.button:SetFrameStrata("MEDIUM")
-		win.bargroup.button:SetFrameLevel(5)	
+		win.bargroup.button:SetFrameLevel(5)
 		win.bargroup:SetFrameStrata("MEDIUM")
 	end
 
@@ -113,7 +113,7 @@ local function SkinSkada()
 		window.db.barslocked = true
 		window.bargroup:ClearAllPoints()
 		window.bargroup:SetPoint(point, relativeFrame, relativePoint, ofsx, ofsy)
-		
+
 		barmod.ApplySettings(barmod, window)
 	end
 
@@ -135,24 +135,24 @@ local function SkinSkada()
 	Skada.CreateWindow_ = Skada.CreateWindow
 	function Skada:CreateWindow(name, db)
 		Skada:CreateWindow_(name, db)
-		
+
 		windows = {}
 		for _, window in ipairs(Skada:GetWindows()) do
 			tinsert(windows, window)
-		end	
-		
+		end
+
 		EmbedSkada()
 	end
 
 	Skada.DeleteWindow_ = Skada.DeleteWindow
 	function Skada:DeleteWindow(name)
 		Skada:DeleteWindow_(name)
-		
+
 		windows = {}
 		for _, window in ipairs(Skada:GetWindows()) do
 			tinsert(windows, window)
-		end	
-		
+		end
+
 		EmbedSkada()
 	end
 
@@ -161,7 +161,7 @@ local function SkinSkada()
 	Skada_Skin:SetScript("OnEvent", function(self)
 		self:UnregisterAllEvents()
 		self = nil
-		
+
 		EmbedSkada()
 	end)
 end

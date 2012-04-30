@@ -7,7 +7,7 @@ local function LoadSkin()
 	TradeFramePlayerPortrait:Hide()
 	for i = 3, 6 do
 		select(i, TradeFrame:GetRegions()):Hide()
-	end	
+	end
 	S:Reskin(TradeFrameTradeButton)
 	S:Reskin(TradeFrameCancelButton)
 	S:ReskinClose(TradeFrameCloseButton, "TOPRIGHT", TradeFrame, "TOPRIGHT", -34, -16)
@@ -15,7 +15,7 @@ local function LoadSkin()
 	-- Trade Button
 	for i = 1,MAX_TRADE_ITEMS do
 		for _, j in pairs({"TradePlayerItem", "TradeRecipientItem"}) do
-			local tradeItemButton = _G[j..i.."ItemButton"]			
+			local tradeItemButton = _G[j..i.."ItemButton"]
 			if not tradeItemButton.reskinned then
 				_G[j..i.."ItemButtonIconTexture"]:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 				_G[j..i.."NameFrame"]:SetTexture(nil)
@@ -27,7 +27,7 @@ local function LoadSkin()
 					boder:CreateBorder()
 					tradeItemButton.boder = boder
 				end
-				
+
 				tradeItemButton:StyleButton()
 				tradeItemButton:SetNormalTexture("")
 				tradeItemButton:SetFrameStrata("HIGH")
@@ -43,7 +43,7 @@ local function LoadSkin()
 	S:ReskinInput(TradePlayerInputMoneyFrameCopper)
 	TradePlayerInputMoneyFrameCopper:ClearAllPoints()
 	TradePlayerInputMoneyFrameCopper:Point("LEFT", TradePlayerInputMoneyFrameSilver, "RIGHT", 1, 0)
-	
+
 	hooksecurefunc("TradeFrame_UpdatePlayerItem", function(id)
 		local link = GetTradePlayerItemLink(id)
 		local button = _G["TradePlayerItem"..id.."ItemButton"]

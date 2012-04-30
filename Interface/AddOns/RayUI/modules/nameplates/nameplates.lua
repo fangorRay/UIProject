@@ -120,7 +120,7 @@ local PlateBlacklist = {
 
 	["Viper"] = true,
 	["響尾蛇"] = true,
-	
+
 	--Misc
 	["Lava Parasite"] = true,
 	["熔岩蟲"] = true,
@@ -190,9 +190,9 @@ end
 --Create a fake backdrop frame using textures
 local function CreateVirtualFrame(parent, point)
 	if point == nil then point = parent end
-	
+
 	if point.backdrop or parent.backdrop then return end
-	
+
 	local noscalemult = R.mult * UIParent:GetScale()
 	parent.backdrop = CreateFrame("Frame", nil ,parent)
 	parent.backdrop:SetAllPoints()
@@ -226,7 +226,7 @@ local function UpdateAuraAnchors(frame)
 			frame.icons.lastShown = frame.icons[i]
 		end
 	end
-	
+
 	frame.icons.lastShown = nil;
 end
 
@@ -250,17 +250,17 @@ local function CreateAuraIcon(parent)
 	})
 	button.shadow:SetBackdropColor( 0, 0, 0 )
 	button.shadow:SetBackdropBorderColor( 0, 0, 0 )
-	
+
 	button.bord = button:CreateTexture(nil, "BORDER")
 	button.bord:SetTexture(0, 0, 0, 1)
 	button.bord:SetPoint("TOPLEFT",button,"TOPLEFT", noscalemult,-noscalemult)
 	button.bord:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-noscalemult,noscalemult)
-	
+
 	button.bg2 = button:CreateTexture(nil, "ARTWORK")
 	button.bg2:SetTexture(unpack(R["media"].backdropcolor))
 	button.bg2:SetPoint("TOPLEFT",button,"TOPLEFT", noscalemult*2,-noscalemult*2)
-	button.bg2:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-noscalemult*2,noscalemult*2)	
-	
+	button.bg2:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-noscalemult*2,noscalemult*2)
+
 	button.icon = button:CreateTexture(nil, "OVERLAY")
 	button.icon:SetPoint("TOPLEFT",button,"TOPLEFT", noscalemult*3,-noscalemult*3)
 	button.icon:SetPoint("BOTTOMRIGHT",button,"BOTTOMRIGHT",-noscalemult*3,noscalemult*3)
@@ -290,7 +290,7 @@ local function formatTime(s)
 	elseif s >= minute / 12 then
 		return floor(s)
 	end
-	
+
 	return format("%.1f", s)
 end
 
@@ -326,7 +326,7 @@ end
 --Update an Aura Icon
 local function UpdateAuraIcon(button, unit, index, filter)
 	local name,_,icon,count,debuffType,duration,expirationTime,_,_,_,spellID = UnitAura(unit,index,filter)
-	
+
 	if debuffType then
 		button.bord:SetTexture(DebuffTypeColor[debuffType].r, DebuffTypeColor[debuffType].g, DebuffTypeColor[debuffType].b)
 	else
@@ -337,7 +337,7 @@ local function UpdateAuraIcon(button, unit, index, filter)
 	button.firstUpdate = true
 	button.expirationTime = expirationTime
 	button.duration = duration
-	button.spellID = spellID	
+	button.spellID = spellID
 	button.timeLeft = expirationTime
 	if count > 1 then 
 		button.count:SetText(count)
@@ -358,10 +358,10 @@ local function OnAura(frame, unit)
 		if i > 5 then return end
 		local match
 		local name,_,_,_,_,duration,_,caster,_,_,spellid = UnitAura(frame.unit,index,"HARMFUL")
-		
+
 		if caster == "player" and duration>0 then match = true end
 		if DebuffWhiteList[name] then match = true end
-		
+
 		if duration and match == true then
 			if not frame.icons[i] then frame.icons[i] = CreateAuraIcon(frame) end
 			local icon = frame.icons[i]
@@ -386,17 +386,17 @@ local function UpdateCastbar(frame)
 	else
 		frame:SetStatusBarColor(0, 1, 0)
 	end
-end	
+end
 
 --Determine whether or not the cast is Channelled or a Regular cast so we can grab the proper Cast Name
 local function UpdateCastText(frame, curValue)
 	local minValue, maxValue = frame:GetMinMaxValues()
-	
+
 	if UnitChannelInfo("target") then
 		frame.time:SetFormattedText("%.1f ", curValue)
 		frame.name:SetText(select(1, (UnitChannelInfo("target"))))
 	end
-	
+
 	if UnitCastingInfo("target") then
 		frame.time:SetFormattedText("%.1f ", maxValue - curValue)
 		frame.name:SetText(select(1, (UnitCastingInfo("target"))))
@@ -434,15 +434,15 @@ local function OnHide(frame)
 		for _,icon in ipairs(frame.icons) do
 			icon:Hide()
 		end
-	end	
-	
+	end
+
 	frame:SetScript("OnUpdate",nil)
 end
 
 --Color Nameplate
 local function Colorize(frame)
 	local r,g,b = frame.healthOriginal:GetStatusBarColor()
-	
+
 	for class, color in pairs(RAID_CLASS_COLORS) do
 		local r, g, b = floor(r*100+.5)/100, floor(g*100+.5)/100, floor(b*100+.5)/100
 		if RAID_CLASS_COLORS[class].r == r and RAID_CLASS_COLORS[class].g == g and RAID_CLASS_COLORS[class].b == b then
@@ -452,7 +452,7 @@ local function Colorize(frame)
 			return
 		end
 	end
-	
+
 	if g+b == 0 then -- hostile
 		r,g,b = unpack(R.colors.reaction[1])
 		frame.isFriendly = false
@@ -469,7 +469,7 @@ local function Colorize(frame)
 		frame.isFriendly = false
 	end
 	frame.hasClass = false
-	
+
 	frame.hp:SetStatusBarColor(r,g,b)
 end
 
@@ -477,36 +477,36 @@ end
 --size settings when it gets reshown
 local function UpdateObjects(frame)
 	local frame = frame:GetParent()
-	
-	local r, g, b = frame.hp:GetStatusBarColor()	
-	
+
+	local r, g, b = frame.hp:GetStatusBarColor()
+
 	--Have to reposition this here so it doesnt resize after being hidden
 	frame.hp:ClearAllPoints()
-	frame.hp:SetSize(hpWidth, hpHeight)	
+	frame.hp:SetSize(hpWidth, hpHeight)
 	frame.hp:SetPoint("TOP", frame, "TOP", 0, -15)
 	frame.hp:GetStatusBarTexture():SetHorizTile(true)
-	
+
 	frame.hp:SetMinMaxValues(frame.healthOriginal:GetMinMaxValues())
 	frame.hp:SetValue(frame.healthOriginal:GetValue())
 
-	
+
 	--Colorize Plate
 	Colorize(frame)
 	frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor = frame.hp:GetStatusBarColor()
 	frame.hp.hpbg:SetTexture(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor, 0.1)
 	frame.hp.name:SetTextColor(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor)
-	
+
 	local level, elite, mylevel = tonumber(frame.hp.oldlevel:GetText()), frame.hp.elite:IsShown(), UnitLevel("player")
-	
+
 	--Set the name text
 	if frame.hp.boss:IsShown() then
 		frame.hp.name:SetText(R:RGBToHex(0.8, 0.05, 0).." ??|r "..frame.hp.oldname:GetText())
 	else
 		frame.hp.name:SetText(R:RGBToHex(frame.hp.oldlevel:GetTextColor())..level..(elite and "+ |r" or "|r ")..frame.hp.oldname:GetText())
-	end	
+	end
 	frame.overlay:ClearAllPoints()
 	frame.overlay:SetAllPoints(frame.hp)
-	
+
 	if frame.icons then return end
 	frame.icons = CreateFrame("Frame",nil,frame)
 	frame.icons:SetPoint("BOTTOMRIGHT",frame.hp,"TOPRIGHT", 0, 3)
@@ -537,15 +537,15 @@ local function SkinObjects(frame)
 	hp.oldlevel = oldlevel
 	hp.boss = bossicon
 	hp.elite = elite
-	
-	hp.value = hp:CreateFontString(nil, "OVERLAY")	
+
+	hp.value = hp:CreateFontString(nil, "OVERLAY")
 	hp.value:SetFont(R["media"].font, FONTSIZE, R["media"].fontflag)
 	hp.value:SetShadowColor(0, 0, 0, 0.4)
 	hp.value:SetPoint("BOTTOMRIGHT", hp, "TOPRIGHT", 0, -4)
 	hp.value:SetJustifyH("RIGHT")
 	hp.value:SetTextColor(1,1,1)
 	hp.value:SetShadowOffset(R.mult, -R.mult)
-	
+
 	--Create Name Text
 	hp.name = hp:CreateFontString(nil, "OVERLAY")
 	hp.name:SetPoint("BOTTOMLEFT", hp, "TOPLEFT", 0, -4)
@@ -558,15 +558,15 @@ local function SkinObjects(frame)
 
 	hp.hpbg = hp:CreateTexture(nil, "BORDER")
 	hp.hpbg:SetAllPoints(hp)
-	hp.hpbg:SetTexture(1,1,1,0.1) 		
-	
+	hp.hpbg:SetTexture(1,1,1,0.1) 
+
 	hp:HookScript("OnShow", UpdateObjects)
 	frame.hp = hp
-	
+
 	--Cast Bar
 	cb:SetStatusBarTexture(R["media"].normal)
 	CreateVirtualFrame(cb)
-	
+
 	--Create Cast Time Text
 	cb.time = cb:CreateFontString(nil, "ARTWORK")
 	cb.time:SetPoint("TOPRIGHT", cb, "BOTTOMRIGHT", 0, -1)
@@ -583,16 +583,16 @@ local function SkinObjects(frame)
 	cb.name:SetJustifyH("LEFT")
 	cb.name:SetTextColor(1, 1, 1)
 	cb.name:SetShadowColor(0, 0, 0, 0.4)
-	cb.name:SetShadowOffset(R.mult, -R.mult)		
-	
+	cb.name:SetShadowOffset(R.mult, -R.mult)
+
 	--Setup CastBar Icon
 	cbicon:ClearAllPoints()
-	cbicon:SetPoint("TOPRIGHT", hp, "TOPLEFT", -3, 0)		
+	cbicon:SetPoint("TOPRIGHT", hp, "TOPLEFT", -3, 0)
 	cbicon:SetSize(iconSize, iconSize)
 	cbicon:SetTexCoord(.07, .93, .07, .93)
 	cbicon:SetDrawLayer("OVERLAY")
 	cb.icon = cbicon
-	if not cbicon.backdrop then	
+	if not cbicon.backdrop then
 		cbicon.backdrop = CreateFrame("Frame", nil ,cb)
 		cbicon.backdrop:SetAllPoints()
 		cbicon.backdrop:SetBackdrop({
@@ -613,15 +613,15 @@ local function SkinObjects(frame)
 			cbicon.backdrop:SetFrameLevel(0)
 		end
 	end
-	
+
 	cb.shield = cbshield
 	cbshield:ClearAllPoints()
 	cbshield:SetPoint("TOP", cb, "BOTTOM")
 	cb:HookScript("OnShow", UpdateCastbar)
 	cb:HookScript("OnSizeChanged", OnSizeChanged)
-	cb:HookScript("OnValueChanged", OnValueChanged)			
+	cb:HookScript("OnValueChanged", OnValueChanged)
 	frame.cb = cb
-	
+
 	--Highlight
 	overlay:SetTexture(1,1,1,0.15)
 	overlay:SetAllPoints(hp)
@@ -631,17 +631,17 @@ local function SkinObjects(frame)
 	raidicon:ClearAllPoints()
 	raidicon:SetPoint("BOTTOM", hp, "TOP", 0, 2)
 	raidicon:SetSize(iconSize*1.4, iconSize*1.4)
-	raidicon:SetTexture([[Interface\AddOns\RayUI\media\raidicons.blp]])	
+	raidicon:SetTexture([[Interface\AddOns\RayUI\media\raidicons.blp]])
 	frame.raidicon = raidicon
-	
+
 	--Heal Icon
 	if not frame.healerIcon then
 		frame.healerIcon = frame:CreateTexture(nil, 'ARTWORK')
 		frame.healerIcon:SetPoint("BOTTOM", frame.hp, "TOP", 0, 16)
 		frame.healerIcon:SetSize(35, 35)
-		frame.healerIcon:SetTexture([[Interface\AddOns\RayUI\media\healer.tga]])	
+		frame.healerIcon:SetTexture([[Interface\AddOns\RayUI\media\healer.tga]])
 	end
-	
+
 	--Hide Old Stuff
 	QueueObject(frame, oldhp)
 	QueueObject(frame, oldlevel)
@@ -652,10 +652,10 @@ local function SkinObjects(frame)
 	QueueObject(frame, oldname)
 	QueueObject(frame, bossicon)
 	QueueObject(frame, elite)
-	
+
 	UpdateObjects(hp)
 	UpdateCastbar(cb)
-	
+
 	frame:HookScript("OnHide", OnHide)
 	frames[frame] = true
 	frame.RayUIPlate = true
@@ -703,10 +703,10 @@ local function UpdateThreat(frame, elapsed)
 					frame.hp.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
 				else
 					--Gaining Threat
-					frame.hp:SetStatusBarColor(transitionR2, transitionG2, transitionB2)	
-					frame.hp.hpbg:SetTexture(transitionR2, transitionG2, transitionB2, 0.1)	
+					frame.hp:SetStatusBarColor(transitionR2, transitionG2, transitionB2)
+					frame.hp.hpbg:SetTexture(transitionR2, transitionG2, transitionB2, 0.1)
 					frame.hp.backdrop:SetBackdropBorderColor(badR, badG, badB, 1)
-				end				
+				end
 			end
 		end
 	else
@@ -722,7 +722,7 @@ local function UpdateThreat(frame, elapsed)
 				frame.hp.hpbg:SetTexture(goodR, goodG, goodB, 0.1)
 				frame.hp.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
 				frame.threatStatus = "GOOD"
-			end		
+			end
 		else
 			--Set colors to their original, not in combat
 			frame.hp:SetStatusBarColor(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor)
@@ -742,7 +742,7 @@ local function CheckFilter(frame, ...)
 		frame.overlay:Hide()
 		frame.hp.oldlevel:Hide()
 	end
-	
+
 	if BattleGroundHealers[frame.hp.oldname:GetText()] then
 		frame.healerIcon:Show()
 	else
@@ -772,23 +772,23 @@ local function ShowHealth(frame, ...)
 	local minHealth, maxHealth = frame.healthOriginal:GetMinMaxValues()
 	local valueHealth = frame.healthOriginal:GetValue()
 	local d =(valueHealth/maxHealth)*100
-	
+
 	--Match values
 	frame.hp:SetValue(valueHealth - 1)	--Bug Fix 4.1
-	frame.hp:SetValue(valueHealth)	
-	
+	frame.hp:SetValue(valueHealth)
+
 	frame.hp.value:SetText(string.format("%d%%", math.floor((valueHealth/maxHealth)*100)))
-	
+
 	--Change frame style if the frame is our target or not
 	if UnitName("target") == frame.hp.oldname:GetText() and frame:GetAlpha() == 1 then
 		--Targetted Unit
-		frame.hp.name:SetTextColor(1, 1, 1)		
+		frame.hp.name:SetTextColor(1, 1, 1)
 	else
 		--Not Targetted
 		-- frame.hp.name:SetTextColor(1, 1, 1)
 		frame.hp.name:SetTextColor(frame.hp:GetStatusBarColor())
 	end
-			
+
 	--Setup frame shadow to change depending on enemy players health, also setup targetted unit to have white shadow
 	if frame.hasClass == true or frame.isFriendly == true then
 		if(d <= 50 and d >= 20) then
@@ -816,7 +816,7 @@ local function CheckUnit_Guid(frame, ...)
 		OnAura(frame, "mouseover")
 	else
 		frame.unit = nil
-	end	
+	end
 end
 
 --Update settings for nameplate to match config
@@ -831,8 +831,8 @@ end
 --Attempt to match a nameplate with a GUID from the combat log
 local function MatchGUID(frame, destGUID, spellID)
 	if not frame.guid then return end
-	
-	
+
+
 	if frame.guid == destGUID then
 		for _,icon in ipairs(frame.icons) do 
 			if icon.spellID == spellID then 
@@ -857,7 +857,7 @@ local function HookFrames(...)
 	for index = 1, select("#", ...) do
 		local frame = select(index, ...)
 		local region = frame:GetRegions()
-		
+
 		if(not frames[frame] and (frame:GetName() and frame:GetName():find("NamePlate%d")) and region and region:GetObjectType() == "Texture" and region:GetTexture() == OVERLAY) then
 			SkinObjects(frame)
 			frame.region = region
@@ -868,7 +868,7 @@ end
 function NP:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
 	if event == "SPELL_AURA_REMOVED" then
 		local _, sourceGUID, _, _, _, destGUID, _, _, _, spellID = ...
-		
+
 		if sourceGUID == UnitGUID("player") then
 			ForEachPlate(MatchGUID, destGUID, spellID)
 		end
@@ -934,7 +934,7 @@ function NP:Initialize()
 		else
 			self.elapsed = (self.elapsed or 0) + elapsed
 		end
-		
+
 		ForEachPlate(ShowHealth)
 		ForEachPlate(CheckFilter)
 		ForEachPlate(HideDrunkenText)

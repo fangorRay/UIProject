@@ -41,7 +41,7 @@ local function LoadFunc()
 						local s = math.floor((cost%10000)/100) or 0
 						local g = math.floor(cost/10000) or 0
 						if IsInGuild() and CanGuildBankRepair() and ((GetGuildBankWithdrawMoney() >= cost) or (GetGuildBankWithdrawMoney() == -1)) and (GetGuildBankMoney() >= cost) then
-							RepairAllItems(1)						
+							RepairAllItems(1)
 							DEFAULT_CHAT_FRAME:AddMessage(L["您的装备已使用工会修理, 花费了"].." |cffffffff"..g.."|cffffd700g|r".." |cffffffff"..s.."|cffc7c7cfs|r".." |cffffffff"..c.."|cffeda55fc|r.",255,255,0)
 						elseif GetMoney() >= cost then
 							RepairAllItems()

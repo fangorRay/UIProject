@@ -18,8 +18,8 @@ local function LoadSkin()
 				button.highlight.SetPoint = R.dummy
 				button.highlight:SetTexture(r, g, b, .2)
 				button.highlight.SetTexture = R.dummy
-				button.categoryMiddle:SetAlpha(0)	
-				button.categoryLeft:SetAlpha(0)	
+				button.categoryMiddle:SetAlpha(0)
+				button.categoryLeft:SetAlpha(0)
 				button.categoryRight:SetAlpha(0)
 
 				if button.icon and button.icon:GetTexture() then

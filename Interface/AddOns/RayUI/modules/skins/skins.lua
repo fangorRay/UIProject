@@ -145,7 +145,7 @@ function S:CreateBG(frame)
 	bg:Point("BOTTOMRIGHT", frame, 1, -1)
 	bg:SetTexture(S["media"].backdrop)
 	bg:SetVertexColor(0, 0, 0)
-	
+
 	return bg
 end
 
@@ -290,15 +290,15 @@ function S:ReskinScroll(f)
 
 	up:Width(17)
 	down:Width(17)
-	
+
 	S:Reskin(up)
 	S:Reskin(down)
-	
+
 	up:SetDisabledTexture(S["media"].backdrop)
 	local dis1 = up:GetDisabledTexture()
 	dis1:SetVertexColor(0, 0, 0, .3)
 	dis1:SetDrawLayer("OVERLAY")
-	
+
 	down:SetDisabledTexture(S["media"].backdrop)
 	local dis2 = down:GetDisabledTexture()
 	dis2:SetVertexColor(0, 0, 0, .3)
@@ -337,7 +337,7 @@ function S:ReskinDropDown(f)
 	down:SetWidth(19)
 
 	S:Reskin(down)
-	
+
 	down:SetDisabledTexture(S["media"].backdrop)
 	local dis = down:GetDisabledTexture()
 	dis:SetVertexColor(0, 0, 0, .3)
@@ -419,7 +419,7 @@ function S:ReskinArrow(f, direction)
 	if not f then return end
 	f:Size(18, 18)
 	S:Reskin(f)
-	
+
 	f:SetDisabledTexture(S["media"].backdrop)
 	local dis = f:GetDisabledTexture()
 	dis:SetVertexColor(0, 0, 0, .3)
@@ -428,7 +428,7 @@ function S:ReskinArrow(f, direction)
 	local tex = f:CreateTexture(nil, "ARTWORK")
 	tex:Size(8, 8)
 	tex:SetPoint("CENTER")
-	
+
 	if direction == 1 then
 		tex:SetTexture("Interface\\AddOns\\RayUI\\media\\arrow-left-active")
 	elseif direction == 2 then
@@ -451,7 +451,7 @@ function S:ReskinCheck(f)
 	tex:Point("BOTTOMRIGHT", -5, 5)
 	tex:SetTexture(S["media"].backdrop)
 	tex:SetGradientAlpha(unpack(S["media"].DefGradient))
-	
+
 	local bd = CreateFrame("Frame", nil, f)
 	bd:Point("TOPLEFT", tex, -1, 1)
 	bd:Point("BOTTOMRIGHT", tex, 1, -1)
