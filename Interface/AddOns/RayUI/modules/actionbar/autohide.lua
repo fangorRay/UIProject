@@ -4,6 +4,7 @@ local AB = R:GetModule("ActionBar")
 local rabs = {}
 
 local function pending()
+	if InCombatLockdown() then return true end
 	if UnitAffectingCombat("player") then return true end
 	if UnitExists("target") then return true end
 	if UnitInVehicle("player") then return true end

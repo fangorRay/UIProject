@@ -8,6 +8,7 @@ local function LoadGuild()
 	Status:SetValue(0)
 
 	Status.updateElapsed = 0
+	Status.updateElapsed2 = 0
 
 	local GuildTabletData = {}
 	local GuildOnline = 0
@@ -32,24 +33,23 @@ local function LoadGuild()
 	local GuildSection = {}
 	local function Guild_BuidTablet()
 		local guildonline = 0
-		wipe(GuildTabletData)
 		-- Total Online Guildies
 		for i = 1, GetNumGuildMembers() do
 			local gPrelist
 			local name, rank, _, lvl, _class, zone, note, offnote, online, status, class, _, _, mobile = GetGuildRosterInfo(i)
 
-			-- Class Color
-			local classColor = { RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b }
-			class = string.format("|cff%02x%02x%02x%s|r", classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, class)
-
+			local r, g, b = RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b
 			-- Player Name
 			local cname
 			if status == 0 then
-				cname = string.format("|cff%02x%02x%02x%s|r", classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, name)
+				cname = string.format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, name)
 			else
 				local curStatus = PlayerStatusValToStr[status] or ""
-				cname = string.format("%s |cff%02x%02x%02x%s|r", curStatus, classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, name)
+				cname = string.format("%s |cff%02x%02x%02x%s|r", curStatus, r * 255, g * 255, b * 255, name)
 			end
+
+			-- Class Color
+			class = string.format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, class)
 
 			-- Mobile
 			if mobile then
@@ -57,17 +57,31 @@ local function LoadGuild()
 				zone = REMOTE_CHAT
 			end
 
-			-- Note
-			if CanViewOfficerNote() then
-				gPrelist = { cname, lvl, zone, rank, note, offnote, name }
-			else
-				gPrelist = { cname, lvl, zone, rank, note, " ", name }
-			end
-
 			-- Add to list
 			if online then
-				tinsert(GuildTabletData, gPrelist)
+				GuildTabletData[i] = GuildTabletData[i] or {}
+				if CanViewOfficerNote() then
+					GuildTabletData[i][1] = cname
+					GuildTabletData[i][2] = lvl
+					GuildTabletData[i][3] = zone
+					GuildTabletData[i][4] = rank
+					GuildTabletData[i][5] = note
+					GuildTabletData[i][6] = offnote
+					GuildTabletData[i][7] = name
+				else
+					GuildTabletData[i][1] = cname
+					GuildTabletData[i][2] = lvl
+					GuildTabletData[i][3] = zone
+					GuildTabletData[i][4] = rank
+					GuildTabletData[i][5] = note
+					GuildTabletData[i][6] = " "
+					GuildTabletData[i][7] = name
+				end
 				guildonline = guildonline + 1
+			end
+			
+			for i = guildonline+1, #GuildTabletData do
+				GuildTabletData[i] = nil
 			end
 		end
 
@@ -163,13 +177,10 @@ local function LoadGuild()
 			-- Hint
 			guildTablet:SetHint(L["<点击玩家>发送密语, <Alt+点击玩家>邀请玩家."])
 		end
-		collectgarbage()
 	end
 
 	local function Guild_OnEnter(self)
 		if InCombatLockdown() then return end
-		GuildRoster()
-
 		-- Register guildTablet
 		if not guildTablet:IsRegistered(self) then
 			guildTablet:Register(self,
@@ -177,12 +188,8 @@ local function LoadGuild()
 					Guild_BuidTablet()
 					Guild_UpdateTablet()
 				end,
-				"point", function()
-					return "TOPLEFT"
-				end,
-				"relativePoint", function()
-					return "BOTTOMLEFT"
-				end,
+				"point", "TOPLEFT",
+				"relativePoint", "BOTTOMLEFT",
 				"maxHeight", 500,
 				"clickable", true,
 				"hideWhenEmpty", true
@@ -196,9 +203,9 @@ local function LoadGuild()
 			guildTablet:SetFontSizePercent(self, 1)
 
 			-- Open
-			if ( IsInGuild() and GuildOnline > 0 ) then
-				GuildRoster()
-			end
+			-- if ( IsInGuild() and GuildOnline > 0 ) then
+				-- GuildRoster()
+			-- end
 			guildTablet:Open(self)
 		end
 	end
@@ -211,16 +218,12 @@ local function LoadGuild()
 			return
 		end
 
+		-- GuildRoster()
 		local total, online = GetNumGuildMembers()
 		infobar.Text:SetFormattedText(displayString, online)
 		self:SetMinMaxValues(0, total)
 		self:SetValue(online)
-
-		if online > 0 then
-			self:SetScript("OnEnter", Guild_OnEnter)
-		else
-			self:SetScript("OnEnter", nil)
-		end
+		self:SetScript("OnEnter", Guild_OnEnter)
 
 		self.hidden = false
 	end
@@ -248,7 +251,7 @@ local function LoadGuild()
 	Status:RegisterEvent("GUILD_MOTD")
 	Status:SetScript("OnEnter", Guild_OnEnter)
 	Status:SetScript("OnMouseDown", Guild_OnMouseDown)
-	Status:SetScript("OnEvent", function(self, event)
+	Status:SetScript("OnEvent", function(self, event, ...)
 		if event == "GUILD_MOTD" then
 			if not self.hidden then return end
 			self.needrefreshed = true
@@ -260,6 +263,13 @@ local function LoadGuild()
 	end)
 	Status:SetScript("OnUpdate", function(self, elapsed)
 		self.updateElapsed = self.updateElapsed + elapsed
+		self.updateElapsed2 = self.updateElapsed2 + elapsed
+
+		if self.updateElapsed2 > 10 then
+			self.updateElapsed2 = 0
+			GuildRoster()
+		end
+
 		if self.updateElapsed > 1 then
 			self.updateElapsed = 0
 

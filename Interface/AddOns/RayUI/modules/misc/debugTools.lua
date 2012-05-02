@@ -3,7 +3,7 @@ local M = R:GetModule("Misc")
 
 local function LoadFunc()
 	--Enhanced debugtools from ElvUI
-	local D = R:NewModule("DebugTools", "AceEvent-3.0", "AceHook-3.0")
+	local D = R:NewModule("DebugTools", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3.0")
 	local S = R:GetModule("Skins")
 
 	local showErrorButton = CreateFrame("Button", nil, Minimap)
@@ -24,14 +24,14 @@ local function LoadFunc()
 		ScriptErrorsFrameScrollFrameText.cursorOffset = 0
 		ScriptErrorsFrameScrollFrameText.cursorHeight = 0
 		ScriptErrorsFrameScrollFrameText:SetScript("OnEditFocusGained", nil)
-
+		
 		local Orig_ScriptErrorsFrame_Update = ScriptErrorsFrame_Update
 		ScriptErrorsFrame_Update = function(...)
 			if GetCVarBool("scriptErrors") ~= 1 then
 				Orig_ScriptErrorsFrame_Update(...)
 				return
 			end
-
+			
 			-- Sometimes the locals table does not have an entry for an index, which can cause an argument #6 error
 			-- in Blizzard_DebugTools.lua:430 and then cause a C stack overflow, this will prevent that
 			local index = ScriptErrorsFrame.index
@@ -42,26 +42,26 @@ local function LoadFunc()
 			if( index > 0 ) then
 				ScriptErrorsFrame.locals[index] = ScriptErrorsFrame.locals[index] or L["没有本地变量转存"]
 			end
-
+			
 			Orig_ScriptErrorsFrame_Update(...)
-
+			
 			-- Stop text highlighting again
 			ScriptErrorsFrameScrollFrameText:HighlightText(0, 0)
-		end
-
+		end	
+		
 		-- Unhighlight text when focus is hit
 		ScriptErrorsFrameScrollFrameText:HookScript("OnEscapePressed", function(self)
 			self:HighlightText(0, 0)
-		end)
-
-
+		end)	
+		
+		
 		ScriptErrorsFrame:Size(500, 300)
 		ScriptErrorsFrameScrollFrame:Size(ScriptErrorsFrame:GetWidth() - 45, ScriptErrorsFrame:GetHeight() - 71)
-
+		
 		local BUTTON_WIDTH = 75
 		local BUTTON_HEIGHT = 24
 		local BUTTON_SPACING = 2
-
+		
 		-- Add a first button
 		local firstButton = CreateFrame("Button", nil, ScriptErrorsFrame, "UIPanelButtonTemplate")
 		firstButton:SetPoint("BOTTOM", ScriptErrorsFrame, "BOTTOM", -((BUTTON_WIDTH + BUTTON_WIDTH/2) + (BUTTON_SPACING * 4)), 8)
@@ -92,18 +92,18 @@ local function LoadFunc()
 		ScriptErrorsFrame.previous:SetPoint("BOTTOMLEFT", firstButton, "BOTTOMRIGHT", BUTTON_SPACING, 0)
 		ScriptErrorsFrame.previous:SetWidth(BUTTON_WIDTH)
 		ScriptErrorsFrame.previous:SetHeight(BUTTON_HEIGHT)
-
+		
 		ScriptErrorsFrame.next:ClearAllPoints()
 		ScriptErrorsFrame.next:SetPoint("BOTTOMLEFT", ScriptErrorsFrame.previous, "BOTTOMRIGHT", BUTTON_SPACING, 0)
 		ScriptErrorsFrame.next:SetWidth(BUTTON_WIDTH)
 		ScriptErrorsFrame.next:SetHeight(BUTTON_HEIGHT)
-
+		
 		ScriptErrorsFrame.close:ClearAllPoints()
-		ScriptErrorsFrame.close:SetPoint("BOTTOMRIGHT", ScriptErrorsFrame, "BOTTOMRIGHT", -8, 8)
+		ScriptErrorsFrame.close:SetPoint("BOTTOMRIGHT", ScriptErrorsFrame, "BOTTOMRIGHT", -8, 8)	
 		ScriptErrorsFrame.close:Size(75, BUTTON_HEIGHT)
-
+		
 		ScriptErrorsFrame.indexLabel:ClearAllPoints()
-		ScriptErrorsFrame.indexLabel:SetPoint("BOTTOMLEFT", ScriptErrorsFrame, "BOTTOMLEFT", -6, 8)
+		ScriptErrorsFrame.indexLabel:SetPoint("BOTTOMLEFT", ScriptErrorsFrame, "BOTTOMLEFT", -6, 8)	
 	end
 
 	function D:ScriptErrorsFrame_UpdateButtons()
@@ -115,10 +115,10 @@ local function LoadFunc()
 		else
 			if ( numErrors == 1 ) then
 				ScriptErrorsFrame.lastButton:Disable()
-				ScriptErrorsFrame.firstButton:Disable()
+				ScriptErrorsFrame.firstButton:Disable()		
 			else
 				ScriptErrorsFrame.lastButton:Enable()
-				ScriptErrorsFrame.firstButton:Enable()
+				ScriptErrorsFrame.firstButton:Enable()				
 			end
 		end
 	end
@@ -137,8 +137,13 @@ local function LoadFunc()
 	end
 
 	function D:TaintError(event, addonName, addonFunc)
-		if GetCVarBool("scriptErrors") ~= 1 or not R:IsDeveloper() or addonName ~= "RayUI" then return end
+		if GetCVarBool("scriptErrors") ~= 1 or not R:IsDeveloper() then return end
 		ScriptErrorsFrame_OnError(L["%s: %s 尝试调用保护函数 '%s'."]:format(event, addonName or "<name>", addonFunc or "<func>"), false)
+	end
+	
+	function D:ShowScriptErrorsFrame()
+		ScriptErrorsFrame:Show()
+		ScriptErrorsFrame:SetParent(UIParent)
 	end
 
 	D.HideFrame = CreateFrame("Frame")
@@ -159,6 +164,7 @@ local function LoadFunc()
 	D:RegisterEvent("PLAYER_REGEN_DISABLED")
 	D:RegisterEvent("ADDON_ACTION_BLOCKED", "TaintError")
 	D:RegisterEvent("ADDON_ACTION_FORBIDDEN", "TaintError")
+	D:RegisterChatCommand("error", "ShowScriptErrorsFrame")
 
 	SetCVar("scriptErrors", 1)
 end

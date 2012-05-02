@@ -491,6 +491,7 @@ function RA:Raid15SmartVisibility(event)
 	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
 	if not InCombatLockdown() then
 		if inInstance and instanceType == "raid" and maxPlayers > 15 then
+			RegisterAttributeDriver(self, "state-visibility", "hide")
 			self:SetAttribute("showRaid", false)
 			self:SetAttribute("showParty", false)
 		elseif inInstance and instanceType == "raid" and maxPlayers <= 15 then
@@ -514,6 +515,7 @@ function RA:Raid25SmartVisibility(event)
 	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
 	if not InCombatLockdown() then
 		if inInstance and instanceType == "raid" and maxPlayers <= 15 then
+			RegisterAttributeDriver(self, "state-visibility", "hide")
 			self:SetAttribute("showRaid", false)
 			self:SetAttribute("showParty", false)
 		elseif inInstance and instanceType == "raid" and maxPlayers > 15 then
@@ -531,8 +533,28 @@ function RA:Raid25SmartVisibility(event)
 	end
 end
 
+function RA:Raid40SmartVisibility(event)
+	local inInstance, instanceType = IsInInstance()
+	local _, _, _, _, maxPlayers, _, _ = GetInstanceInfo()
+	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
+	if not InCombatLockdown() then
+		if inInstance and instanceType == "pvp" and maxPlayers == 40 then
+			RegisterAttributeDriver(self, "state-visibility", "[group:party,nogroup:raid][group:raid] show;hide")
+			self:SetAttribute("showRaid", true)
+			self:SetAttribute("showParty", RA.db.showgridwhenparty)
+		else
+			RegisterAttributeDriver(self, "state-visibility", "hide")
+			self:SetAttribute("showRaid", false)
+			self:SetAttribute("showParty", false)
+		end
+	else
+		self:RegisterEvent("PLAYER_REGEN_ENABLED")
+		return
+	end
+end
+
 local pos, posRel, colX, colY
-function RA:SpawnHeader(name, group, temp, pet, MT, layout)
+function RA:SpawnHeader(name, group, layout)
     local horiz, grow = RA.db.horizontal, RA.db.growth
 	local width, height = RA.db.width, RA.db.height
 	local visibility = "custom [@raid16,noexists] hide;show"
@@ -581,8 +603,7 @@ function RA:SpawnHeader(name, group, temp, pet, MT, layout)
         end
     end
 
-    local template = temp or nil
-    local header = oUF:SpawnHeader(name, template, visibility,
+    local header = oUF:SpawnHeader(name, nil, visibility,
     "oUF-initialConfigFunction", (initconfig):format(R:Scale(width), R:Scale(height)),
     "showPlayer", RA.db.showplayerinparty,
     "showSolo", RA.db.showwhensolo,
@@ -595,7 +616,7 @@ function RA:SpawnHeader(name, group, temp, pet, MT, layout)
     "groupFilter", group,
     "groupingOrder", "1,2,3,4,5,6,7,8",
     "groupBy", "GROUP",
-    "maxColumns", RA.db.numCol,
+    "maxColumns", 8,
     "unitsPerColumn", 5,
     "columnSpacing", RA.db.spacing,
     "columnAnchorPoint", growth)
@@ -604,8 +625,10 @@ function RA:SpawnHeader(name, group, temp, pet, MT, layout)
 	header:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	if layout == 15 then
 		header:HookScript("OnEvent", RA.Raid15SmartVisibility)
-	else
+	elseif layout == 25 then
 		header:HookScript("OnEvent", RA.Raid25SmartVisibility)
+	elseif layout == 40 then
+		header:HookScript("OnEvent", RA.Raid40SmartVisibility)
 	end
 
     return header
@@ -637,7 +660,7 @@ function RA:SpawnRaid()
 	CompactRaidFrameManager:Kill()
 	local raid10 = {}
 	for i=1, 3 do
-		local group = self:SpawnHeader("RayUFRaid10_"..i, i, nil, nil, nil, 15)
+		local group = self:SpawnHeader("RayUFRaid10_"..i, i, 15)
 		if i == 1 then
 			group:Point("TOPLEFT", UIParent, "BOTTOMRIGHT", - RA.db.width*1.3*3 -  RA.db.spacing*2 - 50, 461)
 		else
@@ -647,8 +670,8 @@ function RA:SpawnRaid()
 		RA._Headers[group:GetName()] = group
 	end
 	local raid25 = {}
-	for i=1, RA.db.numCol do
-		local group = self:SpawnHeader("RayUFRaid25_"..i, i)
+	for i=1, 5 do
+		local group = self:SpawnHeader("RayUFRaid25_"..i, i, 25)
 		if i == 1 then
 			group:Point("TOPLEFT", UIParent, "BOTTOMRIGHT", - RA.db.width*5 -  RA.db.spacing*4 - 50, 422)
 		else
@@ -656,5 +679,18 @@ function RA:SpawnRaid()
 		end
 		raid25[i] = group
 		RA._Headers[group:GetName()] = group
+	end
+	if RA.db.raid40 then
+		local raid40 = {}
+		for i=6, 8 do
+			local group = self:SpawnHeader("RayUFRaid40_"..i, i, 40)
+			if i == 6 then
+				group:Point("TOPLEFT", raid25[3], "TOPLEFT", 0, RA.db.height * 5 + RA.db.spacing*5 )
+			else
+				group:Point(pos, raid40[i-1], posRel, colX or 0, colY or 0)
+			end
+			raid40[i] = group
+			RA._Headers[group:GetName()] = group
+		end
 	end
 end

@@ -227,12 +227,8 @@ local function LoadTalent()
 				"children", function()
 					Spec_UpdateTablet(self)
 				end,
-				"point", function()
-					return "BOTTOM"
-				end,
-				"relativePoint", function()
-					return "TOP"
-				end,
+				"point", "BOTTOM",
+				"relativePoint", "TOP",
 				"maxHeight", 500,
 				"clickable", true,
 				"hideWhenEmpty", true

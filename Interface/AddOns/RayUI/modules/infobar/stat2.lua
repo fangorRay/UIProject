@@ -42,10 +42,6 @@ local function LoadStatus()
 		return mitigation
 	end
 
-	local function AddTooltipHeader(description)
-		GameTooltip:AddLine(description)
-	end
-
 	local function ShowTooltip(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:ClearLines()
@@ -59,7 +55,7 @@ local function LoadStatus()
 			GameTooltip:AddDoubleLine(DEATHS, deaths,1,1,1)
 		else
 			if R.Role == "Tank" then
-				AddTooltipHeader(L["等级缓和"]..": ")
+				GameTooltip:AddLine(L["等级缓和"]..": ")
 				local lv = R.level +3
 				for i = 1, 4 do
 					GameTooltip:AddDoubleLine(lv,format(chanceString, CalculateMitigation(lv, effectiveArmor) * 100),1,1,1)
@@ -70,7 +66,7 @@ local function LoadStatus()
 					GameTooltip:AddDoubleLine(lv, format(chanceString, CalculateMitigation(lv, effectiveArmor) * 100),1,1,1)
 				end
 			elseif R.Role == "Caster" or R.Role == "Melee" then
-				AddTooltipHeader(MAGIC_RESISTANCES_COLON)
+				GameTooltip:AddLine(MAGIC_RESISTANCES_COLON)
 
 				local baseResistance, effectiveResistance, posResitance, negResistance
 				for i = 2, 6 do

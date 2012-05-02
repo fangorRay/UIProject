@@ -1116,7 +1116,8 @@ function B:SortBags(frame)
 					sbag = v.bag,
 					--sort = q .. iL .. c1 .. c2 .. rL .. Sl .. n .. i,
 					--sort = q .. iL .. c1 .. c2 .. rL .. Sl .. n .. (#self.buttons - i),
-					sort = q .. c1 .. c2 .. rL .. n .. iL .. Sl .. (#self.buttons - i),
+					-- sort = q .. c1 .. c2 .. rL .. n .. iL .. Sl .. (#self.buttons - i),
+					sort = q .. c1 .. c2 .. Sl .. rL .. n .. cnt .. iL ..  (#self.buttons - i),
 					--sort = q .. (#self.buttons - i) .. n,
 				})
 			end

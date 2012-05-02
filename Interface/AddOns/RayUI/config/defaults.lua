@@ -88,7 +88,6 @@ P["Raid"]={
     width = 65,
     height = 30,
     spacing = 8,
-    numCol = 5,
     showwhensolo = false,
     showplayerinparty = true,
     showgridwhenparty = false,
@@ -115,6 +114,7 @@ P["Raid"]={
     tooltip = true,
     hidemenu = false,
 	autorez = true,
+	raid40 = true,
 }
 
 P["ActionBar"]={

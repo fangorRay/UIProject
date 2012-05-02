@@ -102,12 +102,8 @@ local function LoadFPS()
 				"children", function()
 					SysInfo_UpdateTablet()
 				end,
-				"point", function()
-					return "TOPLEFT"
-				end,
-				"relativePoint", function()
-					return "BOTTOMLEFT"
-				end,
+				"point", "TOPLEFT",
+				"relativePoint", "BOTTOMLEFT",
 				"maxHeight", 500,
 				"clickable", true,
 				"hideWhenEmpty", true

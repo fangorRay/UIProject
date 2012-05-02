@@ -54,17 +54,17 @@ local function LoadFriend()
 
 				curFriendsOnline = curFriendsOnline + 1
 
-				-- Class
-				local classColor = RAID_CLASS_COLORS[ClassLookup[class]] and { RAID_CLASS_COLORS[ClassLookup[class]].r, RAID_CLASS_COLORS[ClassLookup[class]].g, RAID_CLASS_COLORS[ClassLookup[class]].b } or {1, 1, 1}
-				class = string.format("|cff%02x%02x%02x%s|r", classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, class)
-
+				local r, g, b = RAID_CLASS_COLORS[ClassLookup[class]].r, RAID_CLASS_COLORS[ClassLookup[class]].g, RAID_CLASS_COLORS[ClassLookup[class]].b
 				-- Name
 				local cname
 				if ( status == "" and name ) then
-					cname = string.format("|cff%02x%02x%02x%s|r", classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, name)
+					cname = string.format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, name)
 				elseif ( name ) then
-					cname = string.format("%s |cff%02x%02x%02x%s|r", status, classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, name)
+					cname = string.format("%s |cff%02x%02x%02x%s|r", status, r * 255, g * 255, b * 255, name)
 				end
+
+				-- Class
+				class = string.format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, class)
 
 				-- Add Friend to list
 				local _, faction = UnitFactionGroup("player")
@@ -91,10 +91,7 @@ local function LoadFriend()
 					FriendsTabletDataNames[toonname] = true
 				end
 
-				-- Class
-				local classColor = RAID_CLASS_COLORS[ClassLookup[class]] and { RAID_CLASS_COLORS[ClassLookup[class]].r, RAID_CLASS_COLORS[ClassLookup[class]].g, RAID_CLASS_COLORS[ClassLookup[class]].b } or {1, 1, 1}
-				class = string.format("|cff%02x%02x%02x%s|r", classColor[1] * 255, classColor[2] * 255, classColor[3] * 255, class)
-
+				local r, g, b = RAID_CLASS_COLORS[ClassLookup[class]].r, RAID_CLASS_COLORS[ClassLookup[class]].g, RAID_CLASS_COLORS[ClassLookup[class]].b
 				-- Name
 				local cname
 				local realname = string.format("%s %s", BNfirstname, BNlastname)
@@ -104,7 +101,7 @@ local function LoadFriend()
 						"|cff%02x%02x%02x%s|r |cffcccccc(|r|cff%02x%02x%02x%s|r|cffcccccc)|r",
 						FRIENDS_BNET_NAME_COLOR.r * 255, FRIENDS_BNET_NAME_COLOR.g * 255, FRIENDS_BNET_NAME_COLOR.b * 255,
 						realname,
-						classColor[1] * 255, classColor[2] * 255, classColor[3] * 255,
+						r * 255, g * 255, b * 255,
 						name
 					)
 				else
@@ -113,11 +110,14 @@ local function LoadFriend()
 						"|cff%02x%02x%02x%s|r |cffcccccc(|r|cff%02x%02x%02x%s|r|cffcccccc-%s)|r",
 						FRIENDS_BNET_NAME_COLOR.r * 255, FRIENDS_BNET_NAME_COLOR.g * 255, FRIENDS_BNET_NAME_COLOR.b * 255,
 						realname,
-						classColor[1] * 255, classColor[2] * 255, classColor[3] * 255,
+						r * 255, g * 255, b * 255,
 						name,
 						realmName
 					)
 				end
+
+				-- Class
+				class = string.format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, class)
 				if (isafk and name ) then
 					cname = string.format("%s %s", CHAT_FLAG_AFK, cname)
 				elseif(isdnd and name) then
@@ -217,7 +217,6 @@ local function LoadFriend()
 			-- Hint
 			friendsTablets:SetHint(L["<点击玩家>发送密语, <Alt+点击玩家>邀请玩家."])
 		end
-		collectgarbage()
 	end
 
 	local function Friends_OnEnter(self)
@@ -230,12 +229,8 @@ local function LoadFriend()
 					Friends_BuildTablet()
 					Friends_UpdateTablet()
 				end,
-				"point", function()
-					return "TOPLEFT"
-				end,
-				"relativePoint", function()
-					return "BOTTOMLEFT"
-				end,
+				"point", "TOPLEFT",
+				"relativePoint", "BOTTOMLEFT",
 				"maxHeight", 500,
 				"clickable", true,
 				"hideWhenEmpty", true

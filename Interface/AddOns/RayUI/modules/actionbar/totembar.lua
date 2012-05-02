@@ -183,18 +183,22 @@ function AB:CreateBarTotem()
 	if R.myclass ~= "SHAMAN" then return end
 
 	if MultiCastActionBarFrame then
-		MultiCastActionBarFrame:SetScript("OnUpdate", nil)
-		MultiCastActionBarFrame:SetScript("OnShow", nil)
-		MultiCastActionBarFrame:SetScript("OnHide", nil)
+		-- MultiCastActionBarFrame:SetScript("OnUpdate", nil)
+		-- MultiCastActionBarFrame:SetScript("OnShow", nil)
+		-- MultiCastActionBarFrame:SetScript("OnHide", nil)
+		MultiCastActionBarFrame:Height(AB.db.buttonsize)
 		MultiCastActionBarFrame:SetParent(RayUIStanceBar)
 		MultiCastActionBarFrame:ClearAllPoints()
-		MultiCastActionBarFrame:Point("BOTTOMLEFT", RayUIStanceBar, "BOTTOMLEFT", -2, -2)
+		MultiCastActionBarFrame:Point("LEFT", -2, -2)
 
 		hooksecurefunc("MultiCastActionButton_Update",function(actionbutton) if not InCombatLockdown() then actionbutton:SetAllPoints(actionbutton.slotButton) end end)
+		hooksecurefunc(MultiCastActionBarFrame, "SetPoint", function(self, p) if not InCombatLockdown() and p ~= "LEFT" then self:ClearAllPoints() self:Point("LEFT", -2, -2) end end)
 
-		MultiCastActionBarFrame.SetParent = R.dummy
-		MultiCastActionBarFrame.SetPoint = R.dummy
-		MultiCastRecallSpellButton.SetPoint = R.dummy -- bug fix, see http://www.tukui.org/v2/forums/topic.php?id=2405
+		MultiCastActionBarFrame.ignoreFramePositionManager = true
+
+		-- MultiCastActionBarFrame.SetParent = R.dummy
+		-- MultiCastActionBarFrame.SetPoint = R.dummy
+		-- MultiCastRecallSpellButton.SetPoint = R.dummy -- bug fix, see http://www.tukui.org/v2/forums/topic.php?id=2405
 	end
 
 	AB:SecureHook("MultiCastFlyoutFrame_ToggleFlyout", "StyleTotemFlyout")
