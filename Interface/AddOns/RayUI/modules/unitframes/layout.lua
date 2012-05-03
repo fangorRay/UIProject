@@ -199,6 +199,7 @@ function UF:DPSLayout(frame, unit)
 		castbar.Time:SetPoint("BOTTOMRIGHT", castbar, "TOPRIGHT", -5, -2)
 		castbar.Icon:Hide()
 		castbar.Iconbg:Hide()
+		R:CreateMover(castbar, "PlayerCastBarMover", L["施法条锚点"], true)
 		frame.Castbar = castbar
 
 		-- Debuffs

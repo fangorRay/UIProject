@@ -21,6 +21,7 @@ L["复仇条锚点"] = true
 L["Buff锚点"] = true
 L["Debuff锚点"] = true
 L["武器附魔锚点"] = true
+L["施法条锚点"] = true
 
 L["您不能在战斗中设定快捷键"] = true
 L["未绑定."] = true
