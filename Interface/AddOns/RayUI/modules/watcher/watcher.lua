@@ -321,16 +321,16 @@ function watcherPrototype:SetPosition(num)
 		self.button[num]:SetPoint("CENTER", self.parent, "CENTER", 0, 0)
 	elseif self.direction == "LEFT" then
 		self.button[num]:ClearAllPoints()
-		self.button[num]:SetPoint("RIGHT", self.button[num-1], "LEFT", -5, 0)
+		self.button[num]:SetPoint("RIGHT", self.button[num-1], "LEFT", -6, 0)
 	elseif self.direction == "RIGHT" then
 		self.button[num]:ClearAllPoints()
-		self.button[num]:SetPoint("LEFT", self.button[num-1], "RIGHT", 5, 0)
+		self.button[num]:SetPoint("LEFT", self.button[num-1], "RIGHT", 6, 0)
 	elseif self.direction == "DOWN" then
 		self.button[num]:ClearAllPoints()
-		self.button[num]:SetPoint("TOP", self.button[num-1], "BOTTOM", 0, -5)
+		self.button[num]:SetPoint("TOP", self.button[num-1], "BOTTOM", 0, -6)
 	else
 		self.button[num]:ClearAllPoints()
-		self.button[num]:SetPoint("BOTTOM", self.button[num-1], "TOP", 0, 5)
+		self.button[num]:SetPoint("BOTTOM", self.button[num-1], "TOP", 0, 6)
 	end
 end
 
@@ -596,6 +596,9 @@ function RW:NewWatcher(data)
 	module.button = {}
 
 	for i,v in pairs(data) do
+		if type(v) == "function" then
+			v = v()
+		end
 		if type(v) ~= "table" or (type(v) == "table" and type(i) ~= "number") then
 			module[i:lower()] = v
 		elseif type(v) == "table" then

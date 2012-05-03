@@ -935,12 +935,12 @@ P["Watcher"]["filters"] ={
 		},
 		{
 			name = "CD",
-			direction = "DOWN",
 			iconSide = "LEFT",
-			mode = "BAR",
 			size = 28,
 			barWidth = 170,
-			setpoint = { "TOPLEFT", "RayUIActionBar2", "BOTTOMRIGHT", -27, -6 },
+			direction = function() return R:IsDeveloper() and "RIGHT" or "DOWN" end,
+			mode = function() return R:IsDeveloper() and "ICON" or "BAR" end,
+			setpoint = function() return R:IsDeveloper() and { "TOPLEFT", "RayUIActionBar1", "BOTTOMLEFT", 0, -6 } or { "TOPLEFT", "RayUIActionBar2", "BOTTOMRIGHT", -27, -6 } end,
 
 			--暗影步
 			{ spellID = 36554, filter = "CD" },
@@ -956,6 +956,8 @@ P["Watcher"]["filters"] ={
 			{ spellID = 51722, filter = "CD" },
 			--影舞
 			{ spellID = 51713, filter = "CD" },
+			--預謀
+			{ spellID = 14183, filter = "CD" },
 			--致盲
 			{ spellID = 2094, filter = "CD" },
 			--战斗就绪
@@ -974,6 +976,8 @@ P["Watcher"]["filters"] ={
 			{ spellID = 51690, filter = "CD" },
 			--能量刺激
 			{ spellID = 13750, filter = "CD" },
+			--奧術之流
+			{ spellID = 25046, filter = "CD" },
 		},
 	},
 	["DEATHKNIGHT"] = {
