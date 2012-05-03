@@ -245,17 +245,33 @@ P["Watcher"]["filters"] ={
 		},
 		{
 			name = "CD",
-			direction = "DOWN",
 			iconSide = "LEFT",
-			mode = "BAR",
 			size = 28,
 			barWidth = 170,
-			setpoint = { "TOPLEFT", "RayUIActionBar2", "BOTTOMRIGHT", -27, -6 },
+			direction = function() return R:IsDeveloper() and "RIGHT" or "DOWN" end,
+			mode = function() return R:IsDeveloper() and "ICON" or "BAR" end,
+			setpoint = function() return R:IsDeveloper() and { "TOPLEFT", "RayUIActionBar1", "BOTTOMLEFT", 0, -6 } or { "TOPLEFT", "RayUIActionBar2", "BOTTOMRIGHT", -27, -6 } end,
 
 			--急速射擊
 			{ spellID = 3045, filter = "CD" },
 			--準備就緒
 			{ spellID = 23989, filter = "CD" },
+			--奧術之流
+			{ spellID = 25046, filter = "CD" },
+			--誤導
+			{ spellID = 34477, filter = "CD" },
+			--偽裝
+			{ spellID = 51753, filter = "CD" },
+			--爆炸陷阱
+			{ spellID = 13813, filter = "CD" },
+			--冰凍陷阱
+			{ spellID = 1499, filter = "CD" },
+			--毒蛇陷阱
+			{ spellID = 34600, filter = "CD" },
+			--翼龍釘刺
+			{ spellID = 19386, filter = "CD" },
+			--主人的召喚
+			{ spellID = 53271, filter = "CD" },
 		},
 	},
 	["MAGE"] = {
@@ -960,6 +976,8 @@ P["Watcher"]["filters"] ={
 			{ spellID = 14183, filter = "CD" },
 			--致盲
 			{ spellID = 2094, filter = "CD" },
+			--偷天換日
+			{ spellID = 57934, filter = "CD" },
 			--战斗就绪
 			{ spellID = 74001, filter = "CD" },
 			--烟雾弹

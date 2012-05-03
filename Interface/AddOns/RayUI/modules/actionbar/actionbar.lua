@@ -318,8 +318,10 @@ end
 function AB:UpdatePosition(bar2,bar3)
 	if InCombatLockdown() then self.needPosition = true return end
 	if bar2 and bar3 then
-		ActionBar1Mover:ClearAllPoints()
-		ActionBar1Mover:Point("BOTTOM", UIParent, "BOTTOM", -3 * AB.db.buttonsize -3 * AB.db.buttonspacing, 235)
+		if not ( R.db.movers and R.db.movers.ActionBar1Mover ) then
+			ActionBar1Mover:ClearAllPoints()
+			ActionBar1Mover:Point("BOTTOM", UIParent, "BOTTOM", -3 * AB.db.buttonsize -3 * AB.db.buttonspacing, 235)
+		end
 		if RayUIActionBar2 and RayUIActionBar2:GetHeight() < AB.db.buttonsize*2 then
 			ActionBar2Mover:SetWidth(AB.db.buttonsize*6+AB.db.buttonspacing*5)
 			ActionBar2Mover:SetHeight(AB.db.buttonsize*2+AB.db.buttonspacing)
@@ -335,9 +337,16 @@ function AB:UpdatePosition(bar2,bar3)
 			end
 		end
 	else
-		if not ( R.db.movers and R.db.movers.ActionBar1Mover ) then
-			ActionBar1Mover:ClearAllPoints()
-			ActionBar1Mover:Point("BOTTOM", UIParent, "BOTTOM", 0, 235)
+		if bar2 or bar3 then
+			if not ( R.db.movers and R.db.movers.ActionBar1Mover ) then
+				ActionBar1Mover:ClearAllPoints()
+				ActionBar1Mover:Point("BOTTOM", UIParent, "BOTTOM", 0, 235)
+			end
+		else
+			if not ( R.db.movers and R.db.movers.ActionBar1Mover ) then
+				ActionBar1Mover:ClearAllPoints()
+				ActionBar1Mover:Point("BOTTOM", UIParent, "BOTTOM", 0, 270)
+			end
 		end
 		if bar2 and not bar3 then
 			if RayUIActionBar2 and RayUIActionBar2:GetHeight() > AB.db.buttonsize then
@@ -354,14 +363,6 @@ function AB:UpdatePosition(bar2,bar3)
 					RayUIActionBar2:Point("BOTTOM", ActionBar1Mover, "TOP", 0, AB.db.buttonspacing)
 				end
 			end
-		end
-	end
-	if not ( R.db.movers and R.db.movers.PlayerCastBarMover ) then
-		PlayerCastBarMover:ClearAllPoints()
-		if not bar2 and not bar3 then
-			PlayerCastBarMover:Point("BOTTOM",UIParent,"BOTTOM",0,275)
-		else
-			PlayerCastBarMover:Point("BOTTOM",UIParent,"BOTTOM",0,305)
 		end
 	end
 end
