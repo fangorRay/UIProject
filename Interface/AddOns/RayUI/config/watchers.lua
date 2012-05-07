@@ -272,6 +272,20 @@ P["Watcher"]["filters"] ={
 			{ spellID = 19386, filter = "CD" },
 			--主人的召喚
 			{ spellID = 53271, filter = "CD" },
+			--假死
+			{ spellID = 5384, filter = "CD" },
+			--沉默射擊
+			{ spellID = 34490, filter = "CD" },
+			--腰带
+			{ slotID = 6, filter = "itemCD" },
+			--披风
+			{ slotID = 15, filter = "itemCD" },
+			--手套
+			{ slotID = 10, filter = "itemCD" },
+			--饰品1
+			{ slotID = 13, filter = "itemCD" },
+			--饰品2
+			{ slotID = 14, filter = "itemCD" },
 		},
 	},
 	["MAGE"] = {

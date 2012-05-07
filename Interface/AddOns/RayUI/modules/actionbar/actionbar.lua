@@ -318,6 +318,8 @@ end
 function AB:UpdatePosition(bar2,bar3)
 	if InCombatLockdown() then self.needPosition = true return end
 	if bar2 and bar3 then
+		RayUIVehicleBar:ClearAllPoints()
+		RayUIVehicleBar:SetPoint("TOPLEFT", "RayUIActionBar2", "TOPRIGHT", AB.db.buttonspacing, 0)
 		if not ( R.db.movers and R.db.movers.ActionBar1Mover ) then
 			ActionBar1Mover:ClearAllPoints()
 			ActionBar1Mover:Point("BOTTOM", UIParent, "BOTTOM", -3 * AB.db.buttonsize -3 * AB.db.buttonspacing, 235)
@@ -337,6 +339,8 @@ function AB:UpdatePosition(bar2,bar3)
 			end
 		end
 	else
+		RayUIVehicleBar:ClearAllPoints()
+		RayUIVehicleBar:SetPoint("LEFT", "RayUIActionBar1", "RIGHT", AB.db.buttonspacing, 0)
 		if bar2 or bar3 then
 			if not ( R.db.movers and R.db.movers.ActionBar1Mover ) then
 				ActionBar1Mover:ClearAllPoints()

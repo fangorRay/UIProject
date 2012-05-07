@@ -99,6 +99,8 @@ function watcherPrototype:CreateButton(mode)
 					GameTooltip:SetUnitAura(self.unitID, self.index, "HARMFUL")
 				elseif self.filter == "itemCD" then
 					GameTooltip:SetHyperlink(select(2,GetItemInfo(self.spellID)))
+				elseif self.filter == "slotCD" then
+					GameTooltip:SetInventoryItem("player", self.spellID)
 				else
 					GameTooltip:SetSpellByID(self.spellID)
 				end
@@ -157,7 +159,13 @@ function watcherPrototype:UpdateButton(button, index, icon, count, duration, exp
 	button.icon:SetTexCoord(.1, .9, .1, .9)
 	button.count:SetText(count > 1 and count or "")
 	if button.cooldown then
-		CooldownFrame_SetTimer(button.cooldown, filter == "CD" and expires or (expires - duration), duration, 1)
+		if filter == "CD" or filter == "itemCD" or filter == "slotCD" then
+			button.cooldown:SetReverse(false)
+			CooldownFrame_SetTimer(button.cooldown, expires, duration, 1)
+		else
+			button.cooldown:SetReverse(true)
+			CooldownFrame_SetTimer(button.cooldown, expires - duration, duration, 1)
+		end
 	end
 	button.index = index
 	button.filter = filter
@@ -165,6 +173,9 @@ function watcherPrototype:UpdateButton(button, index, icon, count, duration, exp
 	button.spellID = spellID
 	if filter == "itemCD" then
 		button.spn = GetItemInfo(spellID)
+	elseif filter == "slotCD" then
+		local slotLink = GetInventoryItemLink("player", spellID)
+		button.spn = GetItemInfo(slotLink)
 	else
 		button.spn = GetSpellInfo(spellID)
 	end
@@ -196,8 +207,15 @@ local function OnUpdate(self, elapsed)
 					self.time:SetFormattedText("%d:%.2d", time/60, time%60)
 				end
 			end
-		elseif self.filter == "CD" or self.filter == "itemCD" then
-			local start, duration = (self.filter == "CD" and GetSpellCooldown or GetItemCooldown)(self.spellID)
+		elseif self.filter == "CD" or self.filter == "itemCD" or self.filter == "slotCD" then
+			local start, duration
+			if self.filter == "slotCD" then
+				start, duration = GetInventoryItemCooldown("player", self.spellID)
+			elseif self.filter == "CD" then
+				start, duration = GetSpellCooldown(self.spellID)
+			elseif self.filter == "itemCD" then
+				start, duration = GetItemCooldown(self.spellID)
+			end
 			if self.mode == "BAR" then
 				self.statusbar:SetMinMaxValues(0, duration)
 				local time = start + duration - GetTime()
@@ -297,6 +315,26 @@ function watcherPrototype:CheckCooldown()
 					self:UpdateButton(self.button[self.current], nil, icon, 0, duration, start, itemID, nil, "itemCD")
 					self.button[self.current]:SetScript("OnUpdate", OnUpdate)
 					self.current = self.current + 1
+				end
+			end
+		end
+	end
+	if self.slotCD then
+		for slotID in pairs(self.slotCD) do
+			if type(slotID) == "number" and self.slotCD[slotID] then
+				local slotLink = GetInventoryItemLink("player", slotID)
+				if slotLink then
+					local _, _, _, _, _, _, _, _, _, icon = GetItemInfo(slotLink)
+					local start, duration = GetInventoryItemCooldown("player", slotID)
+					if start ~= 0 and duration > 2.9 then
+						if not self.button[self.current] then
+							self.button[self.current] = self:CreateButton(self.mode)
+							self:SetPosition(self.current)
+						end
+						self:UpdateButton(self.button[self.current], nil, icon, 0, duration, start, slotID, nil, "slotCD")
+						self.button[self.current]:SetScript("OnUpdate", OnUpdate)
+						self.current = self.current + 1
+					end
 				end
 			end
 		end
@@ -602,13 +640,14 @@ function RW:NewWatcher(data)
 		if type(v) ~= "table" or (type(v) == "table" and type(i) ~= "number") then
 			module[i:lower()] = v
 		elseif type(v) == "table" then
-			if (v.spellID or v.itemID) and v.filter then
+			if (v.spellID or v.itemID or v.slotID) and v.filter then
 				local spellName
 				if v.fuzzy and (v.filter == "BUFF" or v.filter == "DEBUFF") then spellName = GetSpellInfo(v.spellID) end
+				if v.filter == "itemCD" and v.slotID then v.filter = "slotCD" end
 				module[v.filter] = module[v.filter] or {}
-				module[v.filter][spellName or v.spellID or v.itemID] = module[v.filter][spellName or v.spellID or v.itemID] or {}
+				module[v.filter][spellName or v.spellID or v.itemID or v.slotID] = module[v.filter][spellName or v.spellID or v.itemID or v.slotID] or {}
 				for ii,vv in pairs(v) do
-					if ii ~= "filter" and ii ~= "spellID" and ii ~= "itemID" and v.filter ~= "CD" and v.filter ~= "itemCD" then
+					if ii ~= "filter" and ii ~= "spellID" and ii ~= "itemID" and ii ~= "slotID" and v.filter ~= "CD" and v.filter ~= "itemCD" and v.filter ~= "slotCD" then
 						ii = ii == "unitId" and "unitID" or ii
 						module[v.filter][spellName or v.spellID or v.itemID][ii] = vv
 						if spellName then

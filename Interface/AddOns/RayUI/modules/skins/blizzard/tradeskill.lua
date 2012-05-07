@@ -89,8 +89,8 @@ local function LoadSkin()
 	end
 
 	local reskinned = false
-	hooksecurefunc("TradeSkillFrame_SetSelection", function()
-		local ic = select(2, TradeSkillSkillIcon:GetRegions())
+	local function SkinSkillIcon()
+		local ic =TradeSkillSkillIcon:GetNormalTexture()
 		if ic then
 			ic:SetTexCoord(.08, .92, .08, .92)
 			ic:Point("TOPLEFT", 1, -1)
@@ -106,7 +106,8 @@ local function LoadSkin()
 				reskinned = true
 			end
 		end
-	end)
+	end
+	hooksecurefunc("TradeSkillFrame_SetSelection", SkinSkillIcon)
 
 	TradeSkillIncrementButton:SetPoint("RIGHT", TradeSkillCreateButton, "LEFT", -9, 0)
 

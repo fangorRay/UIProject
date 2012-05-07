@@ -137,7 +137,7 @@ local function LoadFunc()
 	end
 
 	function D:TaintError(event, addonName, addonFunc)
-		if GetCVarBool("scriptErrors") ~= 1 or not R:IsDeveloper() then return end
+		if GetCVarBool("scriptErrors") ~= 1 or not R:IsDeveloper() or addonName ~= "RayUI" then return end
 		ScriptErrorsFrame_OnError(L["%s: %s 尝试调用保护函数 '%s'."]:format(event, addonName or "<name>", addonFunc or "<func>"), false)
 	end
 	

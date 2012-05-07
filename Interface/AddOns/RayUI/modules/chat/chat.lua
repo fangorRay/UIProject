@@ -980,7 +980,7 @@ function CH:Initialize()
 	CHAT_PARTY_GUIDE_GET = "|Hchannel:party|h".."[PL]".."|h %s:\32"
 	CHAT_PARTY_LEADER_GET = "|Hchannel:party|h".."[PL]".."|h %s:\32"
 	CHAT_RAID_GET = "|Hchannel:raid|h".."[R]".."|h %s:\32"
-	CHAT_RAID_LEADER_GET = "|Hchannel:raid|h".."[R]".."|h %s:\32"
+	CHAT_RAID_LEADER_GET = "|Hchannel:raid|h".."[RL]".."|h %s:\32"
 	CHAT_RAID_WARNING_GET = "[RW]".." %s:\32"
 	CHAT_SAY_GET = "%s:\32"
 	CHAT_WHISPER_GET = "%s:\32"

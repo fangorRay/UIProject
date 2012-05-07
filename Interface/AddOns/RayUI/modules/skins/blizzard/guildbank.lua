@@ -69,11 +69,14 @@ local function LoadSkin()
 			_G["GuildBankColumn"..i.."Button"..j.."IconTexture"]:SetTexCoord(.08, .92, .08, .92)
 			_G["GuildBankColumn"..i.."Button"..j.."NormalTexture"]:SetAlpha(0)
 
-			local bg = CreateFrame("Frame", nil, bu)
-			bg:Point("TOPLEFT", -1, 1)
-			bg:Point("BOTTOMRIGHT", 1, -1)
-			bg:SetFrameLevel(bu:GetFrameLevel()-1)
-			S:CreateBD(bg, 0)
+			local glow = CreateFrame("Frame", nil, bu)
+			glow:SetAllPoints()
+			glow:CreateBorder()
+			bu.glow = glow
+			bu:SetBackdrop({
+					bgFile = R["media"].blank,
+					insets = { left = -R.mult, right = -R.mult, top = -R.mult, bottom = -R.mult }
+				})
 		end
 	end
 
@@ -103,6 +106,51 @@ local function LoadSkin()
 	S:ReskinScroll(GuildBankTransactionsScrollFrameScrollBar)
 	S:ReskinScroll(GuildBankInfoScrollFrameScrollBar)
 	S:ReskinScroll(GuildBankPopupScrollFrameScrollBar)
+
+	local function ColorBorder()
+		local tab = GetCurrentGuildBankTab()
+		for i=1, MAX_GUILDBANK_SLOTS_PER_TAB do
+			local index = mod(i, NUM_SLOTS_PER_GUILDBANK_GROUP)
+			local column = ceil((i-0.5)/NUM_SLOTS_PER_GUILDBANK_GROUP)
+			if ( index == 0 ) then
+				index = NUM_SLOTS_PER_GUILDBANK_GROUP
+			end
+			local button = _G["GuildBankColumn"..column.."Button"..index]
+			local icontexture = _G["GuildBankColumn"..column.."Button"..index.."IconTexture"]
+			local glow = button.glow
+			local link = GetGuildBankItemLink(tab, i)
+			if link then
+				local _, _, quality, _, _, _, _, _, _, texture = GetItemInfo(link)
+				if R:IsItemUnusable(link) then
+					icontexture:SetVertexColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
+				else
+					icontexture:SetVertexColor(1, 1, 1)
+				end
+				if quality and quality > 1 then
+					icontexture:Point("TOPLEFT", 2, -2)
+					icontexture:Point("BOTTOMRIGHT", -2, 2)
+					button:GetHighlightTexture():Point("TOPLEFT", 2, -2)
+					button:GetHighlightTexture():Point("BOTTOMRIGHT", -2, 2)
+					button:GetPushedTexture():Point("TOPLEFT", 2, -2)
+					button:GetPushedTexture():Point("BOTTOMRIGHT", -2, 2)
+					glow:SetBackdropBorderColor(GetItemQualityColor(quality))
+					button:SetBackdropColor(0, 0, 0)
+				else
+					icontexture:SetAllPoints()
+					button:GetHighlightTexture():SetAllPoints()
+					button:GetPushedTexture():SetAllPoints()
+					glow:SetBackdropBorderColor(0, 0, 0)
+					button:SetBackdropColor(0, 0, 0, 0)
+				end
+			else
+				button:GetHighlightTexture():SetAllPoints()
+				button:GetPushedTexture():SetAllPoints()
+				glow:SetBackdropBorderColor(0, 0, 0)
+				button:SetBackdropColor(0, 0, 0, 0)
+			end
+		end
+	end
+	hooksecurefunc("GuildBankFrame_Update", ColorBorder)
 end
 
 S:RegisterSkin("Blizzard_GuildBankUI", LoadSkin)

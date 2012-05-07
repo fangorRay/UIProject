@@ -165,6 +165,7 @@ local function LoadSkin()
 				ic.bg = CreateFrame("Frame", nil, bu)
 				ic.bg:Point("TOPLEFT", ic)
 				ic.bg:Point("BOTTOMRIGHT", ic)
+				ic.bg:SetFrameLevel(bu:GetFrameLevel())
 				S:CreateBD(ic.bg, 0)
 			end
 			if ic:IsShown() then

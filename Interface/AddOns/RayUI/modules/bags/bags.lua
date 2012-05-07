@@ -171,7 +171,7 @@ function B:SlotUpdate(b)
 		end
 		b.frame:SetBackdropColor(0, 0, 0)
 		-- color slot according to item quality
-		if not b.frame.lock and b.rarity and b.rarity > 1 then
+		if ( not b.frame.lock or b.frame.special ) and b.rarity and b.rarity > 1 then
 			b.frame.border:SetBackdropBorderColor(GetItemQualityColor(b.rarity))
 			_G[b.frame:GetName().."IconTexture"]:Point("TOPLEFT", 1, -1)
 			_G[b.frame:GetName().."IconTexture"]:Point("BOTTOMRIGHT", -1, 1)
@@ -261,6 +261,11 @@ function B:SlotNew(bag, slot)
 			tex:SetAllPoints()
 			tex:SetTexture(S["media"].backdrop)
 			tex:SetGradientAlpha(unpack(S["media"].DefGradient))
+		end
+
+		if not ret.frame.shadow then
+			ret.frame:CreateShadow()
+			ret.frame.shadow:Hide()
 		end
 
 		ret.frame:SetBackdrop({
@@ -418,21 +423,40 @@ function B:Layout(isBank)
 				local clink = GetContainerItemLink
 				if (clink and b.rarity and b.rarity > 1) then
 					b.frame.border:SetBackdropBorderColor(GetItemQualityColor(b.rarity))
+					b.frame.shadow:Hide()
+					b.frame.special = nil
 				elseif (clink and b.qitem) then
 					b.frame.border:SetBackdropBorderColor(1, 0, 0)
+					b.frame.shadow:Hide()
+					b.frame.special = nil
 				elseif bagType == ST_QUIVER then
-					b.frame.border:SetBackdropBorderColor(0.8, 0.8, 0.2)
+					-- b.frame.border:SetBackdropBorderColor(0.8, 0.8, 0.2)
+					b.frame.shadow:SetBackdropBorderColor(0.8, 0.8, 0.2)
+					b.frame.shadow:Show()
 					b.frame.lock = true
+					b.frame.special = true
 				elseif bagType == ST_SOULBAG then
-					b.frame.border:SetBackdropBorderColor(0.5, 0.2, 0.2)
+					-- b.frame.border:SetBackdropBorderColor(0.5, 0.2, 0.2)
+					b.frame.shadow:SetBackdropBorderColor(0.5, 0.2, 0.2)
+					b.frame.shadow:Show()
 					b.frame.lock = true
+					b.frame.special = true
 				elseif bagType == ST_SPECIAL then
-					b.frame:SetBackdropBorderColor(0.2, 0.2, 0.8)
+					-- b.frame:SetBackdropBorderColor(0.2, 0.2, 0.8)
+					b.frame.shadow:SetBackdropBorderColor(0.2, 0.2, 0.8)
+					b.frame.shadow:Show()
 					b.frame.lock = true
+					b.frame.special = true
 				end
 
 				-- color profession bag slot border ~yellow
-				if bagType == ST_SPECIAL then b.frame.border:SetBackdropBorderColor(255/255, 243/255,  82/255) b.frame.lock = true end
+				if bagType == ST_SPECIAL then
+					-- b.frame.border:SetBackdropBorderColor(0.8, 0.8, 0.2)
+					b.frame.shadow:SetBackdropBorderColor(0.8, 0.8, 0.2)
+					b.frame.shadow:Show()
+					b.frame.lock = true
+					b.frame.special = true
+				end
 
 				idx = idx + 1
 			end
@@ -742,7 +766,7 @@ function B:InitBank()
 	f.sortButton:SetScript("OnLeave", Tooltip_Hide)
 	f.sortButton:SetScript("OnClick", function()
 		if IsShiftKeyDown() then
-			B:Sort(f, "c/p")
+			B:Sort(f, "c/p", true)
 		else
 			B:Sort(f, "d", true)
 		end

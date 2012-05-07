@@ -68,6 +68,7 @@ local function LoadSkin()
 		S:CreateBD(bu, .25)
 	end
 
+	MacroFrameSelectedMacroButton:StyleButton(true)
 	MacroFrameSelectedMacroButton:SetPoint("TOPLEFT", MacroFrameSelectedMacroBackground, "TOPLEFT", 12, -16)
 	MacroFrameSelectedMacroButtonIcon:SetPoint("TOPLEFT", 1, -1)
 	MacroFrameSelectedMacroButtonIcon:SetPoint("BOTTOMRIGHT", -1, 1)
