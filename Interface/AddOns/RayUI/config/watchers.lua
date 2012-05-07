@@ -1126,6 +1126,8 @@ P["Watcher"]["filters"] ={
 			{ spellID = 109709, unitId = "player", caster = "player", filter = "BUFF" },
 			--壞滅之眼(普通模式)
 			{ spellID = 107966, unitId = "player", caster = "player", filter = "BUFF" },
+			--矩陣(H)
+			{ spellID = 97140, unitId = "player", caster = "player", filter = "BUFF" },
 
 		--工程
 			--神經突觸彈簧(敏捷)

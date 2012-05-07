@@ -21,11 +21,13 @@ local addon = CreateFrame("Frame")
 local band = bit.band
 local petflags = COMBATLOG_OBJECT_TYPE_PET
 local mine = COMBATLOG_OBJECT_AFFILIATION_MINE
--- local spells = {}
-spells = {}
+local spells = {}
 local pets = {}
 local items = {}
 local watched = {}
+local internal = {
+		[47755] = { duration = 12, eventType = "SPELL_ENERGIZE", sourceFlags = mine, destFlags = mine },
+	}
 local nextupdate, lastupdate = 0, 0
 
 local function stop(id, class)
@@ -104,7 +106,7 @@ function addon:LEARNED_SPELL_IN_TAB()
 end
 
 function addon:SPELL_UPDATE_COOLDOWN()
-	now = GetTime()
+	local now = GetTime()
 
 	for id in next, spells do
 		local starttime, duration, enabled = GetSpellCooldown(id)
@@ -143,6 +145,17 @@ function addon:SPELL_UPDATE_COOLDOWN()
 			elseif enabled == 1 and watched[id] and timeleft <= 0 then
 				stop(id, "pet")
 			end
+		end
+	end
+end
+
+function addon:COMBAT_LOG_EVENT_UNFILTERED(timestamp, eventType, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, dstFlags2, spellID, ...)
+	local now = GetTime()
+
+	if internal[spellID] and eventType == internal[spellID].eventType then
+		if bit.band(sourceFlags, internal[spellID].sourceFlags) == internal[spellID].sourceFlags 
+			and bit.band(destFlags, internal[spellID].destFlags) == internal[spellID].destFlags then
+			start(id, now, internal[spellID].duration, "spell")
 		end
 	end
 end
@@ -210,3 +223,4 @@ addon:RegisterEvent("LEARNED_SPELL_IN_TAB")
 addon:RegisterEvent("SPELL_UPDATE_COOLDOWN")
 addon:RegisterEvent("BAG_UPDATE_COOLDOWN")
 addon:RegisterEvent("PLAYER_ENTERING_WORLD")
+addon:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
