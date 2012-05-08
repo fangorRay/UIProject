@@ -333,7 +333,7 @@ local function style(self)
     -- Mouseover script
     self:SetScript("OnEnter", OnEnter)
     self:SetScript("OnLeave", OnLeave)
-    self:RegisterForClicks"AnyUp"
+    self:RegisterForClicks("AnyUp")
 
     -- Health
     self.Health = CreateFrame"StatusBar"

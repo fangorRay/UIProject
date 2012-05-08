@@ -8,34 +8,63 @@ local function LoadSkin()
 	AchievementHolder:SetHeight(20)
 	AchievementHolder:SetPoint("CENTER", UIParent, "CENTER", 0, 170)
 
-	local function AchievementMove(self, event, ...)
+	local function ReskinAchievementPopup(self, event, ...)
 		local previousFrame
 		for i=1, MAX_ACHIEVEMENT_ALERTS do
-			local aFrame = _G["AchievementAlertFrame"..i]
-			if _G["AchievementAlertFrame"..i.."Unlocked"] then
-				_G["AchievementAlertFrame"..i.."Unlocked"]:SetTextColor(1,1,1)
-			end
-			if ( aFrame ) then
-				aFrame:ClearAllPoints()
+			local frame = _G["AchievementAlertFrame"..i]
+			if frame then
+                frame:SetAlpha(1)
+                frame.SetAlpha = R.dummy
+				frame:ClearAllPoints()
+
+                if not frame.bg then
+                    frame.bg = CreateFrame("Frame", nil, frame)
+                    frame.bg:SetPoint("TOPLEFT", _G[frame:GetName().."Background"], "TOPLEFT", -2, -6)
+                    frame.bg:SetPoint("BOTTOMRIGHT", _G[frame:GetName().."Background"], "BOTTOMRIGHT", -2, 8)
+                    frame.bg:SetFrameLevel(frame:GetFrameLevel()-1)
+
+                    local iconbd = CreateFrame("Frame", nil, frame)
+                    iconbd:Point("TOPLEFT", _G["AchievementAlertFrame"..i.."IconTexture"], "TOPLEFT", -1, 1)
+                    iconbd:Point("BOTTOMRIGHT", _G["AchievementAlertFrame"..i.."IconTexture"], "BOTTOMRIGHT", 1, -1)
+                    S:CreateBD(iconbd, 0)
+
+                    frame:HookScript("OnEnter", function()
+                        S:CreateBD(frame.bg)
+                    end)
+
+                    frame.animIn:HookScript("OnFinished", function()
+                        S:CreateBD(frame.bg)
+                    end)
+                end
+                S:CreateBD(frame.bg)
+
+                _G["AchievementAlertFrame"..i.."Background"]:SetTexture(nil)
+
+                _G["AchievementAlertFrame"..i.."Unlocked"]:SetTextColor(1, 1, 1)
+                _G["AchievementAlertFrame"..i.."Unlocked"]:SetShadowOffset(1, -1)
+
+                _G["AchievementAlertFrame"..i.."IconTexture"]:SetTexCoord(.08, .92, .08, .92)
+                _G["AchievementAlertFrame"..i.."IconOverlay"]:Hide()
+
 				if ( previousFrame and previousFrame:IsShown() ) then
-					aFrame:SetPoint("TOP", previousFrame, "BOTTOM", 0, -10)
+					frame:SetPoint("TOP", previousFrame, "BOTTOM", 0, -10)
 				else
-					aFrame:SetPoint("TOP", AchievementHolder, "BOTTOM")
+					frame:SetPoint("TOP", AchievementHolder, "BOTTOM")
 				end
-				previousFrame = aFrame
+				previousFrame = frame
 			end
 		end
 
 	end
 
-	hooksecurefunc("AchievementAlertFrame_FixAnchors", AchievementMove)
+	hooksecurefunc("AchievementAlertFrame_FixAnchors", ReskinAchievementPopup)
 
 	hooksecurefunc("DungeonCompletionAlertFrame_FixAnchors", function()
 		for i=MAX_ACHIEVEMENT_ALERTS, 1, -1 do
-			local aFrame = _G["AchievementAlertFrame"..i]
-			if ( aFrame and aFrame:IsShown() ) then
+			local frame = _G["AchievementAlertFrame"..i]
+			if ( frame and frame:IsShown() ) then
 				DungeonCompletionAlertFrame1:ClearAllPoints()
-				DungeonCompletionAlertFrame1:SetPoint("TOP", aFrame, "BOTTOM", 0, -10)
+				DungeonCompletionAlertFrame1:SetPoint("TOP", frame, "BOTTOM", 0, -10)
 				return
 			end
 			DungeonCompletionAlertFrame1:ClearAllPoints()
@@ -78,26 +107,26 @@ local function LoadSkin()
 	--Guild Alert
 	--/run GuildChallengeAlertFrame_ShowAlert(3, 2, 5)
 	hooksecurefunc("GuildChallengeAlertFrame_FixAnchors", function()
-		local aFrame
+		local frame
 		for i=MAX_ACHIEVEMENT_ALERTS, 1, -1 do
 			if _G["AchievementAlertFrame"..i] and _G["AchievementAlertFrame"..i]:IsShown() then
-				aFrame = _G["AchievementAlertFrame"..i]
+				frame = _G["AchievementAlertFrame"..i]
 			end
 		end
 
 		if DungeonCompletionAlertFrame1:IsShown() then
-			aFrame = DungeonCompletionAlertFrame1
+			frame = DungeonCompletionAlertFrame1
 		end
 
-		if aFrame == nil then
-			aFrame = AchievementHolder
+		if frame == nil then
+			frame = AchievementHolder
 		end
 
 		GuildChallengeAlertFrame:ClearAllPoints()
 		if pos == "TOP" then
-			GuildChallengeAlertFrame:SetPoint("TOP", aFrame, "BOTTOM", 0, -10)
+			GuildChallengeAlertFrame:SetPoint("TOP", frame, "BOTTOM", 0, -10)
 		else
-			GuildChallengeAlertFrame:SetPoint("BOTTOM", aFrame, "TOP", 0, 10)
+			GuildChallengeAlertFrame:SetPoint("BOTTOM", frame, "TOP", 0, 10)
 		end
 	end)
 

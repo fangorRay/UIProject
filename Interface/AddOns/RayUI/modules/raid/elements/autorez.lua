@@ -84,4 +84,4 @@ local Disable = function(self)
     self:SetAttribute("*type3", nil)
 end
 
-oUF:AddElement('freebAutoRez', nil, Enable, Disable)
+oUF:AddElement("freebAutoRez", nil, Enable, Disable)

@@ -1043,6 +1043,8 @@ P["Watcher"]["filters"] ={
 			{ spellID = 59052, unitId = "player", caster = "player", filter = "BUFF" },
 			--骸骨之盾
 			{ spellID = 49222, unitId = "player", caster = "player", filter = "BUFF" },
+			--冰霜之柱
+			{ spellID = 51271, unitId = "player", caster = "player", filter = "BUFF" },
 
 		},
 		{
