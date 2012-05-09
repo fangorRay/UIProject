@@ -285,15 +285,6 @@ local function StopGlow(f)
 	end
 end
 
-local function UnregisterEvents(self, ...)
-	for i = 1, select("#", ...) do
-		local event = select(i, ...)
-		if type(event) == "string" then
-			self:UnregisterEvent(event)
-		end
-	end
-end
-
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.Size then mt.Size = Size end
