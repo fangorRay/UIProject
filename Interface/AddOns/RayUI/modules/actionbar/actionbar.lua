@@ -3,7 +3,7 @@ local AB = R:NewModule("ActionBar", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3
 
 AB.modName = L["动作条"]
 
- function AB:GetOptions()
+function AB:GetOptions()
 	local options = {
 		barscale = {
 			order = 5,

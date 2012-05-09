@@ -321,7 +321,7 @@ end
 
 local developer = {
 	["夏琉"] = true,
-	["痛苦的呻吟"] = true,
+	["Theron"] = true,
 	["Divineseraph"] = true,
 	["父王"] = true,
 }
