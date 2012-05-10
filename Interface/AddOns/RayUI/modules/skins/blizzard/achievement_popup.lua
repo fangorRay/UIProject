@@ -74,7 +74,7 @@ local function LoadSkin()
 
 	local achieveframe = CreateFrame("Frame")
 	achieveframe:RegisterEvent("ACHIEVEMENT_EARNED")
-	achieveframe:SetScript("OnEvent", function(self, event, ...) AchievementMove(self, event, ...) end)
+	achieveframe:SetScript("OnEvent", function(self, event, ...) ReskinAchievementPopup(self, event, ...) end)
 
 	S:SetBD(DungeonCompletionAlertFrame1, 6, -14, -6, 6)
 
