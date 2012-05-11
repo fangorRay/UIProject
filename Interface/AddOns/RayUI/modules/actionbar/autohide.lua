@@ -4,7 +4,6 @@ local AB = R:GetModule("ActionBar")
 local rabs = {}
 
 local function pending()
-	if InCombatLockdown() then return true end
 	if UnitAffectingCombat("player") then return true end
 	if UnitExists("target") then return true end
 	if UnitInVehicle("player") then return true end
@@ -22,7 +21,7 @@ local function FadeOutActionButton()
 			fadeInfo.finishedFunc = function() _G[v]:Hide() end
 			fadeInfo.startAlpha = _G[v]:GetAlpha()
 			fadeInfo.endAlpha = 0
-			UIFrameFade(_G[v], fadeInfo)
+			R:UIFrameFade(_G[v], fadeInfo)
 		end 
 	end
 end
@@ -30,8 +29,8 @@ end
 local function FadeInActionButton()
 	for _, v in ipairs(rabs) do
 		if _G[v]:GetAlpha()<1 then
-			-- _G[v]:Show()
-			UIFrameFadeIn(_G[v], 0.5, _G[v]:GetAlpha(), 1)
+			_G[v]:Show()
+			R:UIFrameFadeIn(_G[v], 0.5, _G[v]:GetAlpha(), 1)
 		end
 	end
 end
@@ -98,20 +97,20 @@ function AB:EnableAutoHide()
 			local button = _G["SpellFlyoutButton"..i]
 			if button then
 				if button:GetParent():GetParent():GetParent() == MultiBarLeft and AB.db.bar5mouseover then
-					button:SetScript("OnEnter", function(self) UIFrameFadeIn(RayUIActionBar5,0.5,RayUIActionBar5:GetAlpha(),1) end)
-					button:SetScript("OnLeave", function(self) UIFrameFadeOut(RayUIActionBar5,0.5,RayUIActionBar5:GetAlpha(),0) end)
+					button:SetScript("OnEnter", function(self) R:UIFrameFadeIn(RayUIActionBar5,0.5,RayUIActionBar5:GetAlpha(),1) end)
+					button:SetScript("OnLeave", function(self) R:UIFrameFadeOut(RayUIActionBar5,0.5,RayUIActionBar5:GetAlpha(),0) end)
 				end
 				if button:GetParent():GetParent():GetParent() == MultiBarRight and AB.db.bar4mouseover then
-					button:SetScript("OnEnter", function(self) UIFrameFadeIn(RayUIActionBar4,0.5,RayUIActionBar4:GetAlpha(),1) end)
-					button:SetScript("OnLeave", function(self) UIFrameFadeOut(RayUIActionBar4,0.5,RayUIActionBar4:GetAlpha(),0) end)
+					button:SetScript("OnEnter", function(self) R:UIFrameFadeIn(RayUIActionBar4,0.5,RayUIActionBar4:GetAlpha(),1) end)
+					button:SetScript("OnLeave", function(self) R:UIFrameFadeOut(RayUIActionBar4,0.5,RayUIActionBar4:GetAlpha(),0) end)
 				end
 				if button:GetParent():GetParent():GetParent() == MultiBarBottomRight and AB.db.bar3mouseover then
-					button:SetScript("OnEnter", function(self) UIFrameFadeIn(RayUIActionBar3,0.5,RayUIActionBar3:GetAlpha(),1) end)
-					button:SetScript("OnLeave", function(self) UIFrameFadeOut(RayUIActionBar3,0.5,RayUIActionBar3:GetAlpha(),0) end)
+					button:SetScript("OnEnter", function(self) R:UIFrameFadeIn(RayUIActionBar3,0.5,RayUIActionBar3:GetAlpha(),1) end)
+					button:SetScript("OnLeave", function(self) R:UIFrameFadeOut(RayUIActionBar3,0.5,RayUIActionBar3:GetAlpha(),0) end)
 				end
 				if button:GetParent():GetParent():GetParent() == MultiBarBottomLeft and AB.db.bar2mouseover then
-					button:SetScript("OnEnter", function(self) UIFrameFadeIn(RayUIActionBar2,0.5,RayUIActionBar2:GetAlpha(),1) end)
-					button:SetScript("OnLeave", function(self) UIFrameFadeOut(RayUIActionBar2,0.5,RayUIActionBar2:GetAlpha(),0) end)
+					button:SetScript("OnEnter", function(self) R:UIFrameFadeIn(RayUIActionBar2,0.5,RayUIActionBar2:GetAlpha(),1) end)
+					button:SetScript("OnLeave", function(self) R:UIFrameFadeOut(RayUIActionBar2,0.5,RayUIActionBar2:GetAlpha(),0) end)
 				end
 			end
 		end

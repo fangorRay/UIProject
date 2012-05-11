@@ -1,35 +1,5 @@
 ﻿local R, L, P = unpack(select(2, ...)) --Inport: Engine, Locales, ProfileDB
 
---[[ function R.anim_alpha(a,name,ord,t,ch)
-	local x = a:CreateAnimation("ALPHA")
-	x:SetChange(ch)
-	x:SetDuration(t)
-	x:SetOrder(ord)
-	a[name] = x
-end
-
-function R.anim_trans(a,name,ord,t,sm,ox,oy)
-	local x = a:CreateAnimation("Translation")
-	x:SetDuration(t)
-	x:SetOrder(ord)
-	x:SetSmoothing(sm or "NONE")
-	if ox and oy then
-		R.addafter(function()
-			x:SetOffset(ox*R.scale,oy*R.scale)
-		end)
-	end
-	a[name] = x
-end
-
-function R.set_anim(self,k,x,y)
-	self.anim = self:CreateAnimationGroup("Move_In")
-	R.anim_trans(self.anim,"in_a",1,0,nil,x,y)
-	R.anim_trans(self.anim,"in_b",2,.3,"OUT",-x,-y)
-	self.anim_o = self:CreateAnimationGroup("Move_Out")
-	R.anim_trans(self.anim_o,"b",1,.3,"IN",x,y)
-	if k then self.anim_o:SetScript("OnFinished",function() self:Hide() end) end
-end ]]
-
 local UIFrameFadeOut = UIFrameFadeOut
 local UIFrameFadeIn = UIFrameFadeIn
 local InCombatLockdown = InCombatLockdown
@@ -123,4 +93,142 @@ function R.simple_height(self,t)
 			self:finish_function()
 		end
 	end
+end
+
+function R:Slide(frame, direction, length, speed)
+	local p1, rel, p2, x, y = frame:GetPoint()
+	frame.mod = direction == "LEFT" and -1 or 1
+	frame.limit = x + frame.mod * length
+	frame.speed = frame.mod * speed
+	frame.point_1 = p1
+	frame.point_2 = p2
+	frame.pos = x
+	frame.hor = true
+	frame.alt = y
+	frame:SetScript("OnUpdate",R.simple_move)
+end
+
+local frameFadeManager = CreateFrame("FRAME")
+local FADEFRAMES = {}
+
+function R:UIFrameFade_OnUpdate(elapsed)
+	local index = 1
+	local frame, fadeInfo
+	while FADEFRAMES[index] do
+		frame = FADEFRAMES[index]
+		fadeInfo = FADEFRAMES[index].fadeInfo
+		-- Reset the timer if there isn't one, this is just an internal counter
+		if ( not fadeInfo.fadeTimer ) then
+			fadeInfo.fadeTimer = 0
+		end
+		fadeInfo.fadeTimer = fadeInfo.fadeTimer + elapsed
+
+		-- If the fadeTimer is less then the desired fade time then set the alpha otherwise hold the fade state, call the finished function, or just finish the fade 
+		if ( fadeInfo.fadeTimer < fadeInfo.timeToFade ) then
+			if ( fadeInfo.mode == "IN" ) then
+				frame:SetAlpha((fadeInfo.fadeTimer / fadeInfo.timeToFade) * (fadeInfo.endAlpha - fadeInfo.startAlpha) + fadeInfo.startAlpha)
+			elseif ( fadeInfo.mode == "OUT" ) then
+				frame:SetAlpha(((fadeInfo.timeToFade - fadeInfo.fadeTimer) / fadeInfo.timeToFade) * (fadeInfo.startAlpha - fadeInfo.endAlpha)  + fadeInfo.endAlpha)
+			end
+		else
+			frame:SetAlpha(fadeInfo.endAlpha)
+			-- If there is a fadeHoldTime then wait until its passed to continue on
+			if ( fadeInfo.fadeHoldTime and fadeInfo.fadeHoldTime > 0  ) then
+				fadeInfo.fadeHoldTime = fadeInfo.fadeHoldTime - elapsed
+			else
+				-- Complete the fade and call the finished function if there is one
+				R:UIFrameFadeRemoveFrame(frame)
+				if ( fadeInfo.finishedFunc ) then
+					fadeInfo.finishedFunc(fadeInfo.finishedArg1, fadeInfo.finishedArg2, fadeInfo.finishedArg3, fadeInfo.finishedArg4)
+					fadeInfo.finishedFunc = nil
+				end
+			end
+		end
+		
+		index = index + 1
+	end
+	
+	if ( #FADEFRAMES == 0 ) then
+		frameFadeManager:SetScript("OnUpdate", nil)
+	end
+end
+
+-- Generic fade function
+function R:UIFrameFade(frame, fadeInfo)
+	if (not frame) then
+		return
+	end
+	if ( not fadeInfo.mode ) then
+		fadeInfo.mode = "IN"
+	end
+	local alpha
+	if ( fadeInfo.mode == "IN" ) then
+		if ( not fadeInfo.startAlpha ) then
+			fadeInfo.startAlpha = 0
+		end
+		if ( not fadeInfo.endAlpha ) then
+			fadeInfo.endAlpha = 1.0
+		end
+		alpha = 0
+	elseif ( fadeInfo.mode == "OUT" ) then
+		if ( not fadeInfo.startAlpha ) then
+			fadeInfo.startAlpha = 1.0
+		end
+		if ( not fadeInfo.endAlpha ) then
+			fadeInfo.endAlpha = 0
+		end
+		alpha = 1.0
+	end
+	frame:SetAlpha(fadeInfo.startAlpha)
+
+	frame.fadeInfo = fadeInfo
+	if not frame:IsProtected() then
+		frame:Show()
+	end
+	
+	local index = 1
+	while FADEFRAMES[index] do
+		-- If frame is already set to fade then return
+		if ( FADEFRAMES[index] == frame ) then
+			return
+		end
+		index = index + 1
+	end
+	tinsert(FADEFRAMES, frame)
+	frameFadeManager:SetScript("OnUpdate", R.UIFrameFade_OnUpdate)
+end
+
+-- Convenience function to do a simple fade in
+function R:UIFrameFadeIn(frame, timeToFade, startAlpha, endAlpha)
+	local fadeInfo = {}
+	fadeInfo.mode = "IN"
+	fadeInfo.timeToFade = timeToFade
+	fadeInfo.startAlpha = startAlpha
+	fadeInfo.endAlpha = endAlpha
+	R:UIFrameFade(frame, fadeInfo)
+end
+
+-- Convenience function to do a simple fade out
+function R:UIFrameFadeOut(frame, timeToFade, startAlpha, endAlpha)
+	local fadeInfo = {}
+	fadeInfo.mode = "OUT"
+	fadeInfo.timeToFade = timeToFade
+	fadeInfo.startAlpha = startAlpha
+	fadeInfo.endAlpha = endAlpha
+	R:UIFrameFade(frame, fadeInfo)
+end
+
+function R:tDeleteItem(table, item)
+	local index = 1
+	while table[index] do
+		if ( item == table[index] ) then
+			tremove(table, index)
+		else
+			index = index + 1
+		end
+	end
+end
+
+function R:UIFrameFadeRemoveFrame(frame)
+	R:tDeleteItem(FADEFRAMES, frame)
 end

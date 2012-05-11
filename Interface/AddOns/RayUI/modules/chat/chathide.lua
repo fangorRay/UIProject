@@ -55,15 +55,8 @@ local on_update = R.simple_move
 function CH:MoveOut()
 	isMoving = true
 	CH.ChatIn = false
-	ChatBG.mod = -1
-	ChatBG.limit = -CH.db.width
-	ChatBG.speed = -195
-	ChatBG.point_1 = "BOTTOMLEFT"
-	ChatBG.point_2 = "BOTTOMLEFT"
-	ChatBG.pos = 15
-	ChatBG.hor = true
-	ChatBG.alt = 30
-	ChatBG:SetScript("OnUpdate",on_update)
+	ChatBG:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 15, 30)
+	R:Slide(ChatBG, "LEFT", CH.db.width + 15, 195)
 	UIFrameFadeOut(ChatBG, .7, 1, 0)
 	ChatFrame1EditBox:Hide()
 end
@@ -71,15 +64,8 @@ end
 function CH:MoveIn()
 	isMoving = true
 	CH.ChatIn = true
-	ChatBG.mod = 1
-	ChatBG.limit = 15
-	ChatBG.speed = 195
-	ChatBG.point_1 = "BOTTOMLEFT"
-	ChatBG.point_2 = "BOTTOMLEFT"
-	ChatBG.pos = -CH.db.width
-	ChatBG.hor = true
-	ChatBG.alt = 30
-	ChatBG:SetScript("OnUpdate",on_update)
+	ChatBG:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", -CH.db.width, 30)
+	R:Slide(ChatBG, "RIGHT", CH.db.width + 15, 195)
 	UIFrameFadeIn(ChatBG, .7, 0, 1)
 end
 

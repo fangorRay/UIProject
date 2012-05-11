@@ -32,7 +32,7 @@ local function SkinDBM()
 		ApplyMyStyle(self)
 		for bar in self:GetBarIterator() do
 			if not bar.injected then
-					bar.ApplyStyle=function()
+				function bar:ApplyStyle()
 					local frame = bar.frame
 					local tbar = _G[frame:GetName().."Bar"]
 					local spark = _G[frame:GetName().."BarSpark"]
@@ -149,26 +149,25 @@ local function SkinDBM()
 				end
 				bar:ApplyStyle()
 			end
-
 		end
 	end
 
-	local SkinBossTitle=function()
-		local anchor=DBMBossHealthDropdown:GetParent()
+	local function SkinBossTitle()
+		local anchor = DBMBossHealthDropdown:GetParent()
 		if not anchor.styled then
-			local header={anchor:GetRegions()}
-				if header[1]:IsObjectType("FontString") then
-					header[1]:SetFont(R["media"].font, 12, "OUTLINE")
-					header[1]:SetTextColor(1,1,1,1)
-					header[1]:SetShadowColor(0, 0, 0, 0)
-					anchor.styled=true
-				end
-			header=nil
+			local header = {anchor:GetRegions()}
+            if header[1]:IsObjectType("FontString") then
+                header[1]:SetFont(R["media"].font, 12, "OUTLINE")
+                header[1]:SetTextColor(1,1,1,1)
+                header[1]:SetShadowColor(0, 0, 0, 0)
+                anchor.styled = true
+            end
+            header=nil
 		end
 		anchor=nil
 	end
 
-	local SkinBoss=function()
+	local function SkinBoss()
 		local count = 1
 		while (_G[format("DBM_BossHealth_Bar_%d", count)]) do
 			local bar = _G[format("DBM_BossHealth_Bar_%d", count)]
@@ -237,17 +236,23 @@ local function SkinDBM()
 	hooksecurefunc(DBM.BossHealth,"Show",SkinBossTitle)
 	hooksecurefunc(DBM.BossHealth,"AddBoss",SkinBoss)
 	hooksecurefunc(DBM.BossHealth,"UpdateSettings",SkinBoss)
-	DBM.RangeCheck:Show()
+    DBM.RangeCheck:Show()
 	DBM.RangeCheck:Hide()
 	DBMRangeCheck:HookScript("OnShow",function(self)
 		self:SetBackdrop(nil)
 		self:CreateShadow("Background")
 	end)
 	DBMRangeCheckRadar:HookScript("OnShow",function(self)
-		self:CreateShadow("Background")
-		self.text:SetFont(R["media"].font, R["media"].fontsize, R["media"].fontflag)
-		self.text:SetShadowColor(0, 0, 0)
-		self.text:SetShadowOffset(R.mult, -R.mult)
+        if not self.styled then
+            self:CreateShadow("Background")
+            self.text:SetFont(R["media"].font, R["media"].fontsize, R["media"].fontflag)
+            self.text:SetShadowColor(0, 0, 0)
+            self.text:SetShadowOffset(R.mult, -R.mult)
+            self.styled = true
+        end
+        if S.db.dbmposition then
+            self:Point("TOPLEFT", Minimap, "BOTTOMLEFT", 0, -70)
+        end
 	end)
 
 
