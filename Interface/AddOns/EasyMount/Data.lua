@@ -343,6 +343,7 @@ RegisterMount(44744, "fly")
 RegisterMount(46197, "fly")
 RegisterMount(46199, "fly")
 RegisterMount(97560, "fly")
+RegisterMount(97493, "fly")
 
 RegisterMount(75614, "fly") -- 星穹戰馬
 RegisterMount(44151, "both") --  Turbo-Charged fly Machine
