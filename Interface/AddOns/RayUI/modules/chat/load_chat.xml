@@ -2,6 +2,7 @@
 	<Script file="chat.lua"/>
 	<Script file="chathide.lua"/>
 	<Script file="damagemeterfilter.lua"/>
+	<Script file="dumptool.lua"/>
 	<Script file="easyChannel.lua"/>
 	<Script file="rollfilter.lua"/>
 	<Script file="spam.lua"/>

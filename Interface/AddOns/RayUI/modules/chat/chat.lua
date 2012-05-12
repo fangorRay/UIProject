@@ -1039,6 +1039,7 @@ function CH:Initialize()
 	self:DamageMeterFilter()
 	self:RollFilter()
 	self:EasyChannel()
+    self:EnableDumpTool()
 	self:ScheduleRepeatingTimer("SetChatPosition", 1)
 	self:RawHook("SetItemRef", true)
 
