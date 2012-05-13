@@ -151,7 +151,7 @@ function B:SlotUpdate(b)
 	local isQuest, questId, isActive = GetContainerItemQuestInfo(b.bag, b.slot)
 	local clink = GetContainerItemLink(b.bag, b.slot)
 
-	if not b.frame.lock then
+	if not b.frame.lock or b.frame.special then
 		b.frame.border:SetBackdropBorderColor(unpack(R["media"].bordercolor))
 	end
 
