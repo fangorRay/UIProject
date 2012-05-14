@@ -155,7 +155,7 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED(timestamp, eventType, hideCaster, sou
 	if internal[spellID] and eventType == internal[spellID].eventType then
 		if bit.band(sourceFlags, internal[spellID].sourceFlags) == internal[spellID].sourceFlags 
 			and bit.band(destFlags, internal[spellID].destFlags) == internal[spellID].destFlags then
-			start(id, now, internal[spellID].duration, "spell")
+			start(spellID, now, internal[spellID].duration, "spell")
 		end
 	end
 end

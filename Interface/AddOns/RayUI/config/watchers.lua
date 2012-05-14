@@ -1045,6 +1045,10 @@ P["Watcher"]["filters"] ={
 			{ spellID = 49222, unitId = "player", caster = "player", filter = "BUFF" },
 			--冰霜之柱
 			{ spellID = 51271, unitId = "player", caster = "player", filter = "BUFF" },
+			-- 寶寶能量
+			{ spellID = 91342, unitId = "pet", caster = "player", filter = "BUFF" },
+			-- 黑暗變身
+			{ spellID = 63560, unitId = "pet", caster = "player", filter = "BUFF" },
 
 		},
 		{
