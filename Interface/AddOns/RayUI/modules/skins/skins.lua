@@ -248,7 +248,7 @@ function S:CreateTab(f)
 	f:DisableDrawLayer("BACKGROUND")
 
 	local bg = CreateFrame("Frame", nil, f)
-	bg:Point("TOPLEFT", 9, -3)
+	bg:Point("TOPLEFT", 9, -4)
 	bg:Point("BOTTOMRIGHT", -9, 0)
 	bg:SetFrameLevel(f:GetFrameLevel()-1)
 	S:CreateBD(bg)
