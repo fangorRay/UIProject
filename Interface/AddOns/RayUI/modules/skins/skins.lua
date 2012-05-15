@@ -255,7 +255,7 @@ function S:CreateTab(f)
 
 	f:SetHighlightTexture(S["media"].backdrop)
 	local hl = f:GetHighlightTexture()
-	hl:Point("TOPLEFT", 10, -4)
+	hl:Point("TOPLEFT", 10, -5)
 	hl:Point("BOTTOMRIGHT", -10, 1)
 	hl:SetVertexColor(r, g, b, .25)
 end

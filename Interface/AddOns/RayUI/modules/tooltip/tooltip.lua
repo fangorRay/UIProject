@@ -341,6 +341,7 @@ end
 function TT:PLAYER_ENTERING_WORLD(event)
 	local tooltips = {
 		GameTooltip,
+		FriendsTooltip,
 		ItemRefTooltip,
 		ItemRefShoppingTooltip1,
 		ItemRefShoppingTooltip2,

@@ -177,6 +177,7 @@ local function LoadSkin()
 					inv:SetAlpha(0)
 					inv:EnableMouse(false)
 				end
+				ic:SetDrawLayer("OVERLAY", 7)
 			else
 				ic.bg:Hide()
 			end
