@@ -80,7 +80,7 @@ local function LoadFriend()
 			local BNid, BNfirstname, BNlastname, toonname, toonid, client, online, lastonline, isafk, isdnd, broadcast, note = BNGetFriendInfo(t)
 
 			-- WoW friends
-			if ( online and client=="WoW" ) then
+			if online then
 				if ( not FriendsTabletData or FriendsTabletData == nil ) then FriendsTabletData = {} end
 				if ( not FriendsTabletDataNames or FriendsTabletDataNames == nil ) then FriendsTabletDataNames = {} end
 
@@ -91,10 +91,16 @@ local function LoadFriend()
 					FriendsTabletDataNames[toonname] = true
 				end
 
-				local r, g, b = RAID_CLASS_COLORS[ClassLookup[class]].r, RAID_CLASS_COLORS[ClassLookup[class]].g, RAID_CLASS_COLORS[ClassLookup[class]].b
+				local r, g, b = FRIENDS_BNET_NAME_COLOR.r, FRIENDS_BNET_NAME_COLOR.g, FRIENDS_BNET_NAME_COLOR.b
+                if class and ClassLookup[class] then
+                    r, g, b = RAID_CLASS_COLORS[ClassLookup[class]].r, RAID_CLASS_COLORS[ClassLookup[class]].g, RAID_CLASS_COLORS[ClassLookup[class]].b
+                end
 				-- Name
 				local cname
 				local realname = string.format("%s %s", BNfirstname, BNlastname)
+                if GetLocale() == "zhCN" then
+                    realname = string.format("%s %s", BNlastname, BNfirstname)
+                end
 				if ( realmName == GetRealmName() ) then
 					-- On My Realm
 					cname = string.format(
@@ -106,14 +112,24 @@ local function LoadFriend()
 					)
 				else
 					-- On Another Realm
-					cname = string.format(
-						"|cff%02x%02x%02x%s|r |cffcccccc(|r|cff%02x%02x%02x%s|r|cffcccccc-%s)|r",
-						FRIENDS_BNET_NAME_COLOR.r * 255, FRIENDS_BNET_NAME_COLOR.g * 255, FRIENDS_BNET_NAME_COLOR.b * 255,
-						realname,
-						r * 255, g * 255, b * 255,
-						name,
-						realmName
-					)
+                    if realmName and realmName ~= "" then
+                        cname = string.format(
+                            "|cff%02x%02x%02x%s|r |cffcccccc(|r|cff%02x%02x%02x%s|r|cffcccccc-%s)|r",
+                            FRIENDS_BNET_NAME_COLOR.r * 255, FRIENDS_BNET_NAME_COLOR.g * 255, FRIENDS_BNET_NAME_COLOR.b * 255,
+                            realname,
+                            r * 255, g * 255, b * 255,
+                            name,
+                            realmName
+                        )
+                    else
+                        cname = string.format(
+                            "|cff%02x%02x%02x%s|r |cffcccccc(|r|cff%02x%02x%02x%s|r|cffcccccc)|r",
+                            FRIENDS_BNET_NAME_COLOR.r * 255, FRIENDS_BNET_NAME_COLOR.g * 255, FRIENDS_BNET_NAME_COLOR.b * 255,
+                            realname,
+                            r * 255, g * 255, b * 255,
+                            name
+                        )
+                    end
 				end
 
 				-- Class
@@ -127,38 +143,14 @@ local function LoadFriend()
 				-- Faction
 				if faction == 0 then
 					faction = FACTION_HORDE
-				else
+				elseif faction == 1 then
 					faction = FACTION_ALLIANCE
-				end
+				else
+                    faction = ""
+                end
 
 				-- Add Friend to list
 				tinsert(FriendsTabletData, { cname, lvl, area, faction, client, realname, note, name, ["toonid"] = toonid })
-
-			-- SC2 friends
-			elseif ( online and client=="S2" ) then
-				if ( not FriendsTabletData or FriendsTabletData == nil ) then FriendsTabletData = {} end
-
-				local _,name, _, realmName, faction, _, race, class, guild, area, lvl, gametext = BNGetToonInfo(toonid)
-				client = "SC2"
-				curFriendsOnline = curFriendsOnline + 1
-
-				-- Name
-				local cname
-				local realname = string.format("%s %s", BNfirstname, BNlastname)
-				cname = string.format(
-					"|cff%02x%02x%02x%s|r |cffcccccc(%s)|r",
-					FRIENDS_BNET_NAME_COLOR.r * 255, FRIENDS_BNET_NAME_COLOR.g * 255, FRIENDS_BNET_NAME_COLOR.b * 255,
-					realname,
-					toonname
-				)
-				if ( isafk and toonname ) then
-					cname = string.format("%s %s", CHAT_FLAG_AFK, cname)
-				elseif ( isdnd and toonname ) then
-					cname = string.format("%s %s", CHAT_FLAG_DND, cname)
-				end
-
-				-- Add Friend to list
-				tinsert(FriendsTabletData, { cname, "", gametext, "", client, realname, note })
 			end
 		end
 
