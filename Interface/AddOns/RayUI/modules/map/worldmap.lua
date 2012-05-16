@@ -394,41 +394,6 @@ function WM:FixSkin()
 	WorldMapZoneInfo:SetShadowOffset(2, -2)
 end
 
-local function colored(class)
-   local colorRGB = RAID_CLASS_COLORS[class] or NORMAL_FONT_COLOR
-   return format("|CFF%2x%2x%2x", colorRGB.r*255, colorRGB.g*255, colorRGB.b*255)
-end
-
-function WM:PartyMemberName(self)
-    if not self.playername then
-        self.playername = self:CreateFontString(nil, "OVERLAY")
-        self.playername:SetFont(R["media"].font, R["media"].fontsize, R["media"].fontflag)
-        self.playername:SetPoint("LEFT", self, "RIGHT")
-    end
-    self.playername:SetText("")
-    if self.unit then
-        if string.find(self.unit, "raid") then
-            local longName, _, _, _, _, class = GetRaidRosterInfo(self.unit:sub(5))
-            if longName then
-                local _, _, shortName, server = longName:find("([^%-]+)%-(.+)")
-                if not server then
-                    shortName = longName
-                end
-                self.playername:SetText(colored(class)..shortName:sub(1,6).."|r")
-            end
-        end
-        if UnitAffectingCombat(self.unit) then
-            self.icon:SetVertexColor(.8, 0, 0) -- 戰鬥中顏色
-            self:SetAlpha(1)
-        elseif UnitIsDeadOrGhost(self.unit) or not UnitIsConnected(self.unit) then
-            self.icon:SetVertexColor(.5, .5, .5) -- 死亡顏色
-            self:SetAlpha(.7)
-        else
-            self:SetAlpha(.7)
-        end
-    end
-end
-
 function WM:Initialize()
 	if self.db.scale==1 then self.db.scale = 0.99 end
 	self:SkinWorldMap()
@@ -439,7 +404,6 @@ function WM:Initialize()
 	self:SecureHook("WorldMapFrame_SetQuestMapView", "QuestSkin")
 	self:SecureHook("WorldMap_ToggleSizeUp", "LargeSkin")
 	self:SecureHook("WorldMap_ToggleSizeDown", "SmallSkin")
-	self:SecureHook("WorldMapUnit_Update", "PartyMemberName")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("WORLD_MAP_UPDATE")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
