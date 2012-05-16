@@ -221,6 +221,17 @@ end
 function MM:Initialize()
 	if not IsAddOnLoaded("Blizzard_TimeManager") then
 		LoadAddOn("Blizzard_TimeManager")
+		if ( not BlizzardStopwatchOptions ) then
+			BlizzardStopwatchOptions = {}
+		end
+
+		if ( BlizzardStopwatchOptions.position ) then
+			StopwatchFrame:ClearAllPoints()
+			StopwatchFrame:SetPoint("CENTER", "UIParent", "BOTTOMLEFT", BlizzardStopwatchOptions.position.x, BlizzardStopwatchOptions.position.y)
+			StopwatchFrame:SetUserPlaced(true)
+		else
+			StopwatchFrame:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -250, -300)
+		end
 	end
 	self:SkinMiniMap()
 	self:CreateMenu()
