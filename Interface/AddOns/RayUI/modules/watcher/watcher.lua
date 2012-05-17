@@ -516,82 +516,82 @@ end
 function RW:Initialize()
 	SpellActivationOverlayFrame:SetFrameStrata("BACKGROUND")
 	SpellActivationOverlayFrame:SetFrameLevel(0)
-	if type(P["Watcher"]["filters"][R.myclass]) == "table" then
-		for _, t in ipairs(P["Watcher"]["filters"][R.myclass]) do
+	if type(R["Watcher"]["filters"][R.myclass]) == "table" then
+		for _, t in ipairs(R["Watcher"]["filters"][R.myclass]) do
 			self:NewWatcher(t)
 		end
 	end
-	if type(P["Watcher"]["filters"]["ALL"]) == "table" then
-		for _, t in ipairs(P["Watcher"]["filters"]["ALL"]) do
+	if type(R["Watcher"]["filters"]["ALL"]) == "table" then
+		for _, t in ipairs(R["Watcher"]["filters"]["ALL"]) do
 			self:NewWatcher(t)
 		end
 	end
-	wipe(P["Watcher"]["filters"])
-	-- CreatePopup()
+	wipe(R["Watcher"]["filters"])
+--[[ 	CreatePopup()
 
-	-- defaults.profile = {}
-	-- defaults.profile.Watcher = {}
-	-- for i,v in pairs(RW.modules) do
-		-- RW.GroupName[i] = i
-		-- defaults.profile.Watcher[i] = defaults.profile.Watcher[i] or {}
-		-- for ii,vv in pairs(v) do
-			-- if type(vv) ~= "table" then
-				-- defaults.profile.Watcher[i][ii] = vv
-			-- end
-		-- end
-	-- end
-	-- local db = LibStub("AceDB-3.0"):New("RayUIData", defaults)
-	-- self.db = db.profile.Watcher
-	-- self.db.GroupSelect = self.db.GroupSelect or next(self.GroupName)
-	-- self.db.idinput = nil
-	-- self.db.filterinput = nil
-	-- self.db.unitidinput = nil
-	-- self.db.casterinput = nil
-	-- self.db.fuzzy = nil
-	-- self:UpdateGroup()
+	defaults.profile = {}
+	defaults.profile.Watcher = {}
+	for i,v in pairs(RW.modules) do
+		RW.GroupName[i] = i
+		defaults.profile.Watcher[i] = defaults.profile.Watcher[i] or {}
+		for ii,vv in pairs(v) do
+			if type(vv) ~= "table" then
+				defaults.profile.Watcher[i][ii] = vv
+			end
+		end
+	end
+	local db = LibStub("AceDB-3.0"):New("RayUIData", defaults)
+	self.db = db.profile.Watcher
+	self.db.GroupSelect = self.db.GroupSelect or next(self.GroupName)
+	self.db.idinput = nil
+	self.db.filterinput = nil
+	self.db.unitidinput = nil
+	self.db.casterinput = nil
+	self.db.fuzzy = nil
+	self:UpdateGroup()
 
 	for group, options in pairs(R.db.Watcher) do
 		if self.modules[group] then
 			for option, value in pairs(options) do
 				if type(value) ~= "table" then
 					self.modules[group][option] = value
-					-- self.db[group][option] = value
+					self.db[group][option] = value
 				end
 			end
 			if type(options.BUFF) == "table" then
 				for id, value in pairs(options.BUFF) do
 					self.modules[group]["BUFF"] = self.modules[group]["BUFF"] or {}
 					self.modules[group]["BUFF"][id] = value
-					-- self.db[group]["BUFF"] = self.db[group]["BUFF"] or {}
-					-- self.db[group]["BUFF"][id] = value
+					self.db[group]["BUFF"] = self.db[group]["BUFF"] or {}
+					self.db[group]["BUFF"][id] = value
 				end
 			end
 			if type(options.DEBUFF) == "table" then
 				for id, value in pairs(options.DEBUFF or {}) do
 					self.modules[group]["DEBUFF"] = self.modules[group]["DEBUFF"] or {}
 					self.modules[group]["DEBUFF"][id] = value
-					-- self.db[group]["DEBUFF"] = self.db[group]["DEBUFF"] or {}
-					-- self.db[group]["DEBUFF"][id] = value
+					self.db[group]["DEBUFF"] = self.db[group]["DEBUFF"] or {}
+					self.db[group]["DEBUFF"][id] = value
 				end
 			end
 			if type(options.CD) == "table" then
 				for id, value in pairs(options.CD or {}) do
 					self.modules[group]["CD"] = self.modules[group]["CD"] or {}
 					self.modules[group]["CD"][id] = value
-					-- self.db[group]["CD"] = self.db[group]["CD"] or {}
-					-- self.db[group]["CD"][id] = value
+					self.db[group]["CD"] = self.db[group]["CD"] or {}
+					self.db[group]["CD"][id] = value
 				end
 			end
 			if type(options.itemCD) == "table" then
 				for id, value in pairs(options.itemCD or {}) do
 					self.modules[group]["itemCD"] = self.modules[group]["itemCD"] or {}
 					self.modules[group]["itemCD"][id] = value
-					-- self.db[group]["itemCD"] = self.db[group]["itemCD"] or {}
-					-- self.db[group]["itemCD"][id] = value
+					self.db[group]["itemCD"] = self.db[group]["itemCD"] or {}
+					self.db[group]["itemCD"][id] = value
 				end
 			end
 		end
-	end
+	end ]]
 end
 
 function RW:NewWatcher(data)
