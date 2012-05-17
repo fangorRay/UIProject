@@ -324,6 +324,7 @@ local developer = {
 	["Theron"] = true,
 	["Divineseraph"] = true,
 	["父王"] = true,
+	["夏翎"] = true,
 }
 function R:IsDeveloper()
 	return developer[R.myname]
