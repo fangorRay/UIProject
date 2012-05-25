@@ -399,6 +399,8 @@ R["Watcher"] = {
 				{ spellID = 44572, unitId = "player", caster = "player", filter = "CD" },
 				--冰寒脈動
 				{ spellID = 12472, unitId = "player", caster = "player", filter = "CD" },
+				--寒冰屏障
+				{ spellID = 45438, unitId = "player", caster = "player", filter = "CD" },
 			},
 		},
 		["WARRIOR"] = {

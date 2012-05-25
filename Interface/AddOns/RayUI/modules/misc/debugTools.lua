@@ -162,7 +162,7 @@ local function LoadFunc()
 	D:SecureHook("ScriptErrorsFrame_UpdateButtons")
 	D:SecureHook("ScriptErrorsFrame_OnError")
 	D:RegisterEvent("PLAYER_REGEN_DISABLED")
-	D:RegisterEvent("ADDON_ACTION_BLOCKED", "TaintError")
+	-- D:RegisterEvent("ADDON_ACTION_BLOCKED", "TaintError")
 	D:RegisterEvent("ADDON_ACTION_FORBIDDEN", "TaintError")
 	D:RegisterChatCommand("error", "ShowScriptErrorsFrame")
 

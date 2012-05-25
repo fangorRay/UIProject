@@ -151,6 +151,12 @@ local function LoadSkin()
 		end
 	end
 
+	local function SlotUpdate(self)
+		local unit = InspectFrame.unit
+		local itemLink = GetInventoryItemLink(unit, self:GetID())
+		ColorItemBorder(self:GetName():match("Inspect(.+)Slot"), itemLink)
+	end
+
 	CheckItemBorderColor:RegisterEvent("PLAYER_TARGET_CHANGED")
 	CheckItemBorderColor:RegisterEvent("UNIT_INVENTORY_CHANGED")
 	CheckItemBorderColor:RegisterEvent("INSPECT_READY")
@@ -164,6 +170,7 @@ local function LoadSkin()
 		end
 	end)
 	InspectFrame:HookScript("OnShow", update)
+	hooksecurefunc("InspectPaperDollItemSlotButton_Update", SlotUpdate)
 
 	for i = 1, MAX_NUM_TALENTS do
 		local bu = _G["InspectTalentFrameTalent"..i]
