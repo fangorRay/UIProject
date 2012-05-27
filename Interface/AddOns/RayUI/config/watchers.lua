@@ -919,6 +919,8 @@ R["Watcher"] = {
 				{ spellID = 51713, unitId = "player", caster = "player", filter = "BUFF" },
 				--敏銳大師
 				{ spellID = 31665, unitId = "player", caster = "player", filter = "BUFF" },
+				--毀滅者之怒
+				{ spellID = 109949, unitId = "player", caster = "player", filter = "BUFF" },
 
 			},
 			{

@@ -320,7 +320,7 @@ while object do
 end
 
 local developer = {
-	["夏琉"] = true,
+	["夏琉君"] = true,
 	["Theron"] = true,
 	["Divineseraph"] = true,
 	["父王"] = true,
