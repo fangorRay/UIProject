@@ -327,7 +327,7 @@ end
 function UF:PostCastStart(unit, name, rank, castid)
 	if unit == "vehicle" then unit = "player" end
 	local r, g, b
-	if UnitIsPlayer(unit) and UnitIsFriend(unit, "player") and R.myname == "夏可" then
+	if UnitIsPlayer(unit) and UnitIsFriend(unit, "player") and R.myname == "夏可醬" then
 		r, g, b = 95/255, 182/255, 255/255
 	elseif UnitIsPlayer(unit) and UnitIsFriend(unit, "player") then
 		r, g, b = unpack(oUF.colors.class[select(2, UnitClass(unit))])
