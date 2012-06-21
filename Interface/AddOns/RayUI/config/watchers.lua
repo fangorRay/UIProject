@@ -1127,6 +1127,8 @@ R["Watcher"] = {
 				{ spellID = 109793, unitId = "player", caster = "player", filter = "BUFF" },
 				--淨縛之意志(普通模式)
 				{ spellID = 107970, unitId = "player", caster = "player", filter = "BUFF" },
+				--淨縛之意志(H模式)
+				{ spellID = 109795, unitId = "player", caster = "player", filter = "BUFF" },
 				--加速之瓶(普通模式)
 				{ spellID = 96980, unitId = "player", caster = "player", filter = "BUFF" },
 				--謊言面紗
@@ -1543,6 +1545,9 @@ R["Watcher"] = {
 				{ spellID = 106200, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
 				--血液腐化:死亡
 				{ spellID = 106199, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
+				--死亡之翼的狂亂
+				--腐化寄生體
+				{ spellID = 108649, unitId = "player", caster = "all", filter = "DEBUFF", fuzzy = true },
 
 			--其他
 				--漏油

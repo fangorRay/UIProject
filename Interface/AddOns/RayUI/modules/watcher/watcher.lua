@@ -146,7 +146,7 @@ function watcherPrototype:CreateButton(mode)
 		button.cooldown:SetReverse()
 		button.mode = "ICON"
 	end
-	button.count = (button.cooldown or button):CreateFontString(nil, "OVERLAY")
+	button.count = button:CreateFontString(nil, "OVERLAY")
 	button.count:SetFont(R["media"].font, R["media"].fontsize * (R:Round(self.size) / 30), R["media"].fontflag)
 	button.count:SetPoint("BOTTOMRIGHT", button , "BOTTOMRIGHT", 4, -4)
 	button.count:SetJustifyH("RIGHT")
