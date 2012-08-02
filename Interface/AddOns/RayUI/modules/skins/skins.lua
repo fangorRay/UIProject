@@ -186,7 +186,7 @@ function S:CreatePulse(frame, speed, mult, alpha)
 end
 
 local function StartGlow(f)
-	if not f then return end
+	if not f or not f:IsEnabled() then return end
 	f:SetBackdropColor(r, g, b, .1)
 	f:SetBackdropBorderColor(r, g, b)
 	S:CreatePulse(f.glow)
